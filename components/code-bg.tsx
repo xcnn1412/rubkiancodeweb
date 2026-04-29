@@ -72,8 +72,16 @@ export function CodeBg({ opacity = 1, particleCount = 55, className = "" }: Code
     })
 
     let animId: number
+    let isVisible = false   // Intersection Observer state
+    let isTabActive = true  // Page Visibility API state
 
     const draw = () => {
+      // Only animate when both visible in viewport AND tab is active
+      if (!isVisible || !isTabActive) {
+        animId = requestAnimationFrame(draw)
+        return
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       for (const p of particles) {
@@ -109,11 +117,28 @@ export function CodeBg({ opacity = 1, particleCount = 55, className = "" }: Code
       animId = requestAnimationFrame(draw)
     }
 
+    // ── Intersection Observer: pause when canvas leaves viewport ──
+    const intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        isVisible = entries[0].isIntersecting
+      },
+      { threshold: 0 }
+    )
+    intersectionObserver.observe(canvas)
+
+    // ── Page Visibility API: pause when tab is hidden ──
+    const handleVisibilityChange = () => {
+      isTabActive = document.visibilityState === "visible"
+    }
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+
     draw()
 
     return () => {
       cancelAnimationFrame(animId)
       resizeObserver.disconnect()
+      intersectionObserver.disconnect()
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
     }
   }, [particleCount])
 

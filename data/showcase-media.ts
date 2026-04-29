@@ -60,6 +60,7 @@ export const SHOWCASE_MEDIA: Record<string, MediaItem[]> = {
   ],
 
   project3: [
+    { type: "video", src: "/videos/project3/luckydrawpreview.mp4" },
     { type: "video", src: "/videos/project3/Luckydraw1.mp4" },
     { type: "image", src: "/images/project3/register_pic1.jpg", duration: 5000 },
     { type: "image", src: "/images/project3/register_pic2.jpg", duration: 5000 },

@@ -1,12 +1,29 @@
+import dynamic from "next/dynamic"
 import { Navbar } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
-import { ServicesSection } from "@/components/services-section"
-import { PhotoboothSection } from "@/components/photobooth-section"
-import { ShowcaseSection } from "@/components/showcase-section"
-import { ContactBannerSection } from "@/components/contact-banner-section"
-import { ContactSection } from "@/components/contact-section"
-import { PhotoboothResultsSection } from "@/components/photobooth-results-section"
-import { Footer } from "@/components/footer"
+
+// ── Below-the-fold sections — dynamically imported to reduce initial JS bundle ──
+const ShowcaseSection = dynamic(
+  () => import("@/components/showcase-section").then((m) => ({ default: m.ShowcaseSection }))
+)
+const PhotoboothResultsSection = dynamic(
+  () => import("@/components/photobooth-results-section").then((m) => ({ default: m.PhotoboothResultsSection }))
+)
+const ServicesSection = dynamic(
+  () => import("@/components/services-section").then((m) => ({ default: m.ServicesSection }))
+)
+const PhotoboothSection = dynamic(
+  () => import("@/components/photobooth-section").then((m) => ({ default: m.PhotoboothSection }))
+)
+const ContactBannerSection = dynamic(
+  () => import("@/components/contact-banner-section").then((m) => ({ default: m.ContactBannerSection }))
+)
+const ContactSection = dynamic(
+  () => import("@/components/contact-section").then((m) => ({ default: m.ContactSection }))
+)
+const Footer = dynamic(
+  () => import("@/components/footer").then((m) => ({ default: m.Footer }))
+)
 
 export default function HomePage() {
   return (

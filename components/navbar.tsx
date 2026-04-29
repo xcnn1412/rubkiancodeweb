@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu, X, MessageCircle, ChevronDown, Globe } from "lucide-react"
 import { useLanguage, LANG_OPTIONS } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
+import { useExitTransition } from "@/providers/exit-transition-provider"
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -12,6 +13,7 @@ export function Navbar() {
   const { lang, setLang, isTranslating, currentLangOption } = useLanguage()
   const t = useTranslations("navbar")
   const langRef = useRef<HTMLDivElement>(null)
+  const { triggerTransition } = useExitTransition()
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -32,7 +34,7 @@ export function Navbar() {
   ]
 
   const handleLineContact = () => {
-    window.open('https://lin.ee/py7hRoKC', '_blank')
+    triggerTransition('https://lin.ee/py7hRoKC', 'line')
     setIsMenuOpen(false)
   }
 

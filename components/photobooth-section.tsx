@@ -5,6 +5,7 @@ import { CodeBg } from "@/components/code-bg"
 import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
 import { PHOTOBOOTH_PREVIEW_PHOTOS } from "@/data/photobooth-preview-photos"
+import { useExitTransition } from "@/providers/exit-transition-provider"
 
 // ─── Color Keys (เปลี่ยนสีได้ที่นี่) ──────────────────────────────────────────
 const PHOTOBOOTH_COLORS = {
@@ -26,6 +27,7 @@ export function PhotoboothSection() {
   const { lang } = useLanguage()
   const typo = useLangTypography()
   const t = useTranslations("photobooth")
+  const { triggerTransition } = useExitTransition()
 
   const features = [
     t("feature0"),
@@ -37,7 +39,7 @@ export function PhotoboothSection() {
   ]
 
   return (
-    <section id="photobooth" className="relative py-24 overflow-hidden">
+    <section id="photobooth" className="relative py-16 sm:py-24 overflow-hidden">
 
       {/* Solid egg-yolk yellow background */}
       <div className="absolute inset-0 z-[1]" style={{ background: '#f2efdb' }} />
@@ -47,7 +49,7 @@ export function PhotoboothSection() {
 
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-[6]">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* Content */}
           <div>
@@ -133,7 +135,7 @@ export function PhotoboothSection() {
               <button
                 className="btn-shimmer flex items-center justify-center font-black uppercase transition-all duration-150 hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px]"
                 style={{
-                  padding: '18px 48px',
+                  padding: '14px 32px',
                   background: '#f4e6af',
                   color: '#d60000ff',
                   border: '3px solid #1a0e00',
@@ -144,7 +146,7 @@ export function PhotoboothSection() {
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '7px 7px 0px #1a0e00' }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '5px 5px 0px #1a0e00' }}
-                onClick={() => window.open('https://lin.ee/py7hRoKC', '_blank')}
+                onClick={() => triggerTransition('https://lin.ee/py7hRoKC', 'line')}
               >
                 {/* แสงวิ้งวับ — อย่าลบ span นี้ */}
                 <span className="shimmer-light" />
@@ -182,17 +184,17 @@ export function PhotoboothSection() {
           </div>
 
           {/* Visual — Retro Photobooth TV Mockup */}
-          <div className="relative flex justify-center">
+          <div className="relative flex justify-center mt-8 lg:mt-0">
 
             {/* Outer glow */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-              <div className="w-[500px] h-[500px] rounded-full opacity-20 blur-[80px]"
+              <div className="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] lg:w-[500px] lg:h-[500px] rounded-full opacity-20 blur-[80px]"
                 style={{ background: 'radial-gradient(circle, #f3f84a, transparent)' }} />
             </div>
 
             {/* Main TV frame */}
             <div
-              className="relative w-[500px] z-10"
+              className="relative w-full max-w-[500px] z-10"
               style={{
                 background: 'linear-gradient(145deg, #dbdcd8 0%, #8a99b1 50%, #8a99b1 100%)',
                 border: '4px solid #1a0e00',
@@ -243,6 +245,7 @@ export function PhotoboothSection() {
                         <img
                           src={photo.src}
                           alt={photo.alt}
+                          loading="lazy"
                           className="w-full h-full object-cover"
                         />
                       ) : (
@@ -273,39 +276,40 @@ export function PhotoboothSection() {
                 </div>
                 <div className="w-6 h-3 rounded" style={{ background: '#1a0e00', opacity: 0.4 }} />
               </div>
-            </div>
 
-            {/* Floating Zap badge */}
-            <div
-              className="absolute -top-5 -right-5 w-16 h-16 flex items-center justify-center z-20 rotate-12 hover:rotate-0 transition-all duration-500"
-              style={{
-                background: '#dbdcd8',
-                border: '3px solid #1a0e00',
-                boxShadow: '4px 4px 0px #1a0e00',
-                borderRadius: '999px',
-              }}
-            >
-              {/* Inner yellow circle background for Zap icon */}
+              {/* Floating Zap badge — inside TV frame so position is relative to frame corner */}
               <div
-                className="w-10 h-10 flex items-center justify-center"
+                className="absolute -top-4 -right-4 sm:-top-5 sm:-right-5 w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center z-30 rotate-12 hover:rotate-0 transition-all duration-500"
                 style={{
-                  background: `radial-gradient(circle, ${PHOTOBOOTH_COLORS.zapBg} 60%, ${PHOTOBOOTH_COLORS.zapBgInner} 100%)`,
+                  background: '#dbdcd8',
+                  border: '3px solid #1a0e00',
+                  boxShadow: '4px 4px 0px #1a0e00',
                   borderRadius: '999px',
-                  border: '2px solid #1a0e00',
-                  boxShadow: `0 0 8px ${PHOTOBOOTH_COLORS.zapBg}`,
                 }}
               >
-                <Zap
-                  className="w-5 h-5"
+                {/* Inner yellow circle background for Zap icon */}
+                <div
+                  className="w-7 h-7 sm:w-10 sm:h-10 flex items-center justify-center"
                   style={{
-                    color: '#1a0e00',
-                    fill: PHOTOBOOTH_COLORS.zapIcon,
-                    stroke: '#1a0e00',
-                    strokeWidth: 2.5,
+                    background: `radial-gradient(circle, ${PHOTOBOOTH_COLORS.zapBg} 60%, ${PHOTOBOOTH_COLORS.zapBgInner} 100%)`,
+                    borderRadius: '999px',
+                    border: '2px solid #1a0e00',
+                    boxShadow: `0 0 8px ${PHOTOBOOTH_COLORS.zapBg}`,
                   }}
-                />
+                >
+                  <Zap
+                    className="w-4 h-4 sm:w-5 sm:h-5"
+                    style={{
+                      color: '#1a0e00',
+                      fill: PHOTOBOOTH_COLORS.zapIcon,
+                      stroke: '#1a0e00',
+                      strokeWidth: 2.5,
+                    }}
+                  />
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>

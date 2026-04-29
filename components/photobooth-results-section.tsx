@@ -73,7 +73,7 @@ export function PhotoboothResultsSection() {
   }, [])
 
   const CARD_W = containerW > 0
-    ? Math.min(CARD_W_BASE, Math.floor(containerW * 0.62))
+    ? Math.min(CARD_W_BASE, Math.floor(containerW * (containerW < 500 ? 0.78 : 0.62)))
     : CARD_W_BASE
   // SLOT: center-to-center distance between adjacent cards.
   // Using SLOT_RATIO × CARD_W gives tight layout where sides feel close but clearly smaller.
@@ -236,15 +236,16 @@ export function PhotoboothResultsSection() {
             id="photobooth-results-prev"
             aria-label="Previous"
             onClick={goPrev}
-            className="absolute top-1/2 left-0 -translate-y-1/2 z-40 flex items-center justify-center w-11 h-11 transition-all duration-150 hover:scale-110 active:scale-95"
+            className="absolute top-1/2 -translate-y-1/2 z-40 flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 transition-all duration-150 hover:scale-110 active:scale-95"
             style={{
+              left: '-4px',
               background: "#f4e6af",
               border: "3px solid #1a0e00",
               boxShadow: "3px 3px 0px #1a0e00",
               borderRadius: "999px",
             }}
           >
-            <ChevronLeft className="w-5 h-5 text-[#1a0e00]" />
+            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 text-[#1a0e00]" />
           </button>
 
           {/* Next button */}
@@ -252,15 +253,16 @@ export function PhotoboothResultsSection() {
             id="photobooth-results-next"
             aria-label="Next"
             onClick={goNext}
-            className="absolute top-1/2 right-0 -translate-y-1/2 z-40 flex items-center justify-center w-11 h-11 transition-all duration-150 hover:scale-110 active:scale-95"
+            className="absolute top-1/2 -translate-y-1/2 z-40 flex items-center justify-center w-9 h-9 sm:w-11 sm:h-11 transition-all duration-150 hover:scale-110 active:scale-95"
             style={{
+              right: '-4px',
               background: "#f4e6af",
               border: "3px solid #1a0e00",
               boxShadow: "3px 3px 0px #1a0e00",
               borderRadius: "999px",
             }}
           >
-            <ChevronRight className="w-5 h-5 text-[#1a0e00]" />
+            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-[#1a0e00]" />
           </button>
         </div>
 
@@ -343,7 +345,7 @@ const PhotoboothCard = memo(function PhotoboothCard({
                 muted
                 playsInline
                 autoPlay={isActive}
-                preload="metadata"
+                preload={isActive ? "metadata" : "none"}
                 onEnded={onEnded}
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
               />
@@ -352,6 +354,7 @@ const PhotoboothCard = memo(function PhotoboothCard({
               <img
                 src={item.src}
                 alt={item.label ?? "photobooth result"}
+                loading="lazy"
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
               />
             ) : (

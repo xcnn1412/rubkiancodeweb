@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import { ExternalLink } from "lucide-react"
 import { useTranslations } from "next-intl"
 
@@ -42,10 +42,13 @@ export function ShowcaseSection() {
         <SectionHeader t={t} typo={typo} />
 
         {/* Project Cards Grid: CH.1 ซ้าย (สูงเต็ม) | CH.2+CH.3 ขวา (เรียงเท่ากัน) */}
-        <div className="flex flex-col md:flex-row gap-6" style={{ minHeight: 'min(85vh, 820px)' }}>
+        <div
+          className="flex flex-col md:flex-row gap-4 md:gap-6"
+          style={{ minHeight: 'min(85vh, 820px)' }}
+        >
 
           {/* Left: CH.1 — Featured hero, full height */}
-          <div className="md:w-1/2 flex" style={{ minHeight: 0 }}>
+          <div className="md:w-1/2 flex min-h-[480px] md:min-h-0">
             <ProjectCard
               project={PROJECTS[0]}
               t={t}
@@ -56,7 +59,7 @@ export function ShowcaseSection() {
           </div>
 
           {/* Right: CH.2, CH.3 — Stacked equally, ยืดเต็มความสูง */}
-          <div className="md:w-1/2 flex flex-col gap-4" style={{ minHeight: 0 }}>
+          <div className="md:w-1/2 flex flex-col gap-4" style={{ minHeight: 0, minWidth: 0 }}>
             {PROJECTS.slice(1).map((project) => (
               <ProjectCard
                 key={project.key}
@@ -148,25 +151,52 @@ function SectionHeader({
 
 // ─────────────────────────────────────────────
 //  Card Thumbnail — video / image / color
+//  Uses IntersectionObserver so videos only play when visible
 // ─────────────────────────────────────────────
 function CardThumbnail({ project }: { project: ShowcaseProject }) {
   const k = project.key
   const mode = SHOWCASE_CARD_DISPLAY[k] ?? "color"
   const media = SHOWCASE_MEDIA[k] ?? []
+  const containerRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [isInView, setIsInView] = useState(false)
+
+  // Start loading + playing video only when card enters viewport
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.1 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const vid = videoRef.current
+    if (!vid) return
+    if (isInView) {
+      vid.load()
+      vid.play().catch(() => {})
+    } else {
+      vid.pause()
+    }
+  }, [isInView])
 
   // Helper เพื่อลดความซ้ำซ้อนการตั้งค่า style
   const renderMedia = (item: { type: string; src: string }) => {
     if (item.type === "video") {
       return (
         <video
+          ref={videoRef}
           src={item.src}
-          autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           className="absolute inset-0 w-full h-full"
-          style={{ objectFit: "contain", transform: "scale(1.8)" }}
+          style={{ objectFit: "cover" }}
         />
       )
     }
@@ -175,32 +205,32 @@ function CardThumbnail({ project }: { project: ShowcaseProject }) {
       <img
         src={item.src}
         alt=""
+        loading="lazy"
         className="absolute inset-0 w-full h-full"
-        style={{ objectFit: "contain", transform: "scale(1.35)" }}
+        style={{ objectFit: "cover" }}
       />
     )
   }
 
   // ── direct file mode: แสดงสื่อเฉพาะหน้าปก
-  if (typeof mode === "object" && mode !== null && "src" in mode) return renderMedia(mode)
+  const content = (() => {
+    if (typeof mode === "object" && mode !== null && "src" in mode) return renderMedia(mode)
+    // ── index mode: แสดง media ตาม index ที่ระบุ
+    if (typeof mode === "number" && media[mode]) return renderMedia(media[mode])
+    // ── video mode: แสดงวิดีโอแรก
+    if (mode === "video") {
+      const firstVideo = media.find((m) => m.type === "video")
+      if (firstVideo) return renderMedia(firstVideo)
+    }
+    // ── image mode: แสดงรูปแรก
+    if (mode === "image") {
+      const firstImage = media.find((m) => m.type === "image")
+      if (firstImage) return renderMedia(firstImage)
+    }
+    return null
+  })()
 
-  // ── index mode: แสดง media ตาม index ที่ระบุ
-  if (typeof mode === "number" && media[mode]) return renderMedia(media[mode])
-
-  // ── video mode: แสดงวิดีโอแรก
-  if (mode === "video") {
-    const firstVideo = media.find((m) => m.type === "video")
-    if (firstVideo) return renderMedia(firstVideo)
-  }
-
-  // ── image mode: แสดงรูปแรก
-  if (mode === "image") {
-    const firstImage = media.find((m) => m.type === "image")
-    if (firstImage) return renderMedia(firstImage)
-  }
-
-  // ── color mode (fallback)
-  return null
+  return <div ref={containerRef} className="absolute inset-0">{content}</div>
 }
 
 // ─────────────────────────────────────────────
@@ -271,12 +301,14 @@ function ProjectCard({
       <div
         className="relative overflow-hidden"
         style={{
-          // featured → flex ยืดเต็ม, side → flex 1 ยืดตาม card สูงขึ้น
+          // featured บน desktop → flex ยืดเต็ม
+          // featured บน mobile (stack) → aspectRatio แทน flex grow
+          // side → minHeight 200px เพื่อให้วิดีโอมีพื้นที่แสดง
           ...(isFlex
-            ? { flex: 1, minHeight: 0 }
-            : { flex: 1, minHeight: '180px' }
+            ? { flex: 1, minHeight: '240px' }
+            : { flex: 1, minHeight: '200px' }
           ),
-          background: project.previewColor,
+          background: project.previewColor || '#1a0e00',
           borderBottom: "3px solid #555856",
         }}
       >

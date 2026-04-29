@@ -2,44 +2,33 @@
 
 import Link from "next/link"
 import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
-import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
+import { useExitTransition } from "@/providers/exit-transition-provider"
 
 export function Footer() {
   const tNavbar = useTranslations("navbar")
   const tFooter = useTranslations("footer")
+  const { triggerTransition } = useExitTransition()
 
   const navLinks = [
+    { href: "#showcase", label: tNavbar("nav_rental") },
     { href: "#services", label: tNavbar("nav_software") },
-    { href: "#products", label: tNavbar("nav_rental") },
     { href: "#photobooth", label: tNavbar("nav_photobooth") },
     { href: "#contact", label: tNavbar("nav_contact") },
   ]
 
   const contactLinks = [
-    { icon: Mail, label: "contact@rubkaincode.com", href: "mailto:contact@rubkaincode.com" },
-    { icon: Phone, label: "02-XXX-XXXX", href: "tel:02-XXX-XXXX" },
-    { icon: MessageCircle, label: "@rubkiancode", href: "https://line.me/ti/p/@rubkiancode" },
-    { icon: MapPin, label: tFooter("bangkok"), href: "#" },
+    { icon: Mail,          label: "rubkiancode@gmail.com", href: "mailto:rubkiancode@gmail.com",              linkType: 'email'    as const },
+    { icon: Phone,         label: "063-594-4429",          href: "tel:063-594-4429",                           linkType: 'tel'      as const },
+    { icon: MessageCircle, label: "@rubkiancode",           href: "https://lin.ee/py7hRoKC",                   linkType: 'line'     as const },
+    { icon: MapPin,        label: tFooter("bangkok"),       href: "https://maps.app.goo.gl/CunTwgBaAkmhZ3Gg9", linkType: 'maps'     as const },
   ]
 
   return (
-    <footer className="relative overflow-hidden" style={{ background: '#0f0800' }}>
+    <footer className="relative overflow-hidden" style={{ background: '#cddce9' }}>
 
       {/* Top border */}
-      <div className="absolute top-0 left-0 right-0 h-[3px] z-[4]" style={{ background: '#f3f84a', boxShadow: '0 0 12px rgba(243,248,74,0.8)' }} />
-
-      {/* Retro grid pattern */}
-      <div
-        className="absolute inset-0 z-[1] pointer-events-none"
-        style={{
-          backgroundImage: 'linear-gradient(rgba(243,248,74,0.03) 1px, transparent 1px), linear-gradient(to right, rgba(243,248,74,0.03) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-        }}
-      />
-
-      {/* TV Noise */}
-      
+      <div className="absolute top-0 left-0 right-0 h-[3px] z-[4]" style={{ background: '#8a99b1', boxShadow: '0 0 12px #7e7f7f' }} />
 
       {/* Bottom glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[150px] pointer-events-none z-[1]"
@@ -51,20 +40,20 @@ export function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <Link href="/" className="inline-flex items-center gap-1 mb-5 group">
-              <span className="font-mono text-xl font-black" style={{ color: '#f3f84a' }}>【</span>
+              <span className="font-mono text-xl font-black" style={{ color: '#1a0e00' }}>【</span>
               <span
                 className="font-black text-lg uppercase"
                 style={{
-                  color: '#f3f84a',
-                  textShadow: '3px 3px 0px #7a5010',
+                  color: '#1a0e00',
+                  textShadow: '2px 2px 0px rgba(255,255,255,0.5)',
                   fontFamily: 'var(--font-prompt), Prompt, sans-serif',
                 }}
               >
                 {tFooter("brand")}
               </span>
-              <span className="font-mono text-xl font-black" style={{ color: '#f3f84a' }}>】</span>
+              <span className="font-mono text-xl font-black" style={{ color: '#1a0e00' }}>】</span>
             </Link>
-            <p className="font-medium text-sm leading-relaxed mb-5 max-w-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
+            <p className="font-medium text-sm leading-relaxed mb-5 max-w-xs" style={{ color: 'rgba(26,14,0,0.7)' }}>
               {tFooter("description")}
             </p>
 
@@ -72,17 +61,17 @@ export function Footer() {
             <div
               className="inline-flex items-center gap-2 px-4 py-2"
               style={{
-                background: 'rgba(243,248,74,0.08)',
-                border: '2px solid rgba(243,248,74,0.3)',
-                boxShadow: '3px 3px 0 #7a5010',
+                background: 'rgba(26,14,0,0.05)',
+                border: '2px solid rgba(26,14,0,0.2)',
+                boxShadow: '3px 3px 0 rgba(26,14,0,0.15)',
                 borderRadius: '999px',
               }}
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
-              <span className="text-xs font-mono font-bold" style={{ color: 'rgba(255,255,255,0.5)' }}>
+              <span className="text-xs font-mono font-bold" style={{ color: 'rgba(26,14,0,0.7)' }}>
                 {tFooter("online_status")}
               </span>
             </div>
@@ -92,7 +81,7 @@ export function Footer() {
           <div>
             <h4
               className="text-xs font-mono font-black uppercase tracking-[0.3em] mb-5"
-              style={{ color: '#f3f84a' }}
+              style={{ color: '#1a0e00' }}
             >
               // {tFooter("services_heading")}
             </h4>
@@ -102,11 +91,11 @@ export function Footer() {
                   <Link
                     href={link.href}
                     className="text-sm font-bold flex items-center gap-2 group transition-colors duration-200"
-                    style={{ color: 'rgba(255,255,255,0.4)' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#f3f84a' }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)' }}
+                    style={{ color: 'rgba(26,14,0,0.6)' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#c8900a' }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(26,14,0,0.6)' }}
                   >
-                    <span className="font-mono font-black text-xs" style={{ color: 'rgba(243,248,74,0.4)' }}>▶</span>
+                    <span className="font-mono font-black text-xs" style={{ color: 'rgba(26,14,0,0.3)' }}>▶</span>
                     {link.label}
                   </Link>
                 </li>
@@ -118,7 +107,7 @@ export function Footer() {
           <div>
             <h4
               className="text-xs font-mono font-black uppercase tracking-[0.3em] mb-5"
-              style={{ color: '#f3f84a' }}
+              style={{ color: '#1a0e00' }}
             >
               // {tFooter("contact_heading")}
             </h4>
@@ -126,13 +115,17 @@ export function Footer() {
               {contactLinks.map((item, index) => (
                 <li key={index}>
                   <a
-                    href={item.href}
+                    href={item.linkType === 'tel' ? item.href : '#'}
                     className="flex items-center gap-3 text-sm font-bold transition-colors duration-200 group"
-                    style={{ color: 'rgba(255,255,255,0.4)' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#f3f84a' }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.4)' }}
+                    style={{ color: 'rgba(26,14,0,0.6)' }}
+                    onClick={item.linkType !== 'tel' ? (e) => {
+                      e.preventDefault()
+                      triggerTransition(item.href, item.linkType)
+                    } : undefined}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#c8900a' }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(26,14,0,0.6)' }}
                   >
-                    <item.icon className="w-4 h-4 flex-shrink-0" style={{ color: 'rgba(243,248,74,0.4)' }} />
+                    <item.icon className="w-4 h-4 flex-shrink-0" style={{ color: 'rgba(26,14,0,0.4)' }} />
                     <span className="font-mono">{item.label}</span>
                   </a>
                 </li>
@@ -144,21 +137,21 @@ export function Footer() {
         {/* Bottom Bar */}
         <div
           className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ borderTop: '2px solid rgba(243,248,74,0.15)' }}
+          style={{ borderTop: '2px solid rgba(26,14,0,0.15)' }}
         >
-          <p className="text-xs font-mono font-bold" style={{ color: 'rgba(255,255,255,0.25)' }}>
+          <p className="text-xs font-mono font-bold" style={{ color: 'rgba(26,14,0,0.5)' }}>
             © 2026 {tFooter("copyright_brand")} — {tFooter("copyright_rights")}.
           </p>
           <div className="flex items-center gap-6">
-            <Link href="#" className="text-xs font-mono font-bold transition-colors" style={{ color: 'rgba(255,255,255,0.25)' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#f3f84a' }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.25)' }}
+            <Link href="#" className="text-xs font-mono font-bold transition-colors" style={{ color: 'rgba(26,14,0,0.5)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#c8900a' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(26,14,0,0.5)' }}
             >
               {tFooter("privacy_policy")}
             </Link>
-            <Link href="#" className="text-xs font-mono font-bold transition-colors" style={{ color: 'rgba(255,255,255,0.25)' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#f3f84a' }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.25)' }}
+            <Link href="#" className="text-xs font-mono font-bold transition-colors" style={{ color: 'rgba(26,14,0,0.5)' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.color = '#c8900a' }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.color = 'rgba(26,14,0,0.5)' }}
             >
               {tFooter("terms_of_service")}
             </Link>
