@@ -4,11 +4,13 @@ import { Mail, Phone, MapPin, Send, MessageCircle, ArrowRight } from "lucide-rea
 import { CodeBg } from "@/components/code-bg"
 import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
+import { useExitTransition } from "@/providers/exit-transition-provider"
 
 export function ContactSection() {
   const { lang } = useLanguage()
   const typo = useLangTypography()
   const t = useTranslations("contact")
+  const { triggerTransition } = useExitTransition()
 
   const contactInfo = [
     {
@@ -40,7 +42,7 @@ export function ContactSection() {
       label: t("address_label"),
       value: t("address_value"),
       sub: t("address_sub"),
-      href: "#",
+      href: "https://maps.app.goo.gl/CunTwgBaAkmhZ3Gg9",
       highlight: false,
     },
   ]
@@ -58,7 +60,7 @@ export function ContactSection() {
       <div className="relative z-[5] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-10 sm:mb-16 lg:mb-20">
           <div
             className="inline-flex items-center gap-2.5 mb-7 px-5 py-2"
             style={{ background: '#f4e6af', border: '3px solid #1a0e00', boxShadow: '4px 4px 0px #7a5010', borderRadius: '999px' }}
@@ -76,12 +78,11 @@ export function ContactSection() {
           </div>
 
           <h2
-            className="text-5xl sm:text-6xl md:text-7xl font-black uppercase mb-5 leading-tight"
+            className="font-black uppercase mb-5 leading-tight"
             style={{
+              fontSize: 'clamp(2rem, 8vw, 5.5rem)',
               color: '#555856',
-              /*textShadow: '5px 5px 0px #7a5010, 10px 10px 0px rgba(122,80,16,0.3)',*/
               fontFamily: 'var(--font-prompt), Prompt, sans-serif',
-              /*WebkitTextStroke: '1px #c8900a',*/
               letterSpacing: typo.trackingSectionH2,
             }}
           >
@@ -91,60 +92,79 @@ export function ContactSection() {
               {t("heading2")}
             </span>
           </h2>
-          <p className="text-lg max-w-xl mx-auto leading-relaxed font-medium" style={{ color: 'rgba(85, 88, 86, 0.7)', letterSpacing: typo.trackingBody }}>
+          <p className="text-base sm:text-lg max-w-xl mx-auto leading-relaxed font-medium" style={{ color: 'rgba(85, 88, 86, 0.7)', letterSpacing: typo.trackingBody }}>
             {t("description")}
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-5 gap-8 items-start">
+        <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
 
           {/* LEFT — Contact Cards */}
           <div className="lg:col-span-2 space-y-4">
-            {contactInfo.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="group flex items-center gap-5 p-5 transition-all duration-150 hover:translate-x-[-2px] hover:translate-y-[-2px]"
-                style={{
-                  background: 'rgba(255, 236, 213, 0.84)',
-                  border: '2px solid #555856',
-                  boxShadow: '4px 4px 0px #555856',
-                  borderRadius: '16px',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.border = '2px solid #555856'
-                    ; (e.currentTarget as HTMLElement).style.boxShadow = '6px 6px 0px #555856'
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.border = '2px solid #555856'
-                    ; (e.currentTarget as HTMLElement).style.boxShadow = '4px 4px 0px #555856'
-                }}
-              >
-                {/* Icon */}
-                <div
-                  className="w-12 h-12 flex items-center justify-center flex-shrink-0"
+            {contactInfo.map((item, index) => {
+              // tel: links dial directly — no overlay needed
+              const isTel = item.href.startsWith('tel:')
+              const isLine = item.href.includes('lin.ee')
+              const isEmail = item.href.startsWith('mailto:')
+              const isMaps = item.href.includes('maps.app')
+
+              const handleClick = (e: React.MouseEvent) => {
+                if (isTel || item.href === '#') return // dial directly or no-op
+                e.preventDefault()
+                if (isLine) triggerTransition(item.href, 'line')
+                else if (isEmail) triggerTransition(item.href, 'email')
+                else if (isMaps) triggerTransition(item.href, 'maps')
+                else triggerTransition(item.href, 'external')
+              }
+
+              return (
+                <a
+                  key={index}
+                  href={item.href}
+                  onClick={handleClick}
+                  className="group flex items-center gap-5 p-5 transition-all duration-150 hover:translate-x-[-2px] hover:translate-y-[-2px]"
                   style={{
-                    background: item.highlight ? '#cddce9' : '#cddce9',
+                    background: 'rgba(255, 236, 213, 0.84)',
                     border: '2px solid #555856',
-                    boxShadow: '3px 3px 0 #555856',
-                    borderRadius: '12px',
+                    boxShadow: '4px 4px 0px #555856',
+                    borderRadius: '16px',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.border = '2px solid #555856'
+                      ; (e.currentTarget as HTMLElement).style.boxShadow = '6px 6px 0px #555856'
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.border = '2px solid #555856'
+                      ; (e.currentTarget as HTMLElement).style.boxShadow = '4px 4px 0px #555856'
                   }}
                 >
-                  <item.icon className="w-5 h-5" style={{ color: item.highlight ? '#1a0e00' : '#1a0e00' }} />
-                </div>
-
-                {/* Info */}
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs font-mono font-bold mb-0.5 uppercase tracking-wider" style={{ color: '#555856' }}>
-                    {item.label}
+                  {/* Icon */}
+                  <div
+                    className="w-12 h-12 flex items-center justify-center flex-shrink-0"
+                    style={{
+                      background: item.highlight ? '#cddce9' : '#cddce9',
+                      border: '2px solid #555856',
+                      boxShadow: '3px 3px 0 #555856',
+                      borderRadius: '12px',
+                    }}
+                  >
+                    <item.icon className="w-5 h-5" style={{ color: item.highlight ? '#1a0e00' : '#1a0e00' }} />
                   </div>
-                  <div className="text-sm font-black truncate" style={{ color: '#2D1400' }}>{item.value}</div>
-                  <div className="text-xs mt-0.5 font-medium" style={{ color: '#555856' }}>{item.sub}</div>
-                </div>
 
-                <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 flex-shrink-0" style={{ color: '#f3f84a' }} />
-              </a>
-            ))}
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-xs font-mono font-bold mb-0.5 uppercase tracking-wider" style={{ color: '#555856' }}>
+                      {item.label}
+                    </div>
+                    <div className="text-sm font-black truncate" style={{ color: '#2D1400' }}>{item.value}</div>
+                    <div className="text-xs mt-0.5 font-medium" style={{ color: '#555856' }}>{item.sub}</div>
+                  </div>
+
+                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300 flex-shrink-0" style={{ color: '#f3f84a' }} />
+                </a>
+              )
+            })
+            }
 
             {/* CTA Banner */}
             <div
@@ -156,7 +176,7 @@ export function ContactSection() {
                 borderRadius: '20px',
                 animation: 'heartbeat 0.8s ease-in-out infinite',
               }}
-              onClick={() => window.open('https://lin.ee/py7hRoKC', '_blank')}
+              onClick={() => triggerTransition('https://lin.ee/py7hRoKC', 'line')}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '8px 8px 0px #555856' }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '5px 5px 0px #555856' }}
             >

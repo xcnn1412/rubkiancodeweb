@@ -128,10 +128,18 @@
     @apply border-border outline-ring/50;
   }
 
+  html, body {
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
   body {
     @apply bg-background text-foreground;
     background-color: #c8900a;
     font-family: var(--font-prompt), 'Prompt', sans-serif;
+    /* Safe area insets for iPhone notch & Dynamic Island */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 }
 

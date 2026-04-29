@@ -4,11 +4,13 @@ import { ArrowRight, Camera, Shield, Zap, Clock } from "lucide-react"
 import { CodeBg } from "@/components/code-bg"
 import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
+import { useExitTransition } from "@/providers/exit-transition-provider"
 
 export function HeroSection() {
   const { lang } = useLanguage()
   const typo = useLangTypography()
   const t = useTranslations("hero")
+  const { triggerTransition } = useExitTransition()
 
   const stats = [
     { number: "1500+", label: t("stat_events"), icon: Camera },
@@ -85,7 +87,7 @@ export function HeroSection() {
         >
           <span>
             {t("rank_prefix")}&nbsp;
-            <span style={{ color: '#d60000ff'}}>1</span>
+            <span style={{ color: '#d60000ff' }}>1</span>
             &nbsp;{t("rank_suffix")}
           </span>
         </h2>
@@ -121,7 +123,7 @@ export function HeroSection() {
               fontSize: typo.sectionBadge,
               animation: 'heartbeat 0.8s ease-in-out infinite',
             }}
-            onClick={() => window.open('https://lin.ee/py7hRoKC', '_blank')}
+            onClick={() => triggerTransition('https://lin.ee/py7hRoKC', 'line')}
             onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '7px 7px 0px #1a0e00' }}
             onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '5px 5px 0px #1a0e00' }}
           >

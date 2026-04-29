@@ -105,7 +105,7 @@ export function ShowcaseModal({ project, onClose }: ShowcaseModalProps) {
         role="dialog"
         aria-modal="true"
         aria-label={t(`${k}_title`)}
-        className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-5"
+        className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center sm:p-5"
         onClick={onClose}
         style={{
           backdropFilter: "blur(14px)",
@@ -119,12 +119,12 @@ export function ShowcaseModal({ project, onClose }: ShowcaseModalProps) {
           ref={scrollRef}
           className="relative flex flex-col"
           style={{
-            width: "min(82vw, 1200px)",
-            height: "90vh",
+            width: "min(96vw, 1200px)",
+            height: "95dvh",
             background: "rgba(255, 236, 213, 0.98)",
             border: "3px solid #824500",
             boxShadow: "10px 10px 0px #7a5010, 0 32px 80px rgba(0,0,0,0.5)",
-            borderRadius: "24px",
+            borderRadius: "20px",
             overflowY: "auto",
             overflowX: "hidden",
             scrollSnapType: "y mandatory",
@@ -139,7 +139,7 @@ export function ShowcaseModal({ project, onClose }: ShowcaseModalProps) {
           <div
             className="relative flex-shrink-0"
             style={{
-              height: "calc(90vh - 6px)", // fills the modal viewport (accounts for border)
+              height: "calc(95dvh - 6px)",
               scrollSnapAlign: "start",
             }}
           >
@@ -158,9 +158,9 @@ export function ShowcaseModal({ project, onClose }: ShowcaseModalProps) {
 
               {/* Category badge */}
               <div
-                className="absolute top-4 z-20 text-xs font-black uppercase px-3 py-1"
+                className="absolute top-4 z-20 text-xs font-black uppercase px-3 py-1 hidden sm:block"
                 style={{
-                  right: "4rem",
+                  right: "3.5rem",
                   background: "rgba(255,236,213,0.92)",
                   color: "#1a0e00",
                   border: "2px solid #1a0e00",

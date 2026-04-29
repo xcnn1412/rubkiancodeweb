@@ -1,15 +1,16 @@
-import type { Metadata } from 'next'
-import { Inter, Prompt } from 'next/font/google'
+import type { Metadata, Viewport } from 'next'
+import { Prompt } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
 import { DynamicIntlProvider } from '@/lib/intl-provider'
+import { ExitTransitionProvider } from '@/providers/exit-transition-provider'
 import './globals.css'
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const prompt = Prompt({ 
-  weight: ['300', '400', '500', '600', '700'], 
+  weight: ['400', '500', '600', '700'], 
   subsets: ['thai', 'latin'], 
-  variable: '--font-prompt' 
+  variable: '--font-prompt',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -35,6 +36,14 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: '#f2efdb',
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,10 +51,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th">
-      <body className={`${inter.variable} ${prompt.variable} font-sans antialiased`}>
+      <body className={`${prompt.variable} font-sans antialiased`}>
         <LanguageProvider>
           <DynamicIntlProvider>
-            {children}
+            <ExitTransitionProvider>
+              {children}
+            </ExitTransitionProvider>
           </DynamicIntlProvider>
         </LanguageProvider>
         <Analytics />

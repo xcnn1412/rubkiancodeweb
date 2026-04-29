@@ -5,8 +5,7 @@ import { Phone, MessageCircle } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useLangTypography } from "@/lib/language-context"
 import { CONTACT_BANNER } from "@/data/contact-banner"
-
-
+import { useExitTransition } from "@/providers/exit-transition-provider"
 
 // ─── SVG ดาว 4 แฉก ───────────────────────────────────────────────────
 function Star4({ size, color, strokeColor, style }: { size: number; color: string; strokeColor: string; style?: React.CSSProperties }) {
@@ -82,6 +81,7 @@ export function ContactBannerSection() {
   const t = useTranslations("contact_banner")
   const typo = useLangTypography()
   const c = CONTACT_BANNER.colors
+  const { triggerTransition } = useExitTransition()
 
   return (
     <section
@@ -99,10 +99,10 @@ export function ContactBannerSection() {
         className="relative z-10 mx-auto flex flex-col items-center justify-center text-center"
         style={{
           maxWidth: '100%',
-          paddingTop: '1.25rem',
-          paddingBottom: '1.25rem',
-          paddingLeft: '2rem',
-          paddingRight: '2rem',
+          paddingTop: '1rem',
+          paddingBottom: '1rem',
+          paddingLeft: '1rem',
+          paddingRight: '1rem',
         }}
       >
         {/* Badge */}
@@ -177,7 +177,7 @@ export function ContactBannerSection() {
           }}
           onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = `7px 7px 0 ${c.btnShadow}` }}
           onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = `5px 5px 0 ${c.btnShadow}` }}
-          onClick={() => window.open(CONTACT_BANNER.line_href, '_blank')}
+          onClick={() => triggerTransition(CONTACT_BANNER.line_href, 'line')}
         >
           <span className="shimmer-light" />
           <MessageCircle className="w-5 h-5 flex-shrink-0" style={{ color: c.btnText }} />
