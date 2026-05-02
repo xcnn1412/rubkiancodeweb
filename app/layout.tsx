@@ -18,21 +18,9 @@ export const metadata: Metadata = {
   description: 'บริษัท Rub Kian Code Co.,Ltd. รับผลิต ให้เช่า และปรึกษาการทำซอฟต์แวร์ทุกรูปแบบ รวมทั้งให้เช่าโปรแกรม Photobooth สไตล์เกาหลี',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/rubkiancode-icon.png',
+    shortcut: '/rubkiancode-icon.png',
+    apple: '/rubkiancode-icon.png',
   },
 }
 
