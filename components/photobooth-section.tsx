@@ -1,10 +1,14 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import { Camera, Heart, Star, CheckCircle2, Zap } from "lucide-react"
 import { CodeBg } from "@/components/code-bg"
 import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
-import { PHOTOBOOTH_PREVIEW_PHOTOS } from "@/data/photobooth-preview-photos"
+import {
+  PHOTOBOOTH_PREVIEW_PHOTOS,
+  PHOTOBOOTH_SLIDESHOW_DELAY_MS,
+} from "@/data/photobooth-preview-photos"
 import { useExitTransition } from "@/providers/exit-transition-provider"
 
 // ─── Color Keys (เปลี่ยนสีได้ที่นี่) ──────────────────────────────────────────
@@ -37,6 +41,16 @@ export function PhotoboothSection() {
     t("feature4"),
     t("feature5"),
   ]
+
+  const [slideIndex, setSlideIndex] = useState(0)
+
+  useEffect(() => {
+    if (PHOTOBOOTH_PREVIEW_PHOTOS.length <= 1) return
+    const id = setInterval(() => {
+      setSlideIndex(i => (i + 1) % PHOTOBOOTH_PREVIEW_PHOTOS.length)
+    }, PHOTOBOOTH_SLIDESHOW_DELAY_MS)
+    return () => clearInterval(id)
+  }, [])
 
   return (
     <section id="photobooth" className="relative py-16 sm:py-24 overflow-hidden">
@@ -232,28 +246,70 @@ export function PhotoboothSection() {
                   <span className="font-mono font-bold text-[10px] text-[#1a0e00]">photobooth.exe</span>
                 </div>
 
-                {/* Photo grid — แก้รูปได้ที่ data/photobooth-preview-photos.ts */}
-                <div className="grid grid-cols-2 gap-2 p-3">
-                  {PHOTOBOOTH_PREVIEW_PHOTOS.map((photo, i) => (
-                    <div
-                      key={i}
-                      className="aspect-square flex items-center justify-center overflow-hidden"
-                      style={{ background: 'rgba(26,14,0,0.2)', border: '2px solid rgba(26,14,0,0.3)' }}
-                    >
-                      {photo.src ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={photo.src}
-                          alt={photo.alt}
-                          loading="lazy"
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        // placeholder — แสดงเมื่อยังไม่ได้ใส่รูป
-                        <Camera className="w-8 h-8" style={{ color: 'rgba(26,14,0,0.25)' }} />
-                      )}
-                    </div>
-                  ))}
+                {/* Photo slideshow — แก้รูปและเวลาสลับได้ที่ data/photobooth-preview-photos.ts */}
+                <div className="p-3">
+                  <div
+                    className="relative aspect-square overflow-hidden"
+                    style={{ background: 'rgba(26,14,0,0.2)', border: '2px solid rgba(26,14,0,0.3)' }}
+                  >
+                    {PHOTOBOOTH_PREVIEW_PHOTOS.length === 0 || PHOTOBOOTH_PREVIEW_PHOTOS.every(p => !p.src) ? (
+                      // placeholder — แสดงเมื่อยังไม่ได้ใส่รูป
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Camera className="w-10 h-10" style={{ color: 'rgba(26,14,0,0.25)' }} />
+                      </div>
+                    ) : (
+                      PHOTOBOOTH_PREVIEW_PHOTOS.map((photo, i) => (
+                        photo.src ? (
+                          <div
+                            key={i}
+                            className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                            style={{ opacity: i === slideIndex ? 1 : 0 }}
+                            aria-hidden={i !== slideIndex}
+                          >
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={photo.src}
+                              alt={photo.alt}
+                              loading={i === 0 ? "eager" : "lazy"}
+                              className="w-full h-full object-cover"
+                            />
+                            {photo.label && (
+                              <span
+                                className="absolute top-3 left-3 px-3 py-1 font-black uppercase z-10"
+                                style={{
+                                  background: '#f4e6af',
+                                  color: '#1a0e00',
+                                  border: '2px solid #1a0e00',
+                                  boxShadow: '3px 3px 0px #1a0e00',
+                                  borderRadius: '999px',
+                                  fontSize: '11px',
+                                  letterSpacing: '0.1em',
+                                }}
+                              >
+                                {photo.label}
+                              </span>
+                            )}
+                          </div>
+                        ) : null
+                      ))
+                    )}
+
+                    {/* Dots indicator */}
+                    {PHOTOBOOTH_PREVIEW_PHOTOS.length > 1 && (
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                        {PHOTOBOOTH_PREVIEW_PHOTOS.map((_, i) => (
+                          <span
+                            key={i}
+                            className="w-2 h-2 rounded-full transition-all duration-300"
+                            style={{
+                              background: i === slideIndex ? '#1a0e00' : 'rgba(26,14,0,0.25)',
+                              border: '1px solid #1a0e00',
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {/* Bottom strip */}

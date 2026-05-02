@@ -1,12 +1,14 @@
 // ============================================================
-//  Photobooth Preview Photos — กรอบ TV Mockup (4 ช่อง)
+//  Photobooth Preview Photos — Slideshow บนกรอบ TV Mockup
 //  ============================================================
 //  วิธีใช้:
 //    - ใส่ path รูปภาพที่ src (เริ่มต้นจาก /  = public folder)
-//    - ถ้าต้องการรูปจาก public/ ให้วางไฟล์ไว้ที่ public/photos/...
-//      แล้วใส่ src ว่า "/photos/ชื่อไฟล์.jpg"
+//    - ใส่ได้กี่รูปก็ได้ — จะสลับไปเรื่อยๆ เป็น slideshow
+//    - ปรับเวลาสลับรูปได้ที่ PHOTOBOOTH_SLIDESHOW_DELAY_MS
 //    - ถ้าใส่ src เป็น "" (ว่าง) จะแสดง placeholder icon กล้อง
 //    - alt คือคำอธิบายรูป (ใส่ไว้เพื่อ accessibility / SEO)
+//    - label คือข้อความ badge ที่จะแสดงบนรูป (เช่น "BEFORE" / "AFTER")
+//      ถ้าไม่ใส่ จะไม่แสดง badge
 // ============================================================
 
 export type PhotoSlot = {
@@ -15,28 +17,23 @@ export type PhotoSlot = {
   src: string
   /** คำอธิบายรูป */
   alt: string
+  /** ข้อความ badge บนรูป เช่น "BEFORE" / "AFTER" — ไม่ใส่ก็ได้ */
+  label?: string
 }
 
-// ─── แก้ไขรูปภาพทั้ง 4 ช่องได้ที่นี่ ───────────────────────────
-export const PHOTOBOOTH_PREVIEW_PHOTOS: [PhotoSlot, PhotoSlot, PhotoSlot, PhotoSlot] = [
-  // ช่องที่ 1 — บนซ้าย
+// ─── เวลาหน่วงระหว่างรูป (มิลลิวินาที) ────────────────────────
+export const PHOTOBOOTH_SLIDESHOW_DELAY_MS = 5000
+
+// ─── รายการรูป slideshow แก้ได้ที่นี่ ───────────────────────────
+export const PHOTOBOOTH_PREVIEW_PHOTOS: readonly PhotoSlot[] = [
   {
-    src: "images/photobooth/photo1.jpg",
-    alt: "ตัวอย่างรูปถ่าย 1",
+    src: "/images/src/ChatGPT Image 2 พ.ค. 2569 20_23_21.png",
+    alt: "ตัวอย่างรูปถ่าย หลังใช้บริการ",
+    label: "AFTER",
   },
-  // ช่องที่ 2 — บนขวา
   {
-    src: "images/photobooth/photo2.jpg",
-    alt: "ตัวอย่างรูปถ่าย 2",
-  },
-  // ช่องที่ 3 — ล่างซ้าย
-  {
-    src: "images/photobooth/photo3.jpg",
-    alt: "ตัวอย่างรูปถ่าย 3",
-  },
-  // ช่องที่ 4 — ล่างขวา
-  {
-    src: "images/photobooth/photo4.jpg",
-    alt: "ตัวอย่างรูปถ่าย 4",
+    src: "/images/src/ChatGPT Image 2 พ.ค. 2569 20_34_03.png",
+    alt: "ตัวอย่างรูปถ่าย ก่อนใช้บริการ",
+    label: "BEFORE",
   },
 ]
