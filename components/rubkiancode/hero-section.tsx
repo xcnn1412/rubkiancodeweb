@@ -1,27 +1,54 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
 import { ArrowIcon } from "./icons"
 
 const STATS = [
   { value: "120", suffix: "+", label: "PROJECTS" },
-  { value: "8", suffix: "YR", label: "EXP" },
-  { value: "99", suffix: "%", label: "UPTIME" },
-  { value: "24/7", suffix: "", label: "SUPPORT" },
+  { value: "8",   suffix: "YR", label: "EXP" },
+  { value: "99",  suffix: "%",  label: "UPTIME" },
+  { value: "24/7",suffix: "",   label: "SUPPORT" },
 ] as const
 
 const PILLS = [
   { label: "Marketing System", color: "#E63946" },
-  { label: "Office ERP", color: "#3498DB" },
-  { label: "Lucky Draw", color: "#F1C40F" },
+  { label: "Office ERP",       color: "#3498DB" },
+  { label: "Lucky Draw",       color: "#F1C40F" },
+] as const
+
+// Fixed positions — matches Image 1 layout (no Math.random → no SSR mismatch)
+const BLOBS = [
+  { left: "-5%",  top: "-4%",  size: 160, delay: "0s",    anim: "rk-float"   }, // top-left large
+  { left: "7%",   top: "14%",  size:  58, delay: "0.6s",  anim: "rk-twinkle" }, // inner-left small
+  { left: "-2%",  top: "43%",  size: 102, delay: "1s",    anim: "rk-float"   }, // left mid
+  { left: "-1%",  top: "70%",  size:  80, delay: "0.4s",  anim: "rk-float"   }, // left bottom
+  { left: "87%",  top: "-2%",  size: 108, delay: "1.5s",  anim: "rk-float"   }, // top-right
+  { left: "92%",  top: "18%",  size:  66, delay: "0.9s",  anim: "rk-twinkle" }, // right upper-small
+  { left: "86%",  top: "50%",  size: 148, delay: "2s",    anim: "rk-float"   }, // right large
+  { left: "75%",  top: "76%",  size:  54, delay: "1.3s",  anim: "rk-twinkle" }, // right bottom-small
 ] as const
 
 export function HeroSection() {
   return (
-    <section id="top" className="relative overflow-hidden bg-[#F4EDE0] py-16 sm:py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
-        {/* คอลัมน์ซ้าย — เนื้อหาหลัก */}
-        <div>
+    <section
+      id="top"
+      className="relative overflow-hidden bg-[#F4EDE0] py-16 sm:py-20 lg:py-24"
+    >
+      {/* ── Sakura blob background ── */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        {BLOBS.map((b, i) => (
+          <div key={i} className="absolute" style={{ left: b.left, top: b.top }}>
+            <div className={b.anim} style={{ animationDelay: b.delay }}>
+              <SakuraBlob size={b.size} />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Main content — single centered column ── */}
+      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+
+        {/* TEXT block — centered */}
+        <div className="flex flex-col items-center text-center">
           <span
             className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
             style={{ boxShadow: "4px 4px 0 #E63946" }}
@@ -35,15 +62,15 @@ export function HeroSection() {
             เพื่อ<em className="not-italic text-[#E63946]">ผู้ประกอบการ</em>ไทย
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-[#0A2540]/80 sm:text-lg">
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#0A2540]/80 sm:text-lg">
             RubKianCode คือพาร์ทเนอร์ด้านซอฟต์แวร์ที่พึ่งพาได้ — รับผลิต จำหน่าย
             และให้คำปรึกษา เน้นระบบการตลาดที่วัดผลได้ ระบบภายในออฟฟิศที่ใช้งานจริง
             และระบบ Lucky Draw สำหรับงานอีเวนต์ ส่งมอบเสร็จ ใช้งานได้ทันที
             <span className="rk-caret" />
           </p>
 
-          {/* Pills โชว์ 3 บริการหลัก */}
-          <div className="mt-6 flex flex-wrap gap-3">
+          {/* Service pills */}
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
             {PILLS.map((p) => (
               <span
                 key={p.label}
@@ -59,8 +86,8 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* CTA */}
-          <div className="mt-8 flex flex-wrap gap-4">
+          {/* CTAs */}
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
               href="#contact"
               className="inline-flex items-center gap-2 bg-[#E63946] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
@@ -79,7 +106,7 @@ export function HeroSection() {
           </div>
 
           {/* Stats */}
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="mt-10 grid w-full max-w-lg grid-cols-2 gap-3 sm:grid-cols-4">
             {STATS.map((s) => (
               <div
                 key={s.label}
@@ -98,394 +125,264 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* คอลัมน์ขวา — Mockup arcade console (interactive) */}
-        <div className="relative">
-          <ArcadeConsole />
-          <span
-            className="font-pixel absolute -top-3 -left-3 bg-[#F1C40F] px-3 py-2 text-[10px] uppercase text-[#0A2540]"
-            style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 #0A2540" }}
-          >
-            ★ START NOW
-          </span>
-          <span
-            className="font-pixel absolute -bottom-3 -right-3 bg-[#2ECC71] px-3 py-2 text-[10px] uppercase text-white"
-            style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 #0A2540" }}
-          >
-            ⚡ ON-TIME 100%
-          </span>
+        {/* PC block — centered below text */}
+        <div className="mt-12 flex justify-center">
+          <div className="relative w-full max-w-md">
+            <div
+              className="bg-[#F4EDE0] p-5"
+              style={{ border: "3px solid #0A2540", boxShadow: "8px 8px 0 #E63946" }}
+            >
+              <ComputerScene />
+            </div>
+
+            <span
+              className="font-pixel absolute -left-3 -top-3 bg-[#F1C40F] px-3 py-2 text-[10px] uppercase text-[#0A2540]"
+              style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 #0A2540" }}
+            >
+              ★ 8-BIT STUDIO
+            </span>
+            <span
+              className="font-pixel absolute -bottom-3 -right-3 bg-[#2ECC71] px-3 py-2 text-[10px] uppercase text-white"
+              style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 #0A2540" }}
+            >
+              ⚡ ON-TIME 100%
+            </span>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-/* ==========================================================
-   ARCADE CONSOLE — interactive
-   - คลิก tile เพื่อสลับระบบ → bars / stats / terminal เปลี่ยนตาม
-   - Terminal พิมพ์โค้ดทีละอักษร (typewriter) ของระบบที่เลือก
-   - Online indicator pulse / bars animate smooth
-   ========================================================== */
-
-type SystemKey = "marketing" | "erp" | "lucky"
-
-type SystemSpec = {
-  label: string
-  pts: string
-  color: string
-  build: number
-  qa: number
-  uptime: string
-  sla: string
-  deployed: string
-  code: string[]
-  icon: React.ReactNode
-}
-
-const SYSTEMS: Record<SystemKey, SystemSpec> = {
-  marketing: {
-    label: "MARKETING",
-    pts: "+200% ROI",
-    color: "#E63946",
-    build: 92,
-    qa: 88,
-    uptime: "99.97%",
-    sla: "24/7",
-    deployed: "2026",
-    code: [
-      "$ next build && deploy",
-      "✓ tracking.ts compiled",
-      "✓ /api/conversion · 142ms",
-      "→ ROAS 8.4x · live",
-    ],
-    icon: (
-      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
-        <g fill="#E63946">
-          <rect x="2" y="10" width="2" height="4" />
-          <rect x="5" y="7" width="2" height="7" />
-          <rect x="8" y="4" width="2" height="10" />
-          <rect x="11" y="2" width="2" height="12" />
-        </g>
-        <rect x="13" y="2" width="1" height="1" fill="#F1C40F" />
-      </svg>
-    ),
-  },
-  erp: {
-    label: "OFFICE ERP",
-    pts: "SAVE 40 HRS",
-    color: "#3498DB",
-    build: 87,
-    qa: 82,
-    uptime: "99.95%",
-    sla: "24/7",
-    deployed: "2026",
-    code: [
-      "$ prisma migrate deploy",
-      "✓ schema synced · 14 tables",
-      "✓ payroll batch · 240/240",
-      "→ slack notify · finance@",
-    ],
-    icon: (
-      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
-        <g fill="#3498DB">
-          <rect x="2" y="2" width="12" height="2" />
-          <rect x="2" y="6" width="12" height="2" />
-          <rect x="2" y="10" width="12" height="2" />
-        </g>
-        <g fill="#F1C40F">
-          <rect x="3" y="3" width="1" height="1" />
-          <rect x="3" y="7" width="1" height="1" />
-          <rect x="3" y="11" width="1" height="1" />
-        </g>
-      </svg>
-    ),
-  },
-  lucky: {
-    label: "LUCKY DRAW",
-    pts: "250K ENTRIES",
-    color: "#F1C40F",
-    build: 95,
-    qa: 100,
-    uptime: "100.0%",
-    sla: "EVENT",
-    deployed: "2026",
-    code: [
-      "$ pnpm test:rng --iters=10k",
-      "✓ χ²=4.2 · uniform pass",
-      "✓ entries · 248,392",
-      "→ winner · TH-04829-2569",
-    ],
-    icon: (
-      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
-        <g fill="#F1C40F">
-          <rect x="6" y="2" width="4" height="2" />
-          <rect x="4" y="4" width="8" height="2" />
-          <rect x="2" y="6" width="12" height="6" />
-          <rect x="6" y="12" width="4" height="2" />
-        </g>
-        <g fill="#0A2540">
-          <rect x="6" y="8" width="4" height="2" />
-        </g>
-      </svg>
-    ),
-  },
-}
-
-const SYSTEM_KEYS = Object.keys(SYSTEMS) as SystemKey[]
-
-function ArcadeConsole() {
-  const [active, setActive] = useState<SystemKey>("marketing")
-  const sys = SYSTEMS[active]
-
+/* ══════════════════════════════════════════════════════
+   SAKURA BLOB — pixel-art circle in hot pink
+   Matches the round "sakura" placeholders in Image 1
+   ══════════════════════════════════════════════════════ */
+function SakuraBlob({ size }: { size: number }) {
   return (
-    <div
-      className="bg-[#0A2540]"
-      style={{ border: "3px solid #0A2540", boxShadow: "8px 8px 0 #E63946" }}
+    <svg
+      viewBox="0 0 32 32"
+      className="pixel-svg"
+      style={{ width: size, height: size }}
+      xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Title bar — พร้อม pulsing online dot */}
-      <div className="flex items-center justify-between gap-3 bg-[#F1C40F] px-3 py-2">
-        <span className="flex gap-1.5">
-          <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
-          <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
-          <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
-        </span>
-        <span className="font-pixel text-[9px] uppercase text-[#0A2540]">
-          RUBKIAN_CONSOLE.EXE
-        </span>
-        <span className="font-pixel inline-flex items-center gap-1.5 text-[9px] uppercase text-[#0A2540]">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
-          </span>
-          ONLINE
-        </span>
-      </div>
+      {/* Pixel-art circle rows */}
+      <rect x="11" y="0"  width="10" height="2"  fill="#FF2D78" />
+      <rect x="7"  y="2"  width="18" height="2"  fill="#FF2D78" />
+      <rect x="5"  y="4"  width="22" height="2"  fill="#FF4B8C" />
+      <rect x="3"  y="6"  width="26" height="2"  fill="#FF2D78" />
+      <rect x="1"  y="8"  width="30" height="16" fill="#FF2D78" />
+      <rect x="3"  y="24" width="26" height="2"  fill="#FF4B8C" />
+      <rect x="5"  y="26" width="22" height="2"  fill="#FF2D78" />
+      <rect x="7"  y="28" width="18" height="2"  fill="#FF2D78" />
+      <rect x="11" y="30" width="10" height="2"  fill="#FF2D78" />
+      {/* Highlight — top-left glare gives 8-bit depth */}
+      <rect x="7"  y="4"  width="8"  height="6"  fill="#FF80AB" opacity="0.45" />
+      <rect x="5"  y="8"  width="4"  height="4"  fill="#FF80AB" opacity="0.3"  />
+      {/* Petal cross hint at center */}
+      <rect x="14" y="8"  width="4"  height="16" fill="#E6005C" opacity="0.15" />
+      <rect x="8"  y="14" width="16" height="4"  fill="#E6005C" opacity="0.15" />
+      {/* Center dot (stamen) */}
+      <rect x="14" y="14" width="4"  height="4"  fill="#FFD6E0" opacity="0.6"  />
+    </svg>
+  )
+}
 
-      <div className="space-y-4 bg-[#F4EDE0] p-4 sm:p-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <span className="font-pixel text-xs uppercase text-[#0A2540]">SELECT YOUR SYSTEM</span>
-          <span className="font-pixel text-xs uppercase text-[#E63946]">P1 READY</span>
-        </div>
+/* ══════════════════════════════════════════════════════
+   COMPUTER SCENE — CRT monitor + keyboard + mouse
+   ══════════════════════════════════════════════════════ */
+function ComputerScene() {
+  return (
+    <div className="flex flex-col items-center gap-0">
 
-        {/* Tiles — interactive */}
-        <div className="grid grid-cols-3 gap-3">
-          {SYSTEM_KEYS.map((key) => (
-            <ArcadeTile
-              key={key}
-              spec={SYSTEMS[key]}
-              isActive={active === key}
-              onSelect={() => setActive(key)}
-            />
-          ))}
-        </div>
-
-        {/* Stat row — เปลี่ยนตาม active system */}
+      {/* CRT Monitor */}
+      <div className="w-full">
+        {/* Outer case */}
         <div
-          className="flex items-center justify-between gap-2 bg-white p-3 text-center text-xs transition-colors"
-          style={{ border: "2px solid #0A2540" }}
+          className="relative bg-[#C8BFB0] px-4 pt-3 pb-5"
+          style={{
+            border: "3px solid #0A2540",
+            boxShadow: "inset -3px -3px 0 #9E9080, inset 3px 3px 0 #E8DFD0",
+          }}
         >
-          <ArcadeStat k="UPTIME" v={sys.uptime} tone="green" />
-          <ArcadeStat k="SLA" v={sys.sla} />
-          <ArcadeStat k="DEPLOYED" v={sys.deployed} tone="red" />
+          {/* Screen bezel */}
+          <div className="bg-[#1A252F] p-1.5" style={{ border: "2px solid #0A2540" }}>
+            {/* Title bar */}
+            <div className="mb-1 flex items-center justify-between bg-[#0A2540] px-2 py-1">
+              <span className="flex gap-1">
+                <span className="block h-2 w-2 bg-[#E63946]" style={{ border: "1px solid #000" }} />
+                <span className="block h-2 w-2 bg-[#F1C40F]" style={{ border: "1px solid #000" }} />
+                <span className="block h-2 w-2 bg-[#2ECC71]" style={{ border: "1px solid #000" }} />
+              </span>
+              <span className="font-pixel text-[7px] uppercase text-[#F4EDE0]/70">
+                RUBKIAN_CODE.EXE
+              </span>
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+              </span>
+            </div>
+
+            {/* Screen */}
+            <div className="relative overflow-hidden bg-[#F0F0E6]" style={{ minHeight: "148px" }}>
+              {/* CRT scanlines */}
+              <div
+                className="pointer-events-none absolute inset-0 z-10"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px)",
+                }}
+              />
+              {/* Glare */}
+              <div className="absolute left-2 top-2 h-10 w-14 bg-white/30" />
+              <div className="absolute left-2 top-2 h-20 w-2  bg-white/20" />
+
+              {/* Terminal content */}
+              <div className="relative z-0 p-3 font-mono text-[10px] leading-snug text-[#0A2540]">
+                <div className="flex gap-1">
+                  <span className="text-[#E63946]">$</span>
+                  <span>npm run build</span>
+                </div>
+                <CodeBar width="72%" color="#3498DB" icon="✓" />
+                <CodeBar width="58%" color="#E63946" icon="✓" />
+                <CodeBar width="84%" color="#2ECC71" icon="✓" />
+                <CodeBar width="50%" color="#F1C40F" icon="→" />
+                <CodeBar width="76%" color="#3498DB" icon="✓" />
+                <CodeBar width="62%" color="#E63946" icon="✓" />
+                <div className="mt-1 flex items-center gap-1">
+                  <span className="text-[#2ECC71]">★</span>
+                  <span className="text-[9px]">Ready on :3000</span>
+                  <span className="rk-caret ml-0.5" style={{ background: "#0A2540" }} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Front bezel controls */}
+          <div className="mt-2 flex items-center justify-between px-2">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" style={{ border: "1px solid #0A2540" }} />
+              </span>
+              <div className="h-1.5 w-10 bg-[#0A2540]" style={{ border: "1px solid #6B5E4E" }} />
+            </div>
+            <span className="font-pixel text-[7px] uppercase text-[#6B5E4E]">RUBKIAN·CRT</span>
+            <div className="flex gap-1">
+              {(["#3498DB", "#F1C40F", "#E63946"] as const).map((c) => (
+                <div key={c} className="h-3 w-1.5 bg-[#0A2540]" style={{ border: `1px solid ${c}` }} />
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Build / QA progress — animate width transition */}
-        <div className="space-y-2">
-          <ProgressRow label="BUILD PROGRESS" pct={sys.build} fill={sys.color} />
-          <ProgressRow label="QA COVERAGE" pct={sys.qa} fill={sys.color} />
-        </div>
-
-        {/* Mini terminal — typewriter effect ของระบบที่เลือก */}
-        <Terminal active={active} accent={sys.color} />
-      </div>
-    </div>
-  )
-}
-
-/* ============== Tile แบบกดได้ ============== */
-function ArcadeTile({
-  spec,
-  isActive,
-  onSelect,
-}: {
-  spec: SystemSpec
-  isActive: boolean
-  onSelect: () => void
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onSelect}
-      aria-pressed={isActive}
-      className={`group flex flex-col items-center gap-1.5 p-2 text-center transition-all duration-200 ${
-        isActive ? "-translate-y-1" : "hover:-translate-y-0.5"
-      }`}
-      style={{
-        background: isActive ? spec.color : "white",
-        border: "2px solid #0A2540",
-        boxShadow: isActive ? `5px 5px 0 #0A2540` : `3px 3px 0 ${spec.color}`,
-      }}
-    >
-      <span>{spec.icon}</span>
-      <span
-        className="font-pixel text-[9px] uppercase"
-        style={{ color: isActive ? "#0A2540" : "#0A2540" }}
-      >
-        {spec.label}
-      </span>
-      <span
-        className="font-pixel text-[8px] uppercase"
-        style={{ color: isActive ? "#0A2540" : spec.color }}
-      >
-        {spec.pts}
-      </span>
-    </button>
-  )
-}
-
-function ArcadeStat({ k, v, tone }: { k: string; v: string; tone?: "green" | "red" }) {
-  const valColor = tone === "green" ? "#2ECC71" : tone === "red" ? "#E63946" : "#0A2540"
-  return (
-    <div className="flex flex-col">
-      <span className="font-pixel text-[9px] uppercase text-[#0A2540]/60">{k}</span>
-      <span
-        key={v}
-        className="font-pixel animate-[rk-pop_0.3s_ease-out] text-sm font-black"
-        style={{ color: valColor }}
-      >
-        {v}
-      </span>
-    </div>
-  )
-}
-
-/* ============== Progress bar — animate width on change ============== */
-function ProgressRow({
-  label,
-  pct,
-  fill,
-}: {
-  label: string
-  pct: number
-  fill: string
-}) {
-  return (
-    <div>
-      <div className="flex items-center justify-between text-xs">
-        <span className="font-pixel text-[9px] uppercase text-[#0A2540]/70">{label}</span>
-        <span className="font-pixel text-[10px] text-[#0A2540]">{pct}%</span>
-      </div>
-      <div className="mt-1 h-3 w-full bg-white" style={{ border: "2px solid #0A2540" }}>
-        <span
-          className="block h-full transition-[width,background] duration-700 ease-out"
-          style={{ width: `${pct}%`, background: fill }}
+        {/* Neck */}
+        <div
+          className="mx-auto h-5 w-12 bg-[#B0A898]"
+          style={{ border: "2px solid #0A2540", borderTop: "none" }}
+        />
+        {/* Base */}
+        <div
+          className="mx-auto h-3 w-40 bg-[#C8BFB0]"
+          style={{ border: "2px solid #0A2540", borderTop: "none" }}
+        />
+        <div
+          className="mx-auto h-2 w-48 bg-[#9E9080]"
+          style={{ border: "2px solid #0A2540", borderTop: "none" }}
         />
       </div>
+
+      {/* Keyboard + Mouse row */}
+      <div className="mt-4 flex w-full items-end gap-3">
+        <div className="flex-1">
+          <PixelKeyboard />
+        </div>
+        <PixelMouse />
+      </div>
     </div>
   )
 }
 
-/* ============== Mini terminal — typewriter ============== */
-function Terminal({ active, accent }: { active: SystemKey; accent: string }) {
-  const code = SYSTEMS[active].code
-  const [doneLines, setDoneLines] = useState<string[]>([])
-  const [current, setCurrent] = useState("")
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+function CodeBar({ width, color, icon }: { width: string; color: string; icon: string }) {
+  return (
+    <div className="mt-1 flex items-center gap-1.5">
+      <span style={{ color }}>{icon}</span>
+      <div className="h-2 rounded-sm" style={{ width, background: color, opacity: 0.65 }} />
+    </div>
+  )
+}
 
-  useEffect(() => {
-    setDoneLines([])
-    setCurrent("")
+/* ══════════════════════════════════════════════════════
+   GAMING KEYBOARD
+   ══════════════════════════════════════════════════════ */
+const ROW1 = ["#E63946","#F1C40F","#2ECC71","#3498DB","#9B59B6","#E67E22","#E63946","#F1C40F","#2ECC71","#3498DB","#9B59B6","#E67E22"] as const
+const ROW2 = ["#9B59B6","#E63946","#F1C40F","#2ECC71","#3498DB","#9B59B6","#E67E22","#E63946","#F1C40F","#2ECC71","#3498DB"] as const
+const ROW3 = ["#3498DB","#9B59B6","#E63946","#F1C40F","#2ECC71","#3498DB","#9B59B6","#E67E22","#E63946","#F1C40F"] as const
+const ROW4 = ["#F1C40F","#3498DB","#E63946","#9B59B6","#2ECC71","#E67E22","#F1C40F","#3498DB","#E63946"] as const
 
-    let lineIdx = 0
-    let charIdx = 0
-    let cancelled = false
+function KeyRow({ colors, ml = 0 }: { colors: readonly string[]; ml?: number }) {
+  return (
+    <div className="mb-0.5 flex gap-0.5" style={{ marginLeft: ml }}>
+      {colors.map((c, i) => (
+        <div
+          key={i}
+          className="h-3 flex-1"
+          style={{ background: c, border: "1px solid rgba(0,0,0,0.5)", boxShadow: `0 2px 0 ${c}88` }}
+        />
+      ))}
+    </div>
+  )
+}
 
-    const tick = () => {
-      if (cancelled) return
-      if (lineIdx >= code.length) return
-
-      const line = code[lineIdx]
-      if (charIdx < line.length) {
-        charIdx++
-        setCurrent(line.slice(0, charIdx))
-        // jitter เล็กน้อยให้ดูเหมือนคนพิมพ์
-        timerRef.current = setTimeout(tick, 22 + Math.random() * 28)
-      } else {
-        // ปิดบรรทัดนี้แล้วขึ้นบรรทัดใหม่
-        setDoneLines((prev) => [...prev, line])
-        setCurrent("")
-        lineIdx++
-        charIdx = 0
-        timerRef.current = setTimeout(tick, 280)
-      }
-    }
-
-    timerRef.current = setTimeout(tick, 200)
-
-    return () => {
-      cancelled = true
-      if (timerRef.current) clearTimeout(timerRef.current)
-    }
-  }, [active, code])
-
+function PixelKeyboard() {
   return (
     <div
-      className="overflow-hidden bg-[#0A2540]"
-      style={{ border: "2px solid #0A2540" }}
+      className="w-full bg-[#0F0F1A] px-2 pt-2 pb-1.5"
+      style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 #0A2540" }}
     >
-      <div className="flex items-center justify-between border-b border-[#F4EDE0]/15 px-3 py-1.5">
-        <span className="font-pixel text-[9px] uppercase text-[#F1C40F]">
-          CODE_PREVIEW.LOG
-        </span>
-        <span
-          className="font-pixel text-[9px] uppercase"
-          style={{ color: accent }}
-        >
-          ▶ LIVE
-        </span>
-      </div>
-      <div className="font-pixelify min-h-26 space-y-0.5 px-3 py-2 text-sm leading-snug text-[#F4EDE0] sm:text-base">
-        {doneLines.map((line, i) => (
-          <div key={i} className="flex gap-1">
-            <CodeLine line={line} accent={accent} />
-          </div>
-        ))}
-        {current && (
-          <div className="flex items-center gap-1">
-            <CodeLine line={current} accent={accent} />
-            <span className="rk-caret" style={{ background: accent }} />
-          </div>
-        )}
+      <div
+        className="mb-1.5 h-1 w-full"
+        style={{ background: "linear-gradient(to right,#E63946,#F1C40F,#2ECC71,#3498DB,#9B59B6)" }}
+      />
+      <KeyRow colors={ROW1} />
+      <KeyRow colors={ROW2} ml={4} />
+      <KeyRow colors={ROW3} ml={8} />
+      <KeyRow colors={ROW4} ml={12} />
+      <div className="mt-0.5 flex gap-0.5">
+        <div className="h-3 w-3" style={{ background: "#E63946", border: "1px solid rgba(0,0,0,0.5)" }} />
+        <div className="h-3 flex-1" style={{ background: "#3498DB", border: "1px solid rgba(0,0,0,0.5)", boxShadow: "0 2px 0 #3498DB88" }} />
+        <div className="h-3 w-3" style={{ background: "#2ECC71", border: "1px solid rgba(0,0,0,0.5)" }} />
       </div>
     </div>
   )
 }
 
-/* ใส่สีให้ symbol ($, ✓, →) ตาม convention เทอร์มินัล */
-function CodeLine({ line, accent }: { line: string; accent: string }) {
-  if (line.startsWith("$")) {
-    return (
-      <span>
-        <span style={{ color: accent }}>$</span>
-        {line.slice(1)}
-      </span>
-    )
-  }
-  if (line.startsWith("✓")) {
-    return (
-      <span>
-        <span style={{ color: "#2ECC71" }}>✓</span>
-        {line.slice(1)}
-      </span>
-    )
-  }
-  if (line.startsWith("→")) {
-    return (
-      <span>
-        <span style={{ color: "#F1C40F" }}>→</span>
-        {line.slice(1)}
-      </span>
-    )
-  }
-  return <span>{line}</span>
+/* ══════════════════════════════════════════════════════
+   GAMING MOUSE
+   ══════════════════════════════════════════════════════ */
+function PixelMouse() {
+  return (
+    <div className="relative shrink-0">
+      {/* Cable */}
+      <div
+        className="absolute -top-6 left-1/2 -translate-x-1/2"
+        style={{ width: 3, height: 26, background: "#3498DB", border: "1px solid #0A2540", borderRadius: "2px 2px 0 0" }}
+      />
+      {/* Body */}
+      <div
+        className="relative bg-[#0F0F1A]"
+        style={{ width: 48, height: 70, border: "2px solid #0A2540", borderRadius: "4px 4px 10px 10px", boxShadow: "3px 3px 0 #0A2540" }}
+      >
+        <div className="absolute left-0 top-0" style={{ width: "46%", height: 28, background: "#1A1A2E", border: "1px solid #0A2540", borderRadius: "3px 0 0 0" }} />
+        <div className="absolute right-0 top-0" style={{ width: "46%", height: 28, background: "#222244", border: "1px solid #0A2540", borderRadius: "0 3px 0 0" }} />
+        <div className="absolute left-1/2 top-0 -translate-x-1/2" style={{ width: 2, height: 28, background: "#0A2540" }} />
+        <div className="absolute left-1/2 top-2 -translate-x-1/2" style={{ width: 10, height: 16, background: "#F1C40F", border: "1px solid #0A2540", borderRadius: 2 }} />
+        <div className="absolute left-1/2 top-7.5 -translate-x-1/2" style={{ width: 8, height: 5, background: "#E63946", border: "1px solid #0A2540", borderRadius: 1 }} />
+        <div className="absolute bottom-4 left-0"   style={{ width: 3, height: 22, background: "#E63946" }} />
+        <div className="absolute bottom-4 right-0"  style={{ width: 3, height: 22, background: "#3498DB" }} />
+        <div className="absolute bottom-2 left-1 right-1" style={{ height: 3, background: "#2ECC71", borderRadius: 1 }} />
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2" style={{ width: 6, height: 6, background: "#F1C40F", border: "1px solid #0A2540" }} />
+      </div>
+    </div>
+  )
 }
