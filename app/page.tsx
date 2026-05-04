@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic"
-import { Navbar } from "@/components/navbar"
+import { Navbar, type NavLinkItem } from "@/components/navbar"
 import { HeroSection } from "@/components/hero-section"
 
 // ── Below-the-fold sections — dynamically imported to reduce initial JS bundle ──
@@ -25,18 +25,34 @@ const Footer = dynamic(
   () => import("@/components/footer").then((m) => ({ default: m.Footer }))
 )
 
+const RUBKIANCODE_NAV_ITEMS: NavLinkItem[] = [
+  { href: "#showcase", labelKey: "nav_portfolio" },
+  { href: "#services", labelKey: "nav_services" },
+  { href: "#photobooth", labelKey: "nav_product" },
+  { href: "#contact", labelKey: "nav_contact" },
+]
+
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
-      <Navbar />
-      <HeroSection />
-      <ShowcaseSection />
+      <Navbar
+        namespace="rubkiancode_navbar"
+        brandHref="/"
+        navItems={RUBKIANCODE_NAV_ITEMS}
+      />
+      <HeroSection namespace="rubkiancode_hero" />
+      <ShowcaseSection namespace="rubkiancode_showcase" />
       <PhotoboothResultsSection />
-      <ServicesSection />
-      <PhotoboothSection />
-      <ContactBannerSection />
-      <ContactSection />
-      <Footer />
+      <ServicesSection namespace="rubkiancode_services" />
+      <PhotoboothSection namespace="rubkiancode_photobooth" />
+      <ContactBannerSection namespace="rubkiancode_contact_banner" />
+      <ContactSection namespace="rubkiancode_contact" />
+      <Footer
+        navbarNamespace="rubkiancode_navbar"
+        footerNamespace="rubkiancode_footer"
+        brandHref="/"
+        navItems={RUBKIANCODE_NAV_ITEMS}
+      />
     </main>
   )
 }

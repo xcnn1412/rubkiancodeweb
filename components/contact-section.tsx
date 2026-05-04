@@ -6,10 +6,10 @@ import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
 import { useExitTransition } from "@/providers/exit-transition-provider"
 
-export function ContactSection() {
+export function ContactSection({ namespace = "contact" }: { namespace?: string } = {}) {
   const { lang } = useLanguage()
   const typo = useLangTypography()
-  const t = useTranslations("contact")
+  const t = useTranslations(namespace)
   const { triggerTransition } = useExitTransition()
 
   const contactInfo = [

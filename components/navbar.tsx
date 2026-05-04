@@ -7,11 +7,33 @@ import { useLanguage, LANG_OPTIONS } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
 import { useExitTransition } from "@/providers/exit-transition-provider"
 
-export function Navbar() {
+export interface NavLinkItem {
+  href: string
+  labelKey: string
+}
+
+export interface NavbarProps {
+  namespace?: string
+  brandHref?: string
+  navItems?: NavLinkItem[]
+}
+
+const DEFAULT_NAV_ITEMS: NavLinkItem[] = [
+  { href: "#showcase", labelKey: "nav_rental" },
+  { href: "#services", labelKey: "nav_software" },
+  { href: "#photobooth", labelKey: "nav_photobooth" },
+  { href: "#contact", labelKey: "nav_contact" },
+]
+
+export function Navbar({
+  namespace = "navbar",
+  brandHref = "/",
+  navItems = DEFAULT_NAV_ITEMS,
+}: NavbarProps = {}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isLangOpen, setIsLangOpen] = useState(false)
   const { lang, setLang, isTranslating, currentLangOption } = useLanguage()
-  const t = useTranslations("navbar")
+  const t = useTranslations(namespace)
   const langRef = useRef<HTMLDivElement>(null)
   const { triggerTransition } = useExitTransition()
 
@@ -26,12 +48,10 @@ export function Navbar() {
     return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
-  const navLinks = [
-    { href: "#showcase", label: t("nav_rental") },
-    { href: "#services", label: t("nav_software") },
-    { href: "#photobooth", label: t("nav_photobooth") },
-    { href: "#contact", label: t("nav_contact") },
-  ]
+  const navLinks = navItems.map((item) => ({
+    href: item.href,
+    label: t(item.labelKey),
+  }))
 
   const handleLineContact = () => {
     triggerTransition('https://lin.ee/py7hRoKC', 'line')
@@ -55,7 +75,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-20 gap-4">
 
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-1 flex-shrink-0">
+          <Link href={brandHref} className="flex items-center gap-1 flex-shrink-0">
             <span className="font-mono text-base font-black" style={{ color: '#7e7f7f' }}>【</span>
             <span
               className="font-black text-sm sm:text-lg uppercase leading-tight max-w-[160px] sm:max-w-none truncate"

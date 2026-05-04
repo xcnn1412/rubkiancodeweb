@@ -27,10 +27,10 @@ const PHOTOBOOTH_COLORS = {
 } as const
 // ──────────────────────────────────────────────────────────────────────────────
 
-export function PhotoboothSection() {
+export function PhotoboothSection({ namespace = "photobooth" }: { namespace?: string } = {}) {
   const { lang } = useLanguage()
   const typo = useLangTypography()
-  const t = useTranslations("photobooth")
+  const t = useTranslations(namespace)
   const { triggerTransition } = useExitTransition()
 
   const features = [

@@ -77,8 +77,8 @@ function SparkleField({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function ContactBannerSection() {
-  const t = useTranslations("contact_banner")
+export function ContactBannerSection({ namespace = "contact_banner" }: { namespace?: string } = {}) {
+  const t = useTranslations(namespace)
   const typo = useLangTypography()
   const c = CONTACT_BANNER.colors
   const { triggerTransition } = useExitTransition()

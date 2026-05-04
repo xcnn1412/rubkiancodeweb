@@ -5,10 +5,10 @@ import { CodeBg } from "@/components/code-bg"
 import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
 
-export function ServicesSection() {
+export function ServicesSection({ namespace = "services" }: { namespace?: string } = {}) {
   const { lang } = useLanguage()
   const typo = useLangTypography()
-  const t = useTranslations("services")
+  const t = useTranslations(namespace)
 
   const services = [
     {

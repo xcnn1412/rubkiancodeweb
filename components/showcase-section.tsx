@@ -22,8 +22,8 @@ const PROJECTS: ShowcaseProject[] = [
 // ─────────────────────────────────────────────
 //  Section
 // ─────────────────────────────────────────────
-export function ShowcaseSection() {
-  const t = useTranslations("showcase")
+export function ShowcaseSection({ namespace = "showcase" }: { namespace?: string } = {}) {
+  const t = useTranslations(namespace)
   const typo = useLangTypography()
 
   const [activeProject, setActiveProject] = useState<ShowcaseProject | null>(null)

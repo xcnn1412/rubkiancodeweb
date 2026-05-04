@@ -5,17 +5,39 @@ import { MessageCircle, Mail, Phone, MapPin } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useExitTransition } from "@/providers/exit-transition-provider"
 
-export function Footer() {
-  const tNavbar = useTranslations("navbar")
-  const tFooter = useTranslations("footer")
+export interface FooterNavItem {
+  href: string
+  labelKey: string
+}
+
+export interface FooterProps {
+  navbarNamespace?: string
+  footerNamespace?: string
+  brandHref?: string
+  navItems?: FooterNavItem[]
+}
+
+const DEFAULT_FOOTER_NAV_ITEMS: FooterNavItem[] = [
+  { href: "#showcase", labelKey: "nav_rental" },
+  { href: "#services", labelKey: "nav_software" },
+  { href: "#photobooth", labelKey: "nav_photobooth" },
+  { href: "#contact", labelKey: "nav_contact" },
+]
+
+export function Footer({
+  navbarNamespace = "navbar",
+  footerNamespace = "footer",
+  brandHref = "/",
+  navItems = DEFAULT_FOOTER_NAV_ITEMS,
+}: FooterProps = {}) {
+  const tNavbar = useTranslations(navbarNamespace)
+  const tFooter = useTranslations(footerNamespace)
   const { triggerTransition } = useExitTransition()
 
-  const navLinks = [
-    { href: "#showcase", label: tNavbar("nav_rental") },
-    { href: "#services", label: tNavbar("nav_software") },
-    { href: "#photobooth", label: tNavbar("nav_photobooth") },
-    { href: "#contact", label: tNavbar("nav_contact") },
-  ]
+  const navLinks = navItems.map((item) => ({
+    href: item.href,
+    label: tNavbar(item.labelKey),
+  }))
 
   const contactLinks = [
     { icon: Mail,          label: "rubkiancode@gmail.com", href: "mailto:rubkiancode@gmail.com",              linkType: 'email'    as const },
@@ -39,7 +61,7 @@ export function Footer() {
 
           {/* Brand */}
           <div className="md:col-span-1">
-            <Link href="/" className="inline-flex items-center gap-1 mb-5 group">
+            <Link href={brandHref} className="inline-flex items-center gap-1 mb-5 group">
               <span className="font-mono text-xl font-black" style={{ color: '#1a0e00' }}>【</span>
               <span
                 className="font-black text-lg uppercase"
