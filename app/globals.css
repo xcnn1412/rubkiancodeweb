@@ -426,9 +426,6 @@
 }
 .rk-marquee-viewport {
   overflow: hidden;
-  /* fade edges ซ้าย/ขวา ให้ดู smooth ตอนวิ่งเข้า–ออก */
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
-          mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
 }
 .rk-marquee-track {
   display: flex;

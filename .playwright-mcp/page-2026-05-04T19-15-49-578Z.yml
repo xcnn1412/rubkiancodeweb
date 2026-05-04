@@ -1,0 +1,619 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "RubKianCode หน้าแรก" [ref=e5] [cursor=pointer]:
+        - /url: "#top"
+        - img [ref=e7]
+        - generic [ref=e16]:
+          - generic [ref=e17]: rubkiancode
+          - generic [ref=e18]: "> software_studio.exe"
+      - navigation "Primary" [ref=e19]:
+        - link "บริการ" [ref=e20] [cursor=pointer]:
+          - /url: "#services"
+          - text: บริการ
+        - link "ผลงาน" [ref=e21] [cursor=pointer]:
+          - /url: "#portfolio"
+          - text: ผลงาน
+        - link "วิธีทำงาน" [ref=e22] [cursor=pointer]:
+          - /url: "#process"
+          - text: วิธีทำงาน
+        - link "ทำไมต้องเรา" [ref=e23] [cursor=pointer]:
+          - /url: "#why"
+          - text: ทำไมต้องเรา
+        - link "ติดต่อ" [ref=e24] [cursor=pointer]:
+          - /url: "#contact"
+          - text: ติดต่อ
+      - link "ขอใบเสนอราคา" [ref=e26] [cursor=pointer]:
+        - /url: "#contact"
+    - generic [ref=e27]:
+      - generic:
+        - img
+        - img
+        - img
+      - generic:
+        - img
+        - img
+        - img
+      - generic:
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic:
+          - img
+        - generic: const fn = ()
+        - generic: "def main():"
+        - generic: var x = 0;
+        - generic: "() => {}"
+        - generic: print('hi')
+        - generic: await api()
+        - generic: Task.Run()
+        - generic: "for i in n:"
+        - generic: async () =>
+        - generic: useState(0)
+      - generic [ref=e29]:
+        - generic [ref=e30]: ★ SOFTWARE HOUSE · LV.99
+        - heading "รับทำซอฟต์แวร์ทุกระบบ เพื่อ ธุรกิจ SME ไทย" [level=1] [ref=e31]:
+          - text: รับทำซอฟต์แวร์ทุกระบบ
+          - text: เพื่อ
+          - generic [ref=e32]: ธุรกิจ SME ไทย
+        - paragraph [ref=e34]
+        - generic [ref=e36]:
+          - generic [ref=e37]: Marketing System
+          - generic [ref=e38]: Office ERP
+          - generic [ref=e39]: Lucky Draw
+        - generic [ref=e40]:
+          - link "เริ่มโปรเจกต์" [ref=e41] [cursor=pointer]:
+            - /url: "#contact"
+            - text: เริ่มโปรเจกต์
+            - img [ref=e42]
+          - link "ดูผลงาน" [ref=e47] [cursor=pointer]:
+            - /url: "#portfolio"
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - generic [ref=e50]: 120+
+            - generic [ref=e51]: PROJECTS
+          - generic [ref=e52]:
+            - generic [ref=e53]: 8YR
+            - generic [ref=e54]: EXP
+          - generic [ref=e55]:
+            - generic [ref=e56]: 99%
+            - generic [ref=e57]: UPTIME
+          - generic [ref=e58]:
+            - generic [ref=e59]: 24/7
+            - generic [ref=e60]: SUPPORT
+    - generic [ref=e62]:
+      - generic [ref=e63]: ระบบการตลาด
+      - generic [ref=e64]: ★
+      - generic [ref=e65]: OFFICE ERP
+      - generic [ref=e66]: ★
+      - generic [ref=e67]: LUCKY DRAW
+      - generic [ref=e68]: ★
+      - generic [ref=e69]: E-COMMERCE
+      - generic [ref=e70]: ★
+      - generic [ref=e71]: POS SYSTEM
+      - generic [ref=e72]: ★
+      - generic [ref=e73]: CRM
+      - generic [ref=e74]: ★
+      - generic [ref=e75]: HR / PAYROLL
+      - generic [ref=e76]: ★
+      - generic [ref=e77]: WAREHOUSE
+      - generic [ref=e78]: ★
+      - generic [ref=e79]: ระบบการตลาด
+      - generic [ref=e80]: ★
+      - generic [ref=e81]: OFFICE ERP
+      - generic [ref=e82]: ★
+      - generic [ref=e83]: LUCKY DRAW
+      - generic [ref=e84]: ★
+      - generic [ref=e85]: E-COMMERCE
+      - generic [ref=e86]: ★
+      - generic [ref=e87]: POS SYSTEM
+      - generic [ref=e88]: ★
+      - generic [ref=e89]: CRM
+      - generic [ref=e90]: ★
+      - generic [ref=e91]: HR / PAYROLL
+      - generic [ref=e92]: ★
+      - generic [ref=e93]: WAREHOUSE
+      - generic [ref=e94]: ★
+    - generic [ref=e96]:
+      - generic [ref=e97]:
+        - generic [ref=e98]:
+          - generic [ref=e99]: CORE SERVICES · 04
+          - heading "4 ระบบหลัก ที่เราชำนาญที่สุด" [level=2] [ref=e100]:
+            - text: 4 ระบบหลัก
+            - text: ที่เราชำนาญที่สุด
+        - paragraph [ref=e101]: ชูจุดแข็งด้านที่ผู้ประกอบการต้องการมากที่สุด พร้อมเทมเพลตที่ติดตั้งได้ใน 2 สัปดาห์ และปรับแต่งได้ตามขนาดธุรกิจ — ไม่ว่าจะเริ่มจาก 0 หรือต่อยอดของเดิม
+      - generic [ref=e102]:
+        - link "ดูรายละเอียด ระบบการตลาด" [ref=e103] [cursor=pointer]:
+          - /url: /services/marketing-system
+          - generic [ref=e104]:
+            - generic [ref=e105]: "01"
+            - heading "ระบบการตลาด Marketing System" [level=3] [ref=e106]:
+              - text: ระบบการตลาด
+              - text: Marketing System
+          - img [ref=e109]:
+            - generic [ref=e135]: +218%
+          - generic [ref=e136]:
+            - paragraph [ref=e137]: เพิ่มยอดขายและลูกค้ากลับมาซ้ำ ด้วยระบบที่วัดผลได้ทุกบาท ตั้งแต่ Landing, CRM, Email/LINE Automation จนถึง Dashboard รวม
+            - list [ref=e138]:
+              - listitem [ref=e139]: Marketing Automation (LINE OA · Email)
+              - listitem [ref=e141]: Multi-touch Attribution Dashboard
+              - listitem [ref=e143]: Customer Data Platform
+              - listitem [ref=e145]: A/B Testing & Conversion Tracking
+          - generic [ref=e147]:
+            - generic [ref=e148]: เริ่มต้น 4 สัปดาห์
+            - generic [ref=e149]: ▶
+        - link "ดูรายละเอียด ระบบภายในออฟฟิศ" [ref=e150] [cursor=pointer]:
+          - /url: /services/office-erp
+          - generic [ref=e151]:
+            - generic [ref=e152]: "02"
+            - heading "ระบบภายในออฟฟิศ Office ERP" [level=3] [ref=e153]:
+              - text: ระบบภายในออฟฟิศ
+              - text: Office ERP
+          - img [ref=e156]
+          - generic [ref=e179]:
+            - paragraph [ref=e180]: รวมงานหลังบ้านทุกแผนกไว้ในระบบเดียว ลดงานซ้ำซ้อน ลดเอกสารกระดาษ — ทำให้ทีมตัดสินใจจากข้อมูลจริง ไม่ใช่ความรู้สึก
+            - list [ref=e181]:
+              - listitem [ref=e182]: HR · Payroll · Leave · OT
+              - listitem [ref=e184]: Inventory & Multi-warehouse
+              - listitem [ref=e186]: Accounting · ภาษี ภงด./ภพ.30
+              - listitem [ref=e188]: Approval Workflow & e-Document
+          - generic [ref=e190]:
+            - generic [ref=e191]: เริ่มต้น 12 สัปดาห์
+            - generic [ref=e192]: ▶
+        - link "ดูรายละเอียด ระบบ Lucky Draw" [ref=e193] [cursor=pointer]:
+          - /url: /services/lucky-draw
+          - generic [ref=e194]:
+            - generic [ref=e195]: "03"
+            - heading "ระบบ Lucky Draw สำหรับงานอีเวนต์" [level=3] [ref=e196]:
+              - text: ระบบ Lucky Draw
+              - text: สำหรับงานอีเวนต์
+          - img [ref=e199]:
+            - generic [ref=e209]: "7"
+            - generic [ref=e210]: "7"
+            - generic [ref=e211]: "7"
+          - generic [ref=e223]:
+            - paragraph [ref=e224]: ระบบจับฉลากแบบโปร่งใสตรวจสอบได้ ใช้กับงานบริษัท งานเปิดตัวสินค้า งานคอนเสิร์ต — รองรับผู้เข้าร่วมหลักแสน เริ่มงานใน 1 สัปดาห์
+            - list [ref=e225]:
+              - listitem [ref=e226]: RNG ตรวจสอบได้ · Audit log ครบ
+              - listitem [ref=e228]: รองรับ 250,000 รายชื่อ · จับ <1 วินาที
+              - listitem [ref=e230]: OBS Overlay สำหรับ Live สด
+              - listitem [ref=e232]: QR Check-in & Realtime Dashboard
+          - generic [ref=e234]:
+            - generic [ref=e235]: เริ่มต้น 1 สัปดาห์ · ต่อ event
+            - generic [ref=e236]: ▶
+        - link "ดูรายละเอียด ระบบ Photobooth" [ref=e237] [cursor=pointer]:
+          - /url: /services/photoboothsoftware
+          - generic [ref=e238]:
+            - generic [ref=e239]: "04"
+            - heading "ระบบ Photobooth Korean-style Booth" [level=3] [ref=e240]:
+              - text: ระบบ Photobooth
+              - text: Korean-style Booth
+          - img [ref=e243]:
+            - generic [ref=e247]: "2026.05"
+          - generic [ref=e298]:
+            - paragraph [ref=e299]: ตู้ถ่ายรูปสไตล์เกาหลีพร้อมซอฟต์แวร์ครบวงจร — รับผลิต ให้เช่า มี operator มืออาชีพ ปรับ template/filter ตาม brand ลูกค้าได้ทุกงาน
+            - list [ref=e300]:
+              - listitem [ref=e301]: AI Filter & Auto Beauty Retouch
+              - listitem [ref=e303]: Custom Frame · ตามธีมงานลูกค้า
+              - listitem [ref=e305]: Print + QR Cloud Share ทันที
+              - listitem [ref=e307]: งานเลี้ยง · เปิดตัวสินค้า · Wedding
+          - generic [ref=e309]:
+            - generic [ref=e310]: ให้เช่ารายวัน · เริ่ม 1 สัปดาห์
+            - generic [ref=e311]: ▶
+    - generic [ref=e313]:
+      - generic [ref=e314]:
+        - generic [ref=e315]:
+          - generic [ref=e316]: FULL CATALOG · 06
+          - heading "บริการเสริมอื่น ๆ" [level=2] [ref=e317]
+        - paragraph [ref=e318]: นอกจาก 3 ระบบหลัก เรายังรับงานพัฒนาแบบ End-to-End สำหรับธุรกิจที่ต้องการระบบเฉพาะทาง — ทำงานคู่กับทีม IT ของลูกค้าหรือทำให้ทั้งหมดก็ได้
+      - generic [ref=e319]:
+        - article [ref=e320]:
+          - generic [ref=e321]: / 04
+          - img [ref=e323]
+          - heading "Custom Software" [level=4] [ref=e330]
+          - paragraph [ref=e331]: รับเขียนซอฟต์แวร์เฉพาะกิจตามโจทย์ ออกแบบ Data Model · API · UI ให้ครบวงจร
+        - article [ref=e332]:
+          - generic [ref=e333]: / 05
+          - img [ref=e335]
+          - heading "Web & E-commerce" [level=4] [ref=e343]
+          - paragraph [ref=e344]: เว็บไซต์องค์กร · Multi-page Information Site · Online Store ครบวงจร
+        - article [ref=e345]:
+          - generic [ref=e346]: / 06
+          - img [ref=e348]
+          - heading "Mobile App" [level=4] [ref=e355]
+          - paragraph [ref=e356]: iOS / Android App สำหรับลูกค้าและทีมขาย พร้อมเชื่อมต่อระบบหลังบ้าน
+        - article [ref=e357]:
+          - generic [ref=e358]: / 07
+          - img [ref=e360]
+          - heading "Data & Analytics" [level=4] [ref=e367]
+          - paragraph [ref=e368]: Data Warehouse · BI Dashboard · ETL Pipeline ใช้ตัดสินใจจากข้อมูลจริง
+        - article [ref=e369]:
+          - generic [ref=e370]: / 08
+          - img [ref=e372]
+          - heading "POS & Inventory" [level=4] [ref=e380]
+          - paragraph [ref=e381]: ระบบขายหน้าร้านและคลังสินค้า รองรับหลายสาขา ปรินต์ใบเสร็จ ภาษี
+        - article [ref=e382]:
+          - generic [ref=e383]: / 09
+          - img [ref=e385]
+          - heading "IT Consulting" [level=4] [ref=e393]
+          - paragraph [ref=e394]: วางแผนสถาปัตยกรรมระบบ · Cloud Migration · Security Audit · Tech Roadmap
+    - generic [ref=e396]:
+      - generic [ref=e397]:
+        - generic [ref=e398]:
+          - generic [ref=e399]: PORTFOLIO · LV.UP
+          - heading "ผลงานที่ส่งมอบจริง 2566–2569" [level=2] [ref=e400]:
+            - text: ผลงานที่ส่งมอบจริง
+            - text: 2566–2569
+        - paragraph [ref=e401]: คัดมาจากงานหลายสิบโปรเจกต์ — ทุกชิ้นมีสรุปผลลัพธ์เป็นตัวเลขให้ลูกค้าตรวจสอบได้ ทุก case study เปิดให้ขอ reference จากลูกค้าตัวจริงได้
+      - generic [ref=e402]:
+        - button "ทั้งหมด" [ref=e403]
+        - button "Marketing" [ref=e404]
+        - button "Office ERP" [ref=e405]
+        - button "Lucky Draw" [ref=e406]
+        - button "Custom" [ref=e407]
+      - generic [ref=e408]:
+        - generic [ref=e409]: ★
+        - generic [ref=e410]: ♥
+        - generic [ref=e411]: ◆
+        - generic [ref=e412]: ★
+        - generic [ref=e413]:
+          - generic [ref=e418]: NOW SHOWING · PORTFOLIO.EXE
+          - generic [ref=e419]: 01 / 06
+        - generic [ref=e420]:
+          - generic [ref=e425]:
+            - img [ref=e426]:
+              - generic [ref=e430]: DASHBOARD.EXE
+              - generic [ref=e431]:
+                - generic [ref=e433]: VISITORS
+                - generic [ref=e434]: 1.2M
+                - generic [ref=e436]: CTR
+                - generic [ref=e437]: 4.8%
+                - generic [ref=e439]: ROAS
+                - generic [ref=e440]: 8.4x
+                - generic [ref=e442]: CHURN
+                - generic [ref=e443]: 2.1%
+            - generic [ref=e465]: ★ MARKETING
+          - button "ผลงานก่อนหน้า" [ref=e466]: ◀
+          - button "ผลงานถัดไป" [ref=e467]: ▶
+        - generic [ref=e468]:
+          - heading "Siam Retail — Marketing Stack รวม" [level=3] [ref=e469]
+          - generic [ref=e470]: 2025 · ROAS +218%
+        - generic [ref=e471]:
+          - tablist "เลือกผลงาน" [ref=e472]:
+            - 'tab "ไปยังผลงาน 1: Siam Retail — Marketing Stack รวม" [selected] [ref=e473]': ★
+            - 'tab "ไปยังผลงาน 2: Aroi Foods — ERP 4 modules" [ref=e474]': ·
+            - 'tab "ไปยังผลงาน 3: Krungthep Anniv. Live Draw" [ref=e475]': ·
+            - 'tab "ไปยังผลงาน 4: Northpoint — Lifecycle & Attribution" [ref=e476]': ·
+            - 'tab "ไปยังผลงาน 5: Indochina — Data Pipeline" [ref=e477]': ·
+            - 'tab "ไปยังผลงาน 6: Indo Corp — HR & Attendance" [ref=e478]': ·
+          - button "หยุดเลื่อนอัตโนมัติ" [ref=e479]: ⏸ PAUSE
+        - paragraph [ref=e480]: TIP · ใช้คีย์บอร์ด ← → เพื่อเปลี่ยน slide
+    - generic [ref=e482]:
+      - generic [ref=e483]:
+        - generic [ref=e484]:
+          - generic [ref=e485]: HOW WE WORK · 04 STEPS
+          - heading "วิธีการทำงาน ที่ผู้ประกอบการสบายใจ" [level=2] [ref=e486]:
+            - text: วิธีการทำงาน
+            - text: ที่ผู้ประกอบการสบายใจ
+        - paragraph [ref=e487]: ขั้นตอนที่ชัดเจน วัดผลได้ ทุกสัปดาห์มี Demo ทุก phase มีเอกสารยืนยัน — คุณรู้สถานะโครงการตลอดเวลา ไม่ต้องตามถามว่าถึงไหนแล้ว
+      - generic [ref=e488]:
+        - generic [ref=e489]:
+          - generic [ref=e490]: "01"
+          - heading "DISCOVERY" [level=4] [ref=e491]
+          - paragraph [ref=e492]: คุยโจทย์ ทำความเข้าใจธุรกิจ ระบุเป้าหมาย KPI และทรัพยากรที่มี — ฟรี ไม่มัดจำ
+          - generic [ref=e493]: 1–2 สัปดาห์
+        - generic [ref=e495]:
+          - generic [ref=e496]: "02"
+          - heading "BLUEPRINT" [level=4] [ref=e497]
+          - paragraph [ref=e498]: ออกแบบสถาปัตยกรรม Wireframe และ Quote ราคาเป็นลายลักษณ์อักษร — ไม่บานปลาย
+          - generic [ref=e499]: 1 สัปดาห์
+        - generic [ref=e501]:
+          - generic [ref=e502]: "03"
+          - heading "BUILD" [level=4] [ref=e503]
+          - paragraph [ref=e504]: พัฒนาเป็น Sprint 2 สัปดาห์ มี Demo ทุกศุกร์ ปรับได้ตลอด — โปร่งใสด้วย Project Board
+          - generic [ref=e505]: 4–16 สัปดาห์
+        - generic [ref=e507]:
+          - generic [ref=e508]: "04"
+          - heading "HANDOFF" [level=4] [ref=e509]
+          - paragraph [ref=e510]: ส่งมอบพร้อม Runbook · เทรนนิ่ง · 30 วันแรก Hypercare — ดูแลต่อเป็นรายเดือน
+          - generic [ref=e511]: + 4 สัปดาห์
+    - generic [ref=e513]:
+      - generic [ref=e514]:
+        - generic [ref=e515]:
+          - generic [ref=e516]: WHY US · 04 REASONS
+          - heading "ทำไมผู้ประกอบการ เลือกเรา" [level=2] [ref=e517]:
+            - text: ทำไมผู้ประกอบการ
+            - text: เลือกเรา
+        - paragraph [ref=e518]: เราไม่ใช่แค่บริษัทรับงาน — เราเป็นพาร์ทเนอร์ระยะยาว ที่อยู่กับลูกค้าตั้งแต่ Day 1 ไปจนถึงปีที่ 5 ของระบบ
+      - generic [ref=e519]:
+        - generic [ref=e520]:
+          - generic [ref=e521]:
+            - img [ref=e523]
+            - generic [ref=e529]:
+              - heading "คุยภาษาคนทำธุรกิจ" [level=4] [ref=e530]
+              - paragraph [ref=e531]: เราอธิบายเรื่องเทคนิคเป็นภาษาที่ผู้บริหารเข้าใจ ไม่ใช้ศัพท์ไอทีให้สับสน — ตัดสินใจจาก ROI จริง
+          - generic [ref=e532]:
+            - img [ref=e534]
+            - generic [ref=e541]:
+              - heading "ราคาชัด ไม่บานปลาย" [level=4] [ref=e542]
+              - paragraph [ref=e543]: Quote เป็นลายลักษณ์อักษร แตกค่าใช้จ่ายให้เห็นทุกบรรทัด ทำเกินสโคปแจ้งล่วงหน้าเสมอ
+          - generic [ref=e544]:
+            - img [ref=e546]
+            - generic [ref=e551]:
+              - heading "ส่งของตรงเวลา 100%" [level=4] [ref=e552]
+              - paragraph [ref=e553]: 120+ โปรเจกต์ที่ผ่านมา ส่งมอบตรงตามแผน ไม่เคยทิ้งงาน — มี SLA เป็นลายลักษณ์อักษร
+          - generic [ref=e554]:
+            - img [ref=e556]
+            - generic [ref=e563]:
+              - heading "ดูแลหลังส่งมอบจริง" [level=4] [ref=e564]
+              - paragraph [ref=e565]: ทุกระบบมี 30 วัน Hypercare ฟรี ต่อด้วย MA รายเดือน — รับสายตอบ LINE ภายใน 1 ชั่วโมง
+        - complementary [ref=e566]:
+          - generic [ref=e567]:
+            - generic [ref=e572]: PROJECT_LOG.TXT
+            - generic [ref=e573]: LIVE
+          - generic [ref=e574]:
+            - generic [ref=e575]:
+              - generic [ref=e576]: 2569-05-04 09:14
+              - generic [ref=e577]: ✔
+              - generic [ref=e578]: sprint-12 demo · client approved
+            - generic [ref=e579]:
+              - generic [ref=e580]: 2569-05-03 16:42
+              - generic [ref=e581]: ✔
+              - generic [ref=e582]: deploy prod · v2.4.1
+            - generic [ref=e583]:
+              - generic [ref=e584]: 2569-05-03 11:08
+              - generic [ref=e585]: ✔
+              - generic [ref=e586]: 142/142 tests passing
+            - generic [ref=e587]:
+              - generic [ref=e588]: 2569-05-02 18:30
+              - generic [ref=e589]: "!"
+              - generic [ref=e590]: P95 latency · 142ms (target 200ms)
+            - generic [ref=e591]:
+              - generic [ref=e592]: 2569-05-02 10:15
+              - generic [ref=e593]: ✔
+              - generic [ref=e594]: handoff Aroi Foods · MA active
+            - generic [ref=e595]:
+              - generic [ref=e596]: 2569-05-01 14:00
+              - generic [ref=e597]: ✔
+              - generic [ref=e598]: Lucky Draw · 248,000 entries
+            - generic [ref=e599]:
+              - generic [ref=e600]: 2569-04-30 22:11
+              - generic [ref=e601]: ✔
+              - generic [ref=e602]: uptime · 99.97%
+            - generic [ref=e603]:
+              - generic [ref=e604]: ">"
+              - generic [ref=e605]: 4 active projects · 0 missed deadlines
+    - generic [ref=e608]:
+      - generic [ref=e609]:
+        - generic [ref=e610]:
+          - generic [ref=e611]: FAQ · 05
+          - heading "คำถามที่ผู้ประกอบการ มักถามก่อนเริ่ม" [level=2] [ref=e612]:
+            - text: คำถามที่ผู้ประกอบการ
+            - text: มักถามก่อนเริ่ม
+        - paragraph [ref=e613]: คำตอบครบ ไม่อ้อม — ถ้ามีคำถามอื่นทักผ่าน LINE ได้ตลอดเวลาทำการ
+      - generic [ref=e614]:
+        - group [ref=e615]:
+          - generic "Q.01 เริ่มต้นโปรเจกต์ต้องเตรียมอะไรบ้าง?" [ref=e616] [cursor=pointer]:
+            - generic [ref=e617]:
+              - generic [ref=e618]: Q.01
+              - generic [ref=e619]: เริ่มต้นโปรเจกต์ต้องเตรียมอะไรบ้าง?
+            - generic [ref=e620]: +
+          - generic [ref=e621]: เตรียมแค่โจทย์ที่อยากได้ และนัดประชุม 1 ชม.แรก — เราจะช่วยร่าง Scope, ทำ Wireframe และส่ง Quote เป็นลายลักษณ์อักษรให้ครบถ้วน ขั้นตอนนี้ฟรี ไม่มีค่ามัดจำ
+        - group [ref=e622]:
+          - generic "Q.02 ราคาเริ่มต้นเท่าไหร่ และคิดอย่างไร?" [ref=e623] [cursor=pointer]:
+            - generic [ref=e624]:
+              - generic [ref=e625]: Q.02
+              - generic [ref=e626]: ราคาเริ่มต้นเท่าไหร่ และคิดอย่างไร?
+            - generic [ref=e627]: +
+        - group [ref=e628]:
+          - generic "Q.03 ระบบเสร็จแล้ว ใครดูแลต่อ?" [ref=e629] [cursor=pointer]:
+            - generic [ref=e630]:
+              - generic [ref=e631]: Q.03
+              - generic [ref=e632]: ระบบเสร็จแล้ว ใครดูแลต่อ?
+            - generic [ref=e633]: +
+        - group [ref=e634]:
+          - generic "Q.04 สามารถปรับปรุงระบบเดิมได้หรือไม่?" [ref=e635] [cursor=pointer]:
+            - generic [ref=e636]:
+              - generic [ref=e637]: Q.04
+              - generic [ref=e638]: สามารถปรับปรุงระบบเดิมได้หรือไม่?
+            - generic [ref=e639]: +
+        - group [ref=e640]:
+          - generic "Q.05 เก็บข้อมูลลูกค้าปลอดภัยแค่ไหน?" [ref=e641] [cursor=pointer]:
+            - generic [ref=e642]:
+              - generic [ref=e643]: Q.05
+              - generic [ref=e644]: เก็บข้อมูลลูกค้าปลอดภัยแค่ไหน?
+            - generic [ref=e645]: +
+    - generic [ref=e648]:
+      - generic [ref=e649]: PRESS START
+      - heading "พร้อมเริ่มโปรเจกต์ของคุณ? คุยฟรี 30 นาที ไม่มีค่าใช้จ่าย" [level=2] [ref=e650]:
+        - text: พร้อมเริ่มโปรเจกต์ของคุณ?
+        - text: คุยฟรี 30 นาที ไม่มีค่าใช้จ่าย
+      - paragraph [ref=e651]: เล่าโจทย์ของคุณให้ฟัง เราจะตอบกลับด้วย Scope, ราคาเบื้องต้น และไอเดียสถาปัตยกรรม — เป็นลายลักษณ์อักษร ภายใน 1 วันทำการ
+      - generic [ref=e652]:
+        - link "ขอใบเสนอราคา" [ref=e653] [cursor=pointer]:
+          - /url: "#contact"
+          - text: ขอใบเสนอราคา
+          - img [ref=e654]
+        - link "คุยผ่าน LINE @rubkiancode" [ref=e659] [cursor=pointer]:
+          - /url: https://lin.ee/py7hRoKC
+    - generic [ref=e661]:
+      - generic [ref=e662]:
+        - generic [ref=e663]:
+          - generic [ref=e664]: CONTACT · INSERT_COIN
+          - heading "ติดต่อทีมงาน พร้อมรับฟังคุณ" [level=2] [ref=e665]:
+            - text: ติดต่อทีมงาน
+            - text: พร้อมรับฟังคุณ
+        - paragraph [ref=e666]: เลือกช่องทางที่สะดวกที่สุด — LINE Official ตอบไวสุดในเวลาทำการ ส่งฟอร์มแล้วเราติดต่อกลับภายใน 24 ชม.
+      - generic [ref=e667]:
+        - generic [ref=e668]:
+          - link "LINE OFFICIAL @rubkiancode ตอบกลับภายใน 1 ชม. (เวลาทำการ)" [ref=e669] [cursor=pointer]:
+            - /url: https://lin.ee/py7hRoKC
+            - img [ref=e671]
+            - generic [ref=e674]:
+              - generic [ref=e675]: LINE OFFICIAL
+              - generic [ref=e676]: "@rubkiancode"
+              - generic [ref=e677]: ตอบกลับภายใน 1 ชม. (เวลาทำการ)
+          - link "โทรศัพท์ 063-594-4429 จันทร์–ศุกร์ · 10:00–19:00 น." [ref=e678] [cursor=pointer]:
+            - /url: tel:0635944429
+            - img [ref=e680]
+            - generic [ref=e687]:
+              - generic [ref=e688]: โทรศัพท์
+              - generic [ref=e689]: 063-594-4429
+              - generic [ref=e690]: จันทร์–ศุกร์ · 10:00–19:00 น.
+          - link "อีเมล rubkiancode@gmail.com ตอบกลับภายใน 24 ชม." [ref=e691] [cursor=pointer]:
+            - /url: mailto:rubkiancode@gmail.com
+            - img [ref=e693]
+            - generic [ref=e698]:
+              - generic [ref=e699]: อีเมล
+              - generic [ref=e700]: rubkiancode@gmail.com
+              - generic [ref=e701]: ตอบกลับภายใน 24 ชม.
+          - link "ที่อยู่ออฟฟิศ กรุงเทพมหานคร รับงานทั่วประเทศไทย" [ref=e702] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e704]
+            - generic [ref=e709]:
+              - generic [ref=e710]: ที่อยู่ออฟฟิศ
+              - generic [ref=e711]: กรุงเทพมหานคร
+              - generic [ref=e712]: รับงานทั่วประเทศไทย
+        - generic [ref=e713]:
+          - generic [ref=e714]:
+            - generic [ref=e719]: CONTACT_FORM.EXE
+            - generic [ref=e720]: ONLINE
+          - generic [ref=e721]:
+            - heading "ส่งโจทย์มาให้เรา" [level=3] [ref=e722]
+            - paragraph [ref=e723]: กรอกข้อมูล ทีมงานจะติดต่อกลับพร้อม Scope & Quote เบื้องต้น ภายใน 1 วันทำการ
+            - generic [ref=e724]:
+              - generic [ref=e725]:
+                - generic [ref=e726]:
+                  - generic [ref=e727]: ชื่อ–นามสกุล*
+                  - textbox "ชื่อ–นามสกุล*" [ref=e728]:
+                    - /placeholder: สมชาย ใจดี
+                - generic [ref=e729]:
+                  - generic [ref=e730]: บริษัท
+                  - textbox "บริษัท" [ref=e731]:
+                    - /placeholder: ABC Co., Ltd.
+              - generic [ref=e732]:
+                - generic [ref=e733]:
+                  - generic [ref=e734]: อีเมล*
+                  - textbox "อีเมล*" [ref=e735]:
+                    - /placeholder: you@example.com
+                - generic [ref=e736]:
+                  - generic [ref=e737]: เบอร์โทร
+                  - textbox "เบอร์โทร" [ref=e738]:
+                    - /placeholder: 08x-xxx-xxxx
+              - generic [ref=e739]:
+                - generic [ref=e740]: บริการที่สนใจ
+                - combobox "บริการที่สนใจ" [ref=e741]:
+                  - option "ระบบการตลาด · Marketing System" [selected]
+                  - option "ระบบภายในออฟฟิศ · Office ERP"
+                  - option "ระบบ Lucky Draw สำหรับ Event"
+                  - option "Custom Software อื่น ๆ"
+                  - option "ขอคำปรึกษา · IT Consulting"
+              - generic [ref=e742]:
+                - generic [ref=e743]: รายละเอียดโปรเจกต์
+                - textbox "รายละเอียดโปรเจกต์" [ref=e744]:
+                  - /placeholder: เล่าเป้าหมาย ขนาดทีม งบประมาณคร่าว ๆ และระยะเวลาที่อยากเสร็จ
+              - button "▶ ส่งข้อความเลย" [ref=e745]
+    - generic [ref=e747]:
+      - generic [ref=e748]:
+        - generic [ref=e749]:
+          - link "RubKianCode หน้าแรก" [ref=e750] [cursor=pointer]:
+            - /url: "#top"
+            - img [ref=e752]
+            - generic [ref=e761]:
+              - generic [ref=e762]: rubkiancode
+              - generic [ref=e763]: "> software_studio.exe"
+          - paragraph [ref=e764]: บริษัทรับเขียนโปรแกรมครบวงจร สำหรับผู้ประกอบการไทย — ผลิต จำหน่าย ให้คำปรึกษา การเช่าซอฟต์แวร์ที่ขึ้นชื่อจากเรา
+          - generic [ref=e765]: ระบบออนไลน์ 24/7
+        - generic [ref=e767]:
+          - heading "บริการ" [level=6] [ref=e768]
+          - list [ref=e769]:
+            - listitem [ref=e770]:
+              - link "ระบบการตลาด" [ref=e771] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e772]:
+              - link "Office ERP" [ref=e773] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e774]:
+              - link "Lucky Draw System" [ref=e775] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e776]:
+              - link "Custom Software" [ref=e777] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e778]:
+              - link "Web & E-commerce" [ref=e779] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e780]:
+              - link "IT Consulting" [ref=e781] [cursor=pointer]:
+                - /url: "#services"
+        - generic [ref=e782]:
+          - heading "เกี่ยวกับเรา" [level=6] [ref=e783]
+          - list [ref=e784]:
+            - listitem [ref=e785]:
+              - link "ผลงาน" [ref=e786] [cursor=pointer]:
+                - /url: "#portfolio"
+            - listitem [ref=e787]:
+              - link "วิธีการทำงาน" [ref=e788] [cursor=pointer]:
+                - /url: "#process"
+            - listitem [ref=e789]:
+              - link "ทำไมต้องเรา" [ref=e790] [cursor=pointer]:
+                - /url: "#why"
+            - listitem [ref=e791]:
+              - link "ติดต่อ" [ref=e792] [cursor=pointer]:
+                - /url: "#contact"
+        - generic [ref=e793]:
+          - heading "ติดต่อ" [level=6] [ref=e794]
+          - list [ref=e795]:
+            - listitem [ref=e796]:
+              - link "rubkiancode@gmail.com" [ref=e797] [cursor=pointer]:
+                - /url: mailto:rubkiancode@gmail.com
+            - listitem [ref=e798]:
+              - link "063-594-4429" [ref=e799] [cursor=pointer]:
+                - /url: tel:0635944429
+            - listitem [ref=e800]:
+              - link "@rubkiancode" [ref=e801] [cursor=pointer]:
+                - /url: https://lin.ee/py7hRoKC
+            - listitem [ref=e802]:
+              - link "กรุงเทพมหานคร" [ref=e803] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e804]:
+        - generic [ref=e805]: © 2026 RubKianCode Co., Ltd. — รับเขียนโปรแกรมครบวงจร · สงวนลิขสิทธิ์
+        - generic [ref=e806]:
+          - link "Privacy Policy" [ref=e807] [cursor=pointer]:
+            - /url: "#"
+          - link "Terms of Service" [ref=e808] [cursor=pointer]:
+            - /url: "#"
+          - link "PDPA" [ref=e809] [cursor=pointer]:
+            - /url: "#"
+  - button "Open Next.js Dev Tools" [ref=e815] [cursor=pointer]:
+    - img [ref=e816]
