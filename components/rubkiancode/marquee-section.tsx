@@ -1,5 +1,13 @@
-// แถบข้อความวิ่งระหว่าง Hero กับ KeyServices
-// ตั้ง animation duration ที่ .rk-marquee-track ใน globals.css (ค่าเริ่มต้น 32s)
+// แถบข้อความวิ่ง — บรรทัดเดียว loop ไม่มีช่องว่าง
+//
+// Trick การทำให้ loop เนียน:
+//   1. ทำซ้ำ ITEMS 2 รอบ (translateX(-50%) จะวกมาเริ่มที่จุดเดียวกันพอดี)
+//   2. label กับ ★ เป็น flex child แยกกัน → ใช้ flex gap คุมระยะให้สม่ำเสมอ
+//      (ไม่ใช้ margin ผสม mx-3/mx-6 ที่ทำให้ rhythm เพี้ยน)
+//
+// ปรับความเร็ว: animation duration ที่ .rk-marquee-track ใน globals.css
+
+import { Fragment } from "react"
 
 const ITEMS = [
   "ระบบการตลาด",
@@ -13,23 +21,21 @@ const ITEMS = [
 ] as const
 
 export function MarqueeSection() {
-  // ทำซ้ำ 2 ชุดเพื่อให้ scroll วนได้เนียนตอน loop
   const loop = [...ITEMS, ...ITEMS]
 
   return (
     <div
+      className="rk-marquee-viewport border-y-[3px] border-[#0A2540] bg-[#0A2540]"
       aria-hidden="true"
-      className="overflow-hidden border-y-[3px] border-[#0A2540] bg-[#0A2540] py-4"
     >
-      <div className="rk-marquee-track">
-        {loop.map((item, i) => (
-          <span
-            key={`${item}-${i}`}
-            className="font-pixel mx-8 inline-block text-sm uppercase tracking-widest text-[#F1C40F]"
-          >
-            {item}
-            <span className="ml-8 text-[#E63946]">★</span>
-          </span>
+      <div className="rk-marquee-track py-4">
+        {loop.map((label, i) => (
+          <Fragment key={i}>
+            <span className="font-pixel text-xs uppercase tracking-[0.2em] text-[#F1C40F] sm:text-sm">
+              {label}
+            </span>
+            <span className="font-pixel text-base text-[#E63946]">★</span>
+          </Fragment>
         ))}
       </div>
     </div>

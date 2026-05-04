@@ -417,13 +417,39 @@
   animation: rk-caret-blink 1s steps(1) infinite;
 }
 
-/* Marquee วนไม่หยุด */
+/* Marquee วนไม่หยุด — ทั้ง track ต้องเป็นบรรทัดเดียวเสมอ
+   เคล็ดลับ: width: max-content บังคับให้ขยายตามเนื้อหา ไม่ใช่ container
+   ปรับความเร็วได้ที่ animation duration (ค่ายิ่งสูง = ยิ่งช้า) */
 @keyframes rk-marquee-scroll {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+.rk-marquee-viewport {
+  overflow: hidden;
+  /* fade edges ซ้าย/ขวา ให้ดู smooth ตอนวิ่งเข้า–ออก */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+}
 .rk-marquee-track {
-  display: inline-flex;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  /* gap คุมระยะระหว่างทุก child เท่ากันหมด → loop เนียนไม่มีช่องว่าง */
+  gap: 2.5rem;
+  animation: rk-marquee-scroll 45s linear infinite;
+  will-change: transform;
+}
+.rk-marquee-viewport:hover .rk-marquee-track {
+  animation-play-state: paused;
+}
+.rk-marquee-track > * {
+  flex-shrink: 0;
   white-space: nowrap;
-  animation: rk-marquee-scroll 32s linear infinite;
+}
+
+/* Pop animation — ใช้กับตัวเลขใน arcade console ตอนสลับระบบ */
+@keyframes rk-pop {
+  0%   { transform: scale(0.85); opacity: 0; }
+  60%  { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1);    opacity: 1; }
 }

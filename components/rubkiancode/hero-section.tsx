@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
 import { ArrowIcon } from "./icons"
 
 const STATS = [
@@ -95,7 +98,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* คอลัมน์ขวา — Mockup arcade console */}
+        {/* คอลัมน์ขวา — Mockup arcade console (interactive) */}
         <div className="relative">
           <ArcadeConsole />
           <span
@@ -117,20 +120,144 @@ export function HeroSection() {
 }
 
 /* ==========================================================
-   ARCADE CONSOLE — กล่องโชว์ระบบที่ทำได้ พร้อม progress bar
+   ARCADE CONSOLE — interactive
+   - คลิก tile เพื่อสลับระบบ → bars / stats / terminal เปลี่ยนตาม
+   - Terminal พิมพ์โค้ดทีละอักษร (typewriter) ของระบบที่เลือก
+   - Online indicator pulse / bars animate smooth
    ========================================================== */
+
+type SystemKey = "marketing" | "erp" | "lucky"
+
+type SystemSpec = {
+  label: string
+  pts: string
+  color: string
+  build: number
+  qa: number
+  uptime: string
+  sla: string
+  deployed: string
+  code: string[]
+  icon: React.ReactNode
+}
+
+const SYSTEMS: Record<SystemKey, SystemSpec> = {
+  marketing: {
+    label: "MARKETING",
+    pts: "+200% ROI",
+    color: "#E63946",
+    build: 92,
+    qa: 88,
+    uptime: "99.97%",
+    sla: "24/7",
+    deployed: "2026",
+    code: [
+      "$ next build && deploy",
+      "✓ tracking.ts compiled",
+      "✓ /api/conversion · 142ms",
+      "→ ROAS 8.4x · live",
+    ],
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
+        <g fill="#E63946">
+          <rect x="2" y="10" width="2" height="4" />
+          <rect x="5" y="7" width="2" height="7" />
+          <rect x="8" y="4" width="2" height="10" />
+          <rect x="11" y="2" width="2" height="12" />
+        </g>
+        <rect x="13" y="2" width="1" height="1" fill="#F1C40F" />
+      </svg>
+    ),
+  },
+  erp: {
+    label: "OFFICE ERP",
+    pts: "SAVE 40 HRS",
+    color: "#3498DB",
+    build: 87,
+    qa: 82,
+    uptime: "99.95%",
+    sla: "24/7",
+    deployed: "2026",
+    code: [
+      "$ prisma migrate deploy",
+      "✓ schema synced · 14 tables",
+      "✓ payroll batch · 240/240",
+      "→ slack notify · finance@",
+    ],
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
+        <g fill="#3498DB">
+          <rect x="2" y="2" width="12" height="2" />
+          <rect x="2" y="6" width="12" height="2" />
+          <rect x="2" y="10" width="12" height="2" />
+        </g>
+        <g fill="#F1C40F">
+          <rect x="3" y="3" width="1" height="1" />
+          <rect x="3" y="7" width="1" height="1" />
+          <rect x="3" y="11" width="1" height="1" />
+        </g>
+      </svg>
+    ),
+  },
+  lucky: {
+    label: "LUCKY DRAW",
+    pts: "250K ENTRIES",
+    color: "#F1C40F",
+    build: 95,
+    qa: 100,
+    uptime: "100.0%",
+    sla: "EVENT",
+    deployed: "2026",
+    code: [
+      "$ pnpm test:rng --iters=10k",
+      "✓ χ²=4.2 · uniform pass",
+      "✓ entries · 248,392",
+      "→ winner · TH-04829-2569",
+    ],
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
+        <g fill="#F1C40F">
+          <rect x="6" y="2" width="4" height="2" />
+          <rect x="4" y="4" width="8" height="2" />
+          <rect x="2" y="6" width="12" height="6" />
+          <rect x="6" y="12" width="4" height="2" />
+        </g>
+        <g fill="#0A2540">
+          <rect x="6" y="8" width="4" height="2" />
+        </g>
+      </svg>
+    ),
+  },
+}
+
+const SYSTEM_KEYS = Object.keys(SYSTEMS) as SystemKey[]
+
 function ArcadeConsole() {
+  const [active, setActive] = useState<SystemKey>("marketing")
+  const sys = SYSTEMS[active]
+
   return (
-    <div className="bg-[#0A2540]" style={{ border: "3px solid #0A2540", boxShadow: "8px 8px 0 #E63946" }}>
-      {/* Title bar */}
+    <div
+      className="bg-[#0A2540]"
+      style={{ border: "3px solid #0A2540", boxShadow: "8px 8px 0 #E63946" }}
+    >
+      {/* Title bar — พร้อม pulsing online dot */}
       <div className="flex items-center justify-between gap-3 bg-[#F1C40F] px-3 py-2">
         <span className="flex gap-1.5">
           <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
           <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
           <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
         </span>
-        <span className="font-pixel text-[9px] uppercase text-[#0A2540]">RUBKIAN_CONSOLE.EXE</span>
-        <span className="font-pixel text-[9px] uppercase text-[#0A2540]">ONLINE</span>
+        <span className="font-pixel text-[9px] uppercase text-[#0A2540]">
+          RUBKIAN_CONSOLE.EXE
+        </span>
+        <span className="font-pixel inline-flex items-center gap-1.5 text-[9px] uppercase text-[#0A2540]">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+          </span>
+          ONLINE
+        </span>
       </div>
 
       <div className="space-y-4 bg-[#F4EDE0] p-4 sm:p-6">
@@ -140,90 +267,79 @@ function ArcadeConsole() {
           <span className="font-pixel text-xs uppercase text-[#E63946]">P1 READY</span>
         </div>
 
-        {/* Tile grid */}
+        {/* Tiles — interactive */}
         <div className="grid grid-cols-3 gap-3">
-          <ArcadeTile color="#E63946" label="MARKETING" pts="+200% ROI">
-            <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
-              <g fill="#E63946">
-                <rect x="2" y="10" width="2" height="4" />
-                <rect x="5" y="7" width="2" height="7" />
-                <rect x="8" y="4" width="2" height="10" />
-                <rect x="11" y="2" width="2" height="12" />
-              </g>
-              <rect x="13" y="2" width="1" height="1" fill="#F1C40F" />
-            </svg>
-          </ArcadeTile>
-          <ArcadeTile color="#3498DB" label="OFFICE ERP" pts="SAVE 40 HRS">
-            <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
-              <g fill="#3498DB">
-                <rect x="2" y="2" width="12" height="2" />
-                <rect x="2" y="6" width="12" height="2" />
-                <rect x="2" y="10" width="12" height="2" />
-              </g>
-              <g fill="#F1C40F">
-                <rect x="3" y="3" width="1" height="1" />
-                <rect x="3" y="7" width="1" height="1" />
-                <rect x="3" y="11" width="1" height="1" />
-              </g>
-            </svg>
-          </ArcadeTile>
-          <ArcadeTile color="#F1C40F" label="LUCKY DRAW" pts="250K ENTRIES">
-            <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8" fill="none">
-              <g fill="#F1C40F">
-                <rect x="6" y="2" width="4" height="2" />
-                <rect x="4" y="4" width="8" height="2" />
-                <rect x="2" y="6" width="12" height="6" />
-                <rect x="6" y="12" width="4" height="2" />
-              </g>
-              <g fill="#0A2540">
-                <rect x="6" y="8" width="4" height="2" />
-              </g>
-            </svg>
-          </ArcadeTile>
+          {SYSTEM_KEYS.map((key) => (
+            <ArcadeTile
+              key={key}
+              spec={SYSTEMS[key]}
+              isActive={active === key}
+              onSelect={() => setActive(key)}
+            />
+          ))}
         </div>
 
-        {/* Stat row */}
+        {/* Stat row — เปลี่ยนตาม active system */}
         <div
-          className="flex items-center justify-between gap-2 bg-white p-3 text-center text-xs"
+          className="flex items-center justify-between gap-2 bg-white p-3 text-center text-xs transition-colors"
           style={{ border: "2px solid #0A2540" }}
         >
-          <ArcadeStat k="UPTIME" v="99.97%" tone="green" />
-          <ArcadeStat k="SLA" v="24/7" />
-          <ArcadeStat k="DEPLOYED" v="2026" tone="red" />
+          <ArcadeStat k="UPTIME" v={sys.uptime} tone="green" />
+          <ArcadeStat k="SLA" v={sys.sla} />
+          <ArcadeStat k="DEPLOYED" v={sys.deployed} tone="red" />
         </div>
 
-        {/* Build / QA progress */}
+        {/* Build / QA progress — animate width transition */}
         <div className="space-y-2">
-          <ProgressRow label="BUILD PROGRESS" value="87%" pct={87} fill="#2ECC71" />
-          <ProgressRow label="QA COVERAGE" value="82%" pct={82} fill="#F1C40F" />
+          <ProgressRow label="BUILD PROGRESS" pct={sys.build} fill={sys.color} />
+          <ProgressRow label="QA COVERAGE" pct={sys.qa} fill={sys.color} />
         </div>
+
+        {/* Mini terminal — typewriter effect ของระบบที่เลือก */}
+        <Terminal active={active} accent={sys.color} />
       </div>
     </div>
   )
 }
 
+/* ============== Tile แบบกดได้ ============== */
 function ArcadeTile({
-  color,
-  label,
-  pts,
-  children,
+  spec,
+  isActive,
+  onSelect,
 }: {
-  color: string
-  label: string
-  pts: string
-  children: React.ReactNode
+  spec: SystemSpec
+  isActive: boolean
+  onSelect: () => void
 }) {
   return (
-    <div
-      className="flex flex-col items-center gap-1.5 bg-white p-2 text-center transition-transform hover:-translate-y-0.5"
-      style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 " + color }}
+    <button
+      type="button"
+      onClick={onSelect}
+      aria-pressed={isActive}
+      className={`group flex flex-col items-center gap-1.5 p-2 text-center transition-all duration-200 ${
+        isActive ? "-translate-y-1" : "hover:-translate-y-0.5"
+      }`}
+      style={{
+        background: isActive ? spec.color : "white",
+        border: "2px solid #0A2540",
+        boxShadow: isActive ? `5px 5px 0 #0A2540` : `3px 3px 0 ${spec.color}`,
+      }}
     >
-      <span>{children}</span>
-      <span className="font-pixel text-[9px] uppercase text-[#0A2540]">{label}</span>
-      <span className="font-pixel text-[8px] uppercase" style={{ color }}>
-        {pts}
+      <span>{spec.icon}</span>
+      <span
+        className="font-pixel text-[9px] uppercase"
+        style={{ color: isActive ? "#0A2540" : "#0A2540" }}
+      >
+        {spec.label}
       </span>
-    </div>
+      <span
+        className="font-pixel text-[8px] uppercase"
+        style={{ color: isActive ? "#0A2540" : spec.color }}
+      >
+        {spec.pts}
+      </span>
+    </button>
   )
 }
 
@@ -232,21 +348,24 @@ function ArcadeStat({ k, v, tone }: { k: string; v: string; tone?: "green" | "re
   return (
     <div className="flex flex-col">
       <span className="font-pixel text-[9px] uppercase text-[#0A2540]/60">{k}</span>
-      <span className="font-pixel text-sm font-black" style={{ color: valColor }}>
+      <span
+        key={v}
+        className="font-pixel animate-[rk-pop_0.3s_ease-out] text-sm font-black"
+        style={{ color: valColor }}
+      >
         {v}
       </span>
     </div>
   )
 }
 
+/* ============== Progress bar — animate width on change ============== */
 function ProgressRow({
   label,
-  value,
   pct,
   fill,
 }: {
   label: string
-  value: string
   pct: number
   fill: string
 }) {
@@ -254,11 +373,119 @@ function ProgressRow({
     <div>
       <div className="flex items-center justify-between text-xs">
         <span className="font-pixel text-[9px] uppercase text-[#0A2540]/70">{label}</span>
-        <span className="font-pixel text-[10px] text-[#0A2540]">{value}</span>
+        <span className="font-pixel text-[10px] text-[#0A2540]">{pct}%</span>
       </div>
       <div className="mt-1 h-3 w-full bg-white" style={{ border: "2px solid #0A2540" }}>
-        <span className="block h-full" style={{ width: `${pct}%`, background: fill }} />
+        <span
+          className="block h-full transition-[width,background] duration-700 ease-out"
+          style={{ width: `${pct}%`, background: fill }}
+        />
       </div>
     </div>
   )
+}
+
+/* ============== Mini terminal — typewriter ============== */
+function Terminal({ active, accent }: { active: SystemKey; accent: string }) {
+  const code = SYSTEMS[active].code
+  const [doneLines, setDoneLines] = useState<string[]>([])
+  const [current, setCurrent] = useState("")
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    setDoneLines([])
+    setCurrent("")
+
+    let lineIdx = 0
+    let charIdx = 0
+    let cancelled = false
+
+    const tick = () => {
+      if (cancelled) return
+      if (lineIdx >= code.length) return
+
+      const line = code[lineIdx]
+      if (charIdx < line.length) {
+        charIdx++
+        setCurrent(line.slice(0, charIdx))
+        // jitter เล็กน้อยให้ดูเหมือนคนพิมพ์
+        timerRef.current = setTimeout(tick, 22 + Math.random() * 28)
+      } else {
+        // ปิดบรรทัดนี้แล้วขึ้นบรรทัดใหม่
+        setDoneLines((prev) => [...prev, line])
+        setCurrent("")
+        lineIdx++
+        charIdx = 0
+        timerRef.current = setTimeout(tick, 280)
+      }
+    }
+
+    timerRef.current = setTimeout(tick, 200)
+
+    return () => {
+      cancelled = true
+      if (timerRef.current) clearTimeout(timerRef.current)
+    }
+  }, [active, code])
+
+  return (
+    <div
+      className="overflow-hidden bg-[#0A2540]"
+      style={{ border: "2px solid #0A2540" }}
+    >
+      <div className="flex items-center justify-between border-b border-[#F4EDE0]/15 px-3 py-1.5">
+        <span className="font-pixel text-[9px] uppercase text-[#F1C40F]">
+          CODE_PREVIEW.LOG
+        </span>
+        <span
+          className="font-pixel text-[9px] uppercase"
+          style={{ color: accent }}
+        >
+          ▶ LIVE
+        </span>
+      </div>
+      <div className="font-pixelify min-h-26 space-y-0.5 px-3 py-2 text-sm leading-snug text-[#F4EDE0] sm:text-base">
+        {doneLines.map((line, i) => (
+          <div key={i} className="flex gap-1">
+            <CodeLine line={line} accent={accent} />
+          </div>
+        ))}
+        {current && (
+          <div className="flex items-center gap-1">
+            <CodeLine line={current} accent={accent} />
+            <span className="rk-caret" style={{ background: accent }} />
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+/* ใส่สีให้ symbol ($, ✓, →) ตาม convention เทอร์มินัล */
+function CodeLine({ line, accent }: { line: string; accent: string }) {
+  if (line.startsWith("$")) {
+    return (
+      <span>
+        <span style={{ color: accent }}>$</span>
+        {line.slice(1)}
+      </span>
+    )
+  }
+  if (line.startsWith("✓")) {
+    return (
+      <span>
+        <span style={{ color: "#2ECC71" }}>✓</span>
+        {line.slice(1)}
+      </span>
+    )
+  }
+  if (line.startsWith("→")) {
+    return (
+      <span>
+        <span style={{ color: "#F1C40F" }}>→</span>
+        {line.slice(1)}
+      </span>
+    )
+  }
+  return <span>{line}</span>
 }
