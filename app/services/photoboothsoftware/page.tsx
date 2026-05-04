@@ -31,12 +31,12 @@ export const metadata: Metadata = {
   title: "ระบบซอฟต์แวร์โฟโต้บูธ — Photobooth Software Thailand | RubKianCode",
   description:
     "บริษัท Rub Kian Code Co.,Ltd. รับผลิต ให้เช่า และปรึกษาการทำซอฟต์แวร์โฟโต้บูธ พร้อมตู้ถ่ายรูปสไตล์เกาหลี รองรับงาน Event ทุกขนาด",
-  alternates: { canonical: "/photoboothsoftware" },
+  alternates: { canonical: "/services/photoboothsoftware" },
   openGraph: {
     title: "ระบบซอฟต์แวร์โฟโต้บูธ — Photobooth Software Thailand",
     description:
       "ระบบโฟโต้บูธพร้อมซอฟต์แวร์เฉพาะทาง รองรับงาน Event ทุกขนาด พร้อมทีมงานดูแลตลอดงาน",
-    url: "/photoboothsoftware",
+    url: "/services/photoboothsoftware",
     type: "website",
   },
 }
@@ -46,7 +46,7 @@ export default function PhotoboothSoftwarePage() {
     <main className="min-h-screen bg-background">
       <Navbar
         namespace="navbar"
-        brandHref="/photoboothsoftware"
+        brandHref="/services/photoboothsoftware"
         navItems={PHOTOBOOTH_NAV_ITEMS}
       />
       <HeroSection namespace="hero" />
@@ -59,7 +59,7 @@ export default function PhotoboothSoftwarePage() {
       <Footer
         navbarNamespace="navbar"
         footerNamespace="footer"
-        brandHref="/photoboothsoftware"
+        brandHref="/services/photoboothsoftware"
         navItems={PHOTOBOOTH_NAV_ITEMS}
       />
     </main>

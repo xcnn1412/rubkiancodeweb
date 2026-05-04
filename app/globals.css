@@ -453,3 +453,39 @@
   60%  { transform: scale(1.08); opacity: 1; }
   100% { transform: scale(1);    opacity: 1; }
 }
+
+/* Slide enter — fade + zoom เล็กน้อย ตอนเปลี่ยน slide ใน Portfolio */
+@keyframes rk-slide-in {
+  0%   { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+.rk-slide-in {
+  animation: rk-slide-in 0.35s ease-out;
+}
+
+/* Twinkle — ดาวกระพริบ (ใช้กับ decorations รอบ slideshow) */
+@keyframes rk-twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.3; transform: scale(0.8); }
+}
+.rk-twinkle {
+  animation: rk-twinkle 1.6s ease-in-out infinite;
+}
+
+/* Float — ลอยขึ้น-ลงเบา ๆ (ใช้กับ ♥ และดาว) */
+@keyframes rk-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+.rk-float {
+  animation: rk-float 2.4s ease-in-out infinite;
+}
+
+/* Bounce — เด้งเล็ก ๆ (active pagination dot) */
+@keyframes rk-bounce {
+  0%, 100% { transform: translateY(0)    scale(1); }
+  50%      { transform: translateY(-3px) scale(1.15); }
+}
+.rk-bounce {
+  animation: rk-bounce 0.8s ease-in-out infinite;
+}
