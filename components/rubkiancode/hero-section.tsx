@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useMemo, useState } from "react"
 import { ArrowIcon } from "./icons"
 
 const STATS = [
@@ -141,17 +142,23 @@ export function HeroSection() {
             ★ SOFTWARE HOUSE · LV.99
           </span>
 
-          <h1 className="mt-6 text-4xl font-black uppercase leading-[1.05] text-[#0A2540] sm:text-5xl lg:text-6xl">
-            เขียนโปรแกรมทุกระบบ
+          <h1 className="mt-6 text-4xl font-black uppercase leading-[1.08] tracking-tight text-[#0A2540] sm:text-5xl lg:text-[64px] lg:leading-[1.05]">
+            รับทำซอฟต์แวร์ทุกระบบ
             <br />
-            เพื่อ<em className="not-italic text-[#E63946]">ผู้ประกอบการ</em>ไทย
+            เพื่อ
+            <span className="relative inline-block whitespace-nowrap text-[#E63946]">
+              ธุรกิจ SME ไทย
+              {/* underline accent — pixel-art yellow + navy shadow */}
+              <span
+                aria-hidden
+                className="absolute -bottom-1 left-0 right-0 h-1 bg-[#F1C40F]"
+                style={{ boxShadow: "0 2px 0 #0A2540" }}
+              />
+            </span>
           </h1>
 
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#0A2540]/80 sm:text-lg">
-            RubKianCode คือพาร์ทเนอร์ด้านซอฟต์แวร์ที่พึ่งพาได้ — รับผลิต จำหน่าย
-            และให้คำปรึกษา เน้นระบบการตลาดที่วัดผลได้ ระบบภายในออฟฟิศที่ใช้งานจริง
-            และระบบ Lucky Draw สำหรับงานอีเวนต์ ส่งมอบเสร็จ ใช้งานได้ทันที
-            <span className="rk-caret" />
+          <p className="mt-7 max-w-2xl text-lg font-medium leading-snug text-[#0A2540]/85 sm:text-xl lg:text-2xl">
+            <TypewriterText text="อัปเลเวลธุรกิจคุณ ด้วยซอฟต์แวร์ครบมือ 🎯" />
           </p>
 
           {/* Pills */}
@@ -208,6 +215,53 @@ export function HeroSection() {
 
       </div>
     </section>
+  )
+}
+
+/* ══════════════════════════════════════════════════════
+   TYPEWRITER TEXT — พิมพ์ทีละตัวอักษร + fancy cursor
+   handle Unicode (emoji surrogate pair) ด้วย Array.from
+   ══════════════════════════════════════════════════════ */
+function TypewriterText({
+  text,
+  speed = 55,
+  startDelay = 400,
+}: {
+  text: string
+  speed?: number
+  startDelay?: number
+}) {
+  const chars = useMemo(() => Array.from(text), [text])
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    let i = 0
+    let cancelled = false
+    let timer: ReturnType<typeof setTimeout> | null = null
+
+    const tick = () => {
+      if (cancelled) return
+      if (i < chars.length) {
+        i++
+        setCount(i)
+        // jitter เล็กน้อยให้รู้สึกเหมือนคนพิมพ์
+        timer = setTimeout(tick, speed + Math.random() * 45)
+      }
+    }
+
+    timer = setTimeout(tick, startDelay)
+
+    return () => {
+      cancelled = true
+      if (timer) clearTimeout(timer)
+    }
+  }, [chars, speed, startDelay])
+
+  return (
+    <>
+      {chars.slice(0, count).join("")}
+      <span className="rk-caret-fancy" aria-hidden />
+    </>
   )
 }
 
