@@ -489,3 +489,63 @@
 .rk-bounce {
   animation: rk-bounce 0.8s ease-in-out infinite;
 }
+
+/* Petal fall — กลีบซากุระร่วง 3 pattern (sway/swirl/spiral) */
+@keyframes rk-petal-fall-a {
+  0%   { transform: translate(0,    -10px) rotate(0deg);   opacity: 0;    }
+  6%   {                                                    opacity: 0.92; }
+  20%  { transform: translate(18px,  130px) rotate(55deg);                 }
+  40%  { transform: translate(-12px, 270px) rotate(120deg);                }
+  60%  { transform: translate(22px,  410px) rotate(195deg);                }
+  80%  { transform: translate(-6px,  540px) rotate(280deg);                }
+  93%  {                                                    opacity: 0.45; }
+  100% { transform: translate(12px,  650px) rotate(360deg); opacity: 0;    }
+}
+@keyframes rk-petal-fall-b {
+  0%   { transform: translate(0,    -10px) rotate(0deg);    opacity: 0;    }
+  6%   {                                                    opacity: 0.85; }
+  25%  { transform: translate(-22px, 150px) rotate(-65deg);                }
+  50%  { transform: translate(16px,  300px) rotate(-140deg);               }
+  75%  { transform: translate(-26px, 460px) rotate(-225deg);               }
+  93%  {                                                    opacity: 0.35; }
+  100% { transform: translate(0,     650px) rotate(-310deg); opacity: 0;   }
+}
+@keyframes rk-petal-fall-c {
+  0%   { transform: translate(0,    -10px) rotate(0deg);    opacity: 0;    }
+  6%   {                                                    opacity: 0.95; }
+  33%  { transform: translate(10px,  210px) rotate(130deg);                }
+  66%  { transform: translate(-14px, 430px) rotate(260deg);                }
+  93%  {                                                    opacity: 0.5;  }
+  100% { transform: translate(6px,   650px) rotate(380deg); opacity: 0;    }
+}
+.rk-petal-fall-a { animation: rk-petal-fall-a ease-in-out infinite; }
+.rk-petal-fall-b { animation: rk-petal-fall-b ease-in-out infinite; }
+.rk-petal-fall-c { animation: rk-petal-fall-c linear      infinite; }
+
+/* LED blink — ไฟกระพริบบนตู้ server (จังหวะสั้น เร็ว) */
+@keyframes rk-led-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.18; }
+}
+.rk-led-blink {
+  animation: rk-led-blink 1.4s ease-in-out infinite;
+}
+
+/* LED pulse — ไฟ pulse ช้า (สำหรับ ONLINE indicator) */
+@keyframes rk-led-pulse {
+  0%, 70%, 100% { opacity: 1; }
+  85%           { opacity: 0.35; }
+}
+.rk-led-pulse {
+  animation: rk-led-pulse 2s ease-in-out infinite;
+}
+
+/* LED flicker — สั่นไหวเหมือน activity log */
+@keyframes rk-led-flicker {
+  0%, 18%, 30%, 60%, 100% { opacity: 1; }
+  20%, 28%                { opacity: 0.2; }
+  64%                     { opacity: 0.4; }
+}
+.rk-led-flicker {
+  animation: rk-led-flicker 2.6s steps(1, end) infinite;
+}
