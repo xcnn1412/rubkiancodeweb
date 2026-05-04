@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback, memo } from "react"
 import { ChevronLeft, ChevronRight, Camera, ImageIcon } from "lucide-react"
-import { CodeBg } from "@/components/code-bg"
+import { CodeBg } from "@/components/effects/code-bg"
 import { PHOTOBOOTH_RESULTS } from "@/data/photobooth-results-media"
 import type { PhotoboothResultItem } from "@/data/photobooth-results-media"
 

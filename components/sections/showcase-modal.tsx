@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react"
 import { X, ExternalLink, Calendar, User, Activity, Cpu, Layers, ChevronDown } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useLangTypography } from "@/lib/language-context"
-import { ShowcaseMediaPlayer } from "@/components/showcase-media-player"
+import { ShowcaseMediaPlayer } from "@/components/sections/showcase-media-player"
 import { SHOWCASE_MEDIA } from "@/data/showcase-media"
 
 // ─────────────────────────────────────────────

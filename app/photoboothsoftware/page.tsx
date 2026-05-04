@@ -1,30 +1,30 @@
 import type { Metadata } from "next"
 import dynamic from "next/dynamic"
-import { Navbar } from "@/components/navbar"
-import { HeroSection } from "@/components/hero-section"
+import { Navbar } from "@/components/layout/navbar"
+import { HeroSection } from "@/components/sections/hero-section"
 import { PHOTOBOOTH_NAV_ITEMS } from "./_config/nav-items"
 
 // ── Below-the-fold sections — dynamically imported to reduce initial JS bundle ──
 const ShowcaseSection = dynamic(
-  () => import("@/components/showcase-section").then((m) => ({ default: m.ShowcaseSection }))
+  () => import("@/components/sections/showcase-section").then((m) => ({ default: m.ShowcaseSection }))
 )
 const PhotoboothResultsSection = dynamic(
-  () => import("@/components/photobooth-results-section").then((m) => ({ default: m.PhotoboothResultsSection }))
+  () => import("@/components/photobooth/photobooth-results-section").then((m) => ({ default: m.PhotoboothResultsSection }))
 )
 const ServicesSection = dynamic(
-  () => import("@/components/services-section").then((m) => ({ default: m.ServicesSection }))
+  () => import("@/components/sections/services-section").then((m) => ({ default: m.ServicesSection }))
 )
 const PhotoboothSection = dynamic(
-  () => import("@/components/photobooth-section").then((m) => ({ default: m.PhotoboothSection }))
+  () => import("@/components/photobooth/photobooth-section").then((m) => ({ default: m.PhotoboothSection }))
 )
 const ContactBannerSection = dynamic(
-  () => import("@/components/contact-banner-section").then((m) => ({ default: m.ContactBannerSection }))
+  () => import("@/components/sections/contact-banner-section").then((m) => ({ default: m.ContactBannerSection }))
 )
 const ContactSection = dynamic(
-  () => import("@/components/contact-section").then((m) => ({ default: m.ContactSection }))
+  () => import("@/components/sections/contact-section").then((m) => ({ default: m.ContactSection }))
 )
 const Footer = dynamic(
-  () => import("@/components/footer").then((m) => ({ default: m.Footer }))
+  () => import("@/components/layout/footer").then((m) => ({ default: m.Footer }))
 )
 
 export const metadata: Metadata = {

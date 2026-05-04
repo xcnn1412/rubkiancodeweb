@@ -1,7 +1,7 @@
 "use client"
 
 import { Code, Cloud, MessageSquare, Smartphone, Globe, Database, CheckCircle2 } from "lucide-react"
-import { CodeBg } from "@/components/code-bg"
+import { CodeBg } from "@/components/effects/code-bg"
 import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
 

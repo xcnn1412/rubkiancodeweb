@@ -1,7 +1,7 @@
 "use client"
 
 import { ArrowRight, Camera, Shield, Zap, Clock } from "lucide-react"
-import { CodeBg } from "@/components/code-bg"
+import { CodeBg } from "@/components/effects/code-bg"
 import { useLanguage, useLangTypography } from "@/lib/language-context"
 import { useTranslations } from "next-intl"
 import { useExitTransition } from "@/providers/exit-transition-provider"

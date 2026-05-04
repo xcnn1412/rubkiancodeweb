@@ -4,8 +4,8 @@ import { useState, useRef, useEffect } from "react"
 import { ExternalLink } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-import { CodeBg } from "@/components/code-bg"
-import { ShowcaseModal, type ShowcaseProject } from "@/components/showcase-modal"
+import { CodeBg } from "@/components/effects/code-bg"
+import { ShowcaseModal, type ShowcaseProject } from "@/components/sections/showcase-modal"
 import { useLangTypography } from "@/lib/language-context"
 import { SHOWCASE_MEDIA, SHOWCASE_CARD_DISPLAY } from "@/data/showcase-media"
 

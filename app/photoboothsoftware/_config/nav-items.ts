@@ -1,4 +1,4 @@
-import type { NavLinkItem } from "@/components/navbar"
+import type { NavLinkItem } from "@/components/layout/navbar"
 
 // Hash-anchor links to sections rendered on the photobooth page.
 // labelKey is resolved against the "navbar" translations namespace.
