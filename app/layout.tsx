@@ -1,15 +1,29 @@
 import type { Metadata, Viewport } from 'next'
-import { Prompt } from 'next/font/google'
+import { Prompt, Press_Start_2P, VT323 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
 import { DynamicIntlProvider } from '@/lib/intl-provider'
 import { ExitTransitionProvider } from '@/providers/exit-transition-provider'
 import './globals.css'
 
-const prompt = Prompt({ 
-  weight: ['400', '500', '600', '700'], 
-  subsets: ['thai', 'latin'], 
+const prompt = Prompt({
+  weight: ['400', '500', '600', '700'],
+  subsets: ['thai', 'latin'],
   variable: '--font-prompt',
+  display: 'swap',
+});
+
+const pressStart = Press_Start_2P({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-pixel',
+  display: 'swap',
+});
+
+const vt323 = VT323({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-pixelify',
   display: 'swap',
 });
 
@@ -39,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="th">
-      <body className={`${prompt.variable} font-sans antialiased`}>
+      <body className={`${prompt.variable} ${pressStart.variable} ${vt323.variable} font-sans antialiased`}>
         <LanguageProvider>
           <DynamicIntlProvider>
             <ExitTransitionProvider>

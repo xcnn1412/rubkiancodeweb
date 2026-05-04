@@ -373,3 +373,57 @@
     0 0 40px rgba(147, 200, 207, 0.2),
     inset 0 0 30px rgba(0, 0, 0, 0.3);
 }
+
+/* ================================================
+   RUBKIANCODE — ARCADE / PIXEL HOMEPAGE TOKENS
+   ใช้กับ components ใน components/rubkiancode/*
+   ================================================ */
+:root {
+  --rk-ink: #0A2540;
+  --rk-paper: #F4EDE0;
+  --rk-yellow: #F1C40F;
+  --rk-red: #E63946;
+  --rk-green: #2ECC71;
+  --rk-blue: #3498DB;
+}
+
+.font-pixel {
+  font-family: var(--font-pixel), 'Press Start 2P', monospace;
+}
+
+.font-pixelify {
+  font-family: var(--font-pixelify), 'VT323', monospace;
+}
+
+/* คงคมพิกเซลของไอคอน SVG */
+.pixel-svg {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  shape-rendering: crispEdges;
+}
+
+/* เคอร์เซอร์กระพริบในข้อความ terminal */
+@keyframes rk-caret-blink {
+  0%, 49%   { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.rk-caret {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  margin-left: 4px;
+  background: currentColor;
+  vertical-align: -2px;
+  animation: rk-caret-blink 1s steps(1) infinite;
+}
+
+/* Marquee วนไม่หยุด */
+@keyframes rk-marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.rk-marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: rk-marquee-scroll 32s linear infinite;
+}

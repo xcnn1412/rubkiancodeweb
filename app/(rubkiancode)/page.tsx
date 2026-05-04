@@ -1,30 +1,36 @@
 import type { Metadata } from "next"
 import dynamic from "next/dynamic"
-import { Navbar } from "@/components/layout/navbar"
-import { HeroSection } from "@/components/sections/hero-section"
-import { RUBKIANCODE_NAV_ITEMS } from "./_config/nav-items"
+import { Navbar } from "@/components/rubkiancode/navbar"
+import { HeroSection } from "@/components/rubkiancode/hero-section"
+import { MarqueeSection } from "@/components/rubkiancode/marquee-section"
 
-// ── Below-the-fold sections — dynamically imported to reduce initial JS bundle ──
-const ShowcaseSection = dynamic(
-  () => import("@/components/sections/showcase-section").then((m) => ({ default: m.ShowcaseSection }))
+// ── Below-the-fold sections — dynamic import เพื่อลด initial JS bundle ──
+const KeyServicesSection = dynamic(
+  () => import("@/components/rubkiancode/key-services-section").then((m) => ({ default: m.KeyServicesSection }))
 )
-const PhotoboothResultsSection = dynamic(
-  () => import("@/components/photobooth/photobooth-results-section").then((m) => ({ default: m.PhotoboothResultsSection }))
+const ExtraServicesSection = dynamic(
+  () => import("@/components/rubkiancode/extra-services-section").then((m) => ({ default: m.ExtraServicesSection }))
 )
-const ServicesSection = dynamic(
-  () => import("@/components/sections/services-section").then((m) => ({ default: m.ServicesSection }))
+const PortfolioSection = dynamic(
+  () => import("@/components/rubkiancode/portfolio-section").then((m) => ({ default: m.PortfolioSection }))
 )
-const PhotoboothSection = dynamic(
-  () => import("@/components/photobooth/photobooth-section").then((m) => ({ default: m.PhotoboothSection }))
+const ProcessSection = dynamic(
+  () => import("@/components/rubkiancode/process-section").then((m) => ({ default: m.ProcessSection }))
 )
-const ContactBannerSection = dynamic(
-  () => import("@/components/sections/contact-banner-section").then((m) => ({ default: m.ContactBannerSection }))
+const WhyUsSection = dynamic(
+  () => import("@/components/rubkiancode/why-us-section").then((m) => ({ default: m.WhyUsSection }))
+)
+const FaqSection = dynamic(
+  () => import("@/components/rubkiancode/faq-section").then((m) => ({ default: m.FaqSection }))
+)
+const CtaSection = dynamic(
+  () => import("@/components/rubkiancode/cta-section").then((m) => ({ default: m.CtaSection }))
 )
 const ContactSection = dynamic(
-  () => import("@/components/sections/contact-section").then((m) => ({ default: m.ContactSection }))
+  () => import("@/components/rubkiancode/contact-section").then((m) => ({ default: m.ContactSection }))
 )
 const Footer = dynamic(
-  () => import("@/components/layout/footer").then((m) => ({ default: m.Footer }))
+  () => import("@/components/rubkiancode/footer").then((m) => ({ default: m.Footer }))
 )
 
 export const metadata: Metadata = {
@@ -35,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "RubKianCode — รับเขียนโค้ด พัฒนาซอฟต์แวร์ครบวงจร",
     description:
-      "ทีมนักพัฒนาคุณภาพ รับงาน Custom Software, Web App, Mobile App และ AI Integration",
+      "ทีมนักพัฒนาคุณภาพ รับงาน Marketing System, Office ERP, Lucky Draw และ Custom Software",
     url: "/",
     type: "website",
   },
@@ -43,25 +49,19 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background">
-      <Navbar
-        namespace="rubkiancode_navbar"
-        brandHref="/"
-        navItems={RUBKIANCODE_NAV_ITEMS}
-      />
-      <HeroSection namespace="rubkiancode_hero" />
-      <ShowcaseSection namespace="rubkiancode_showcase" />
-      <PhotoboothResultsSection />
-      <ServicesSection namespace="rubkiancode_services" />
-      <PhotoboothSection namespace="rubkiancode_photobooth" />
-      <ContactBannerSection namespace="rubkiancode_contact_banner" />
-      <ContactSection namespace="rubkiancode_contact" />
-      <Footer
-        navbarNamespace="rubkiancode_navbar"
-        footerNamespace="rubkiancode_footer"
-        brandHref="/"
-        navItems={RUBKIANCODE_NAV_ITEMS}
-      />
+    <main className="min-h-screen bg-[#F4EDE0] text-[#0A2540]">
+      <Navbar />
+      <HeroSection />
+      <MarqueeSection />
+      <KeyServicesSection />
+      <ExtraServicesSection />
+      <PortfolioSection />
+      <ProcessSection />
+      <WhyUsSection />
+      <FaqSection />
+      <CtaSection />
+      <ContactSection />
+      <Footer />
     </main>
   )
 }
