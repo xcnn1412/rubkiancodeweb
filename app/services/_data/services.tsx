@@ -54,7 +54,13 @@ export type Service = {
     title: string               // <title> ของ detail page
     description: string         // <meta description>
   }
-  art: ReactNode                // pixel art illustration / preview รูปจริง
+  art: ReactNode                // pixel art illustration / preview รูปจริง — ใช้เป็น fallback
+  icon?: ReactNode              // (optional) ไอคอน 16x16 viewBox สำหรับ card บน list view
+                                //            ถ้ากำหนด — ใช้ใน catalog grid (/services index, ExtraServices)
+  heroImage?: Screenshot        // (optional) screenshot จริงใช้แทน art ใน hero preview
+                                //           ถ้ากำหนด — render <Image> แทน pixel art
+  heroVideo?: string            // (optional) video path สำหรับ preview — autoplay/muted/loop
+                                //           priority: heroVideo > heroImage > art
   screenshots?: Screenshot[]    // (optional) แกลเลอรี screenshot สำหรับ /services/{slug}
   keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
 }
@@ -226,25 +232,146 @@ export const SERVICES: Service[] = [
     title: "ระบบภายในออฟฟิศ",
     subtitle: "Office ERP",
     description:
-      "รวมงานหลังบ้านทุกแผนกไว้ในระบบเดียว ลดงานซ้ำซ้อน ลดเอกสารกระดาษ — ทำให้ทีมตัดสินใจจากข้อมูลจริง ไม่ใช่ความรู้สึก",
+      "ระบบ ERP สำหรับ SME ไทย — รวม HR, Payroll, Accounting, Inventory และ Approval Workflow ในซอฟต์แวร์เดียว ลดงานซ้ำ เห็นภาพรวมธุรกิจ Real-time รองรับ Cloud และ On-premise",
     features: [
-      "HR · Payroll · Leave · OT",
-      "Inventory & Multi-warehouse",
-      "Accounting · ภาษี ภงด./ภพ.30",
-      "Approval Workflow & e-Document",
-      "Sales · CRM · Quotation",
-      "Report & BI Dashboard",
+      "HR · Payroll · Leave · OT · Time Attendance",
+      "Multi-warehouse Inventory & Asset Tracking",
+      "Accounting · ภาษี ภงด./ภพ.30 · งบการเงิน",
+      "Approval Workflow & e-Document Online",
+      "Sales · CRM · Quotation · Invoice",
+      "Real-time Dashboard & BI Report",
+      "Notification Center & Activity Feed",
+      "Mobile-friendly · Cloud / On-premise · API Integration",
     ],
     duration: "เริ่มต้น 12 สัปดาห์",
     startingPrice: "35,000 บาท / ปี",
     accent: "#3498DB",
     featured: true,
     meta: {
-      title: "ระบบภายในออฟฟิศ — Office ERP | RubKianCode",
+      title: "ระบบ ERP สำหรับ SME — Office ERP, Approval Workflow & Real-time Dashboard | RubKianCode",
       description:
-        "ระบบ ERP ภายในองค์กรครบวงจร HR, Payroll, Inventory, Accounting และ Approval Workflow ที่เชื่อมต่อข้อมูลทุกแผนก",
+        "ระบบ ERP ภายในองค์กรสำหรับ SME ไทยครบวงจร — Real-time Dashboard, KPI Alerts, Job Kanban, Multi-warehouse Inventory, Approval Workflow, e-Document, Notification Center, HR/Payroll/Accounting รวมทุกแผนกในซอฟต์แวร์เดียว ลดเวลาทำงาน 70% ปิดบัญชีเร็ว 3 เท่า รองรับ Cloud และ On-premise",
     },
     art: <ErpArt />,
+    heroImage: {
+      src: "/images/example-products/ERP1.jpg",
+      alt: "Office ERP Executive Dashboard — ระบบ ERP สำหรับ SME ภาพรวมธุรกิจ Real-time พร้อม KPI Alerts, Profit Margin Distribution, รายรับ/ต้นทุน/กำไร Live ทุก 30 วินาที",
+      caption: "Executive Dashboard",
+    },
+    screenshots: [
+      {
+        src: "/images/example-products/ERP1.jpg",
+        alt: "ระบบ ERP สำหรับ SME — Executive Dashboard ภาพรวมธุรกิจ Real-time: 99 อีเวนต์, รายรับรวม ฿12.2M, ต้นทุน ฿743K, กำไรสุทธิ ฿11.5M (Profit Margin 93.9%), 7 KPI Alerts (อีเวนต์ขาดทุน, รายได้ยังไม่ลงต้นทุน, ไม่ระบุเซล, Margin ต่ำ, เบิกค้าง 30 วัน), Profit Margin Distribution กระจายความเสี่ยง",
+        caption: "Executive Dashboard + KPI Alerts — รู้สถานะธุรกิจ Real-time",
+      },
+      {
+        src: "/images/example-products/ERP2.jpg",
+        alt: "ระบบบริหารงาน Office ERP — Job Management Kanban Board พร้อม 6 สถานะ workflow ตั้งแต่ล็อคคิวงาน 24, กำลังออกแบบ 9, รอตรวจ/แก้ไข 4, ประสาน Event 2, ประสานขาย/ระบบ 3, จนถึงเสร็จสิ้น 36 รายการ พร้อม Filter ตามสถานะและบุคคล รองรับการทำงานข้ามแผนก",
+        caption: "Job Management Kanban — ทุกแผนกเห็นงานเดียวกัน",
+      },
+      {
+        src: "/images/example-products/ERP3.jpg",
+        alt: "ระบบจัดการคลังอุปกรณ์ Office ERP — Multi-warehouse Inventory Management พร้อมรายการอุปกรณ์, รูปสินค้า, ชื่อ, จำนวนคงเหลือ, Serial Number, ตำแหน่งเก็บ (กระเป๋า/กล่อง/ชั้น), สถานะการใช้งาน (ว่าง/ถูกยืม/ซ่อม), ราคาทุน รองรับ Asset Tracking ระดับ Serial-level สำหรับธุรกิจอีเวนต์, โรงงาน และคลังสินค้า",
+        caption: "Multi-warehouse Inventory + Asset Tracking — Serial-level",
+      },
+    ],
+    keyFeatures: [
+      // ── Deep dive 1: Real-time Dashboard & KPI Alerts ──
+      {
+        eyebrow: "★ DEEP DIVE · REAL-TIME DASHBOARD",
+        title: "เห็นภาพรวมธุรกิจ",
+        highlightedTitle: "ใน 5 วินาที",
+        description:
+          "Real-time Dashboard รวมรายรับ, ต้นทุน, กำไร, Profit Margin ครบในจอเดียว พร้อม KPI Alerts อัตโนมัติ — เตือนเมื่ออีเวนต์ขาดทุน, รายได้ค้าง, Margin ต่ำ ก่อนความเสียหายเกิดขึ้น เปิดมือถือ 5 วินาทีรู้สถานะธุรกิจวันนี้",
+        image: {
+          src: "/images/example-products/ERP1.jpg",
+          alt: "Office ERP Executive Dashboard สำหรับ SME — Event Overview Real-time พร้อม 7 KPI Alerts (อีเวนต์ขาดทุน 2 รายการ ฿11K, รายได้ยังไม่ลงต้นทุน 17 อีเวนต์, ไม่ระบุเซล 71, ลดราคา >20%, เบิกค้าง >30 วัน, รายรับเดือนนี้ -87.6% YoY) + ตัวเลขภาพรวม ฿12.2M รายรับ · ฿11.5M กำไรสุทธิ · Margin 93.9% · Profit Margin Distribution กราฟแนวนอน",
+          caption: "Executive Dashboard + 7 KPI Alerts",
+        },
+        benefits: [
+          {
+            title: "KPI Alerts อัตโนมัติ 24/7",
+            description: "ตรวจจับเหตุการณ์ผิดปกติเอง — อีเวนต์ขาดทุน, รายได้ค้าง, Margin ต่ำ ส่งสัญญาณก่อนความเสียหายเกิด",
+          },
+          {
+            title: "Drill-down ถึง Transaction",
+            description: "คลิกตัวเลขใดก็ได้ ลงไปเห็นรายการจริงทันที — ใบเบิก ใบสั่งซื้อ ใบขาย ในไม่กี่คลิก",
+          },
+          {
+            title: "Profit Margin Distribution",
+            description: "เห็นว่าโปรเจกต์กระจายในเกรด Margin ไหน — สูง/กลาง/ต่ำ/ขาดทุน ปรับ pricing ตรงจุด",
+          },
+          {
+            title: "Real-time ทุก 30 วินาที",
+            description: "ข้อมูลอัปเดต Live ผ่าน Cloud — เห็นสถานะธุรกิจวันนี้ได้ทันที ไม่ต้องรอรายงานสิ้นเดือน",
+          },
+        ],
+      },
+
+      // ── Deep dive 2: Approval Workflow & e-Document ──
+      {
+        eyebrow: "★ DEEP DIVE · APPROVAL WORKFLOW",
+        title: "งานเอกสาร · เบิกจ่าย",
+        highlightedTitle: "อนุมัติทุกที่ ทุกเวลา",
+        description:
+          "ระบบ e-Document + Multi-level Approval Workflow สำหรับใบเบิก, ใบลา, PO/PR, ใบเสนอราคา — ส่งอนุมัติผ่านมือถือ 24 ชม. ตั้งสายอนุมัติได้หลายระดับตามมูลค่า/แผนก พร้อม Audit Log ครบทุก action ลดเวลาเอกสาร 70% ปิดบัญชีสิ้นเดือนเร็วขึ้น 3 เท่า",
+        image: {
+          src: "/images/example-products/ERP4.jpg",
+          alt: "ระบบใบเบิกเงินออนไลน์ Office ERP — e-Document Approval Workflow แสดง 163 รายการ Active, แบบร่าง 34, รออนุมัติ 8, อนุมัติแล้ว 53, รอจ่ายสิ้นเดือน 56, ปฏิเสธ 2 พร้อม Filter ตามสถานะและรายการ EXP-202605 series · ครบ Audit Trail · รองรับใบเบิก, ใบลา, PO, PR, ใบเสนอราคา",
+          caption: "ใบเบิกเงิน · 163 รายการ Active",
+        },
+        benefits: [
+          {
+            title: "Approve ผ่านมือถือ 24 ชม.",
+            description: "หัวหน้าไม่อยู่ออฟฟิศก็เซ็นได้ทุกที่ Push Notification เด้งทันที ลดเวลารอ 70%",
+          },
+          {
+            title: "Multi-level Workflow",
+            description: "ตั้งสายอนุมัติตามมูลค่า/แผนก — เบิก <฿5K 1 ระดับ, >฿50K 2 ระดับ ระบบเลือกให้อัตโนมัติ",
+          },
+          {
+            title: "Audit Log ครบทุก Action",
+            description: "บันทึก timestamp + IP ครบทุก event ผ่านการตรวจสอบ สรรพากร/ผู้สอบบัญชีได้สบาย",
+          },
+          {
+            title: "ปิดบัญชีเร็วขึ้น 3 เท่า",
+            description: "เอกสารส่งเข้าระบบบัญชีอัตโนมัติ — ลด Human Error 95% ปิดเดือนได้ใน 3 วัน",
+          },
+        ],
+      },
+
+      // ── Deep dive 3: Notification Center & Activity Feed ──
+      {
+        eyebrow: "★ DEEP DIVE · NOTIFICATION CENTER",
+        title: "รู้ทันทุกการเคลื่อนไหว",
+        highlightedTitle: "ในที่เดียว",
+        description:
+          "Notification Center รวมทุกเหตุการณ์ข้ามโมดูลไว้ในจุดเดียว — ใบเบิกอนุมัติ, สถานะงานเปลี่ยน, Ticket ตอบกลับ ส่ง Real-time ผ่าน Web Push, LINE Notify, Email เก็บประวัติย้อนหลัง 1 ปี เหมาะกับองค์กร Hybrid/Remote",
+        image: {
+          src: "/images/example-products/ERP5.jpg",
+          alt: "ระบบแจ้งเตือนข้ามโมดูล Office ERP — Notification Center / Activity Feed รวม 55 รายการ Real-time จากทุกโมดูล: ใบเบิก EXP-202605-020/045/008 อัปโหลดใบกำกับภาษีและรอชำระเงิน, ใบเบิก EXP-202604-209 อนุมัติแล้ว (รอจ่ายสิ้นเดือน), Ticket สรุปการคุยกับลูกค้า, สถานะงาน Selfie Studio Event เปลี่ยน loading → teardown และ preparing → loading พร้อม Tab ทั้งหมด/ยังไม่อ่าน",
+          caption: "Notification Center · 55 รายการ Real-time",
+        },
+        benefits: [
+          {
+            title: "Real-time ทุกเหตุการณ์",
+            description: "Push Notification ผ่าน Web, Mobile, LINE Notify, Email — ไม่พลาดแม้ทำงาน Remote",
+          },
+          {
+            title: "ข้ามโมดูล · ที่เดียว",
+            description: "ใบเบิก, สถานะงาน Kanban, Ticket, ใบลา รวมในจุดเดียว ไม่ต้องเปิดหลายแอป",
+          },
+          {
+            title: "Smart Filter",
+            description: "Filter ตามประเภท/ผู้ส่ง/ความสำคัญ ทำเครื่องหมายอ่านแล้วได้ทีละรายการ",
+          },
+          {
+            title: "ประวัติย้อนหลัง 1 ปี",
+            description: "ค้นหาเหตุการณ์ 12 เดือนย้อนหลัง — เหมาะสำหรับ Compliance และ Performance Review",
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "lucky-draw",
@@ -271,6 +398,7 @@ export const SERVICES: Service[] = [
         "ระบบจับฉลากออนไลน์โปร่งใสตรวจสอบได้ รองรับ 250,000 รายชื่อ พร้อม OBS overlay และ QR check-in สำหรับงานอีเวนต์",
     },
     art: <LuckyDrawArt />,
+    heroVideo: "/videos/project3/Luckydraw1.mp4",
   },
   {
     slug: "photoboothsoftware",
@@ -299,6 +427,240 @@ export const SERVICES: Service[] = [
     },
     art: <PhotoboothArt />,
   },
+
+  // ── Extra Services ── (featured: false → ไม่ขึ้น homepage card หลัก)
+  // แต่ยังมีหน้า detail อัตโนมัติที่ /services/{slug} + ขึ้น list บน /services
+  {
+    slug: "custom-software",
+    num: "05",
+    title: "Custom Software",
+    subtitle: "ซอฟต์แวร์เฉพาะกิจ",
+    description:
+      "รับเขียนซอฟต์แวร์เฉพาะกิจตามโจทย์ ออกแบบ Data Model · API · UI ครบวงจร — รองรับธุรกิจที่ต้องการระบบไม่ซ้ำใคร เริ่มจาก requirement เปล่า ไปจนถึง production พร้อมดูแลหลังส่งมอบ",
+    features: [
+      "ออกแบบ Data Model & API",
+      "Frontend + Backend Full-stack",
+      "Cloud Deploy (AWS / GCP / Azure)",
+      "CI/CD · Automated Testing",
+      "30 วัน Hypercare หลังส่งมอบ",
+      "เอกสาร Technical Documentation",
+    ],
+    duration: "เริ่มต้น 8 สัปดาห์",
+    startingPrice: "ตามขอบเขตงาน",
+    accent: "#9B59B6",
+    featured: false,
+    meta: {
+      title: "Custom Software Development — รับเขียนซอฟต์แวร์เฉพาะกิจ | RubKianCode",
+      description:
+        "บริการรับเขียนซอฟต์แวร์เฉพาะกิจตามโจทย์ — Data Model, API, Frontend, Backend, Cloud Deploy พร้อมดูแลหลังส่งมอบ สำหรับธุรกิจที่ต้องการระบบไม่ซ้ำใคร",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="2" y="2" width="12" height="2" />
+          <rect x="2" y="2" width="2" height="12" />
+          <rect x="12" y="2" width="2" height="12" />
+          <rect x="2" y="12" width="12" height="2" />
+          <rect x="6" y="6" width="4" height="4" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#9B59B6" label="CODE" />,
+  },
+  {
+    slug: "web-ecommerce",
+    num: "06",
+    title: "Web & E-commerce",
+    subtitle: "เว็บไซต์องค์กร · ร้านค้าออนไลน์",
+    description:
+      "พัฒนาเว็บไซต์องค์กร, Landing Page, Multi-page Information Site และ Online Store ครบวงจร — ออกแบบ UX/UI ที่ Conversion สูง เชื่อมต่อระบบชำระเงินไทย และระบบ ERP/CRM หลังบ้าน",
+    features: [
+      "Corporate Website · Landing Page",
+      "Online Store · Shopping Cart",
+      "Payment Gateway (Omise · 2C2P · TrueMoney)",
+      "SEO On-page · Schema Markup",
+      "Multilingual · Multi-currency",
+      "เชื่อม CRM / ERP / Inventory",
+    ],
+    duration: "เริ่มต้น 4 สัปดาห์",
+    startingPrice: "35,000 บาท / ปี",
+    accent: "#1ABC9C",
+    featured: false,
+    meta: {
+      title: "Web & E-commerce Development — เว็บไซต์องค์กรและร้านค้าออนไลน์ | RubKianCode",
+      description:
+        "บริการทำเว็บไซต์องค์กร Landing Page และ Online Store ครบวงจร เชื่อม Payment Gateway ไทย และ CRM/ERP หลังบ้าน รองรับ SEO ตั้งแต่ on-page",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="2" y="3" width="12" height="10" />
+        </g>
+        <g fill="#0A2540">
+          <rect x="4" y="5" width="8" height="2" />
+          <rect x="4" y="8" width="6" height="2" />
+        </g>
+        <g fill="#E63946">
+          <rect x="11" y="8" width="2" height="2" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#1ABC9C" label="WEB" />,
+  },
+  {
+    slug: "mobile-app",
+    num: "07",
+    title: "Mobile App",
+    subtitle: "iOS · Android · Cross-platform",
+    description:
+      "พัฒนา Mobile App สำหรับลูกค้า, ทีมขาย, พนักงาน — ทั้ง Native (iOS/Android) และ Cross-platform (React Native, Flutter) เชื่อมต่อระบบหลังบ้าน, Push Notification, Offline-mode พร้อมขึ้น Store ให้ครบ",
+    features: [
+      "iOS · Android Native / Cross-platform",
+      "Push Notification · LINE Notify",
+      "Offline-mode · Sync เมื่อต่อเน็ต",
+      "App Store + Play Store Submission",
+      "เชื่อม API หลังบ้าน",
+      "Analytics & Crash Reporting",
+    ],
+    duration: "เริ่มต้น 8 สัปดาห์",
+    startingPrice: "120,000 บาท",
+    accent: "#E67E22",
+    featured: false,
+    meta: {
+      title: "Mobile App Development — iOS, Android, React Native | RubKianCode",
+      description:
+        "บริการพัฒนา Mobile App สำหรับลูกค้าและทีมขาย — iOS, Android, Cross-platform พร้อม Push Notification, Offline-mode และเชื่อมระบบหลังบ้าน ขึ้น App Store ให้ครบ",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="3" y="2" width="10" height="12" />
+        </g>
+        <g fill="#0A2540">
+          <rect x="5" y="4" width="6" height="2" />
+          <rect x="5" y="7" width="6" height="2" />
+          <rect x="5" y="10" width="4" height="2" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#E67E22" label="APP" />,
+  },
+  {
+    slug: "data-analytics",
+    num: "08",
+    title: "Data & Analytics",
+    subtitle: "BI · Data Warehouse · ETL",
+    description:
+      "วาง Data Warehouse, ETL Pipeline, BI Dashboard ใช้ตัดสินใจจากข้อมูลจริงไม่ใช่ความรู้สึก — รองรับ BigQuery, Snowflake, PostgreSQL พร้อม Looker Studio / Metabase / PowerBI Dashboard ที่ทีมเปิดดูเองได้",
+    features: [
+      "Data Warehouse Design",
+      "ETL/ELT Pipeline (Airflow · dbt)",
+      "BI Dashboard (Metabase · Looker · PowerBI)",
+      "Cohort & Funnel Analysis",
+      "Predictive Analytics & Forecasting",
+      "Self-service Analytics สำหรับทีม",
+    ],
+    duration: "เริ่มต้น 6 สัปดาห์",
+    startingPrice: "80,000 บาท",
+    accent: "#16A085",
+    featured: false,
+    meta: {
+      title: "Data & Analytics — BI Dashboard, Data Warehouse, ETL Pipeline | RubKianCode",
+      description:
+        "บริการวาง Data Warehouse, ETL Pipeline, BI Dashboard สำหรับ SME ไทย — รองรับ BigQuery/Snowflake/PostgreSQL พร้อม Self-service Analytics ให้ทีมเปิดดูข้อมูลเองได้",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="2" y="6" width="2" height="6" />
+          <rect x="6" y="3" width="2" height="9" />
+          <rect x="10" y="5" width="2" height="7" />
+        </g>
+        <g fill="#E63946">
+          <rect x="2" y="13" width="12" height="1" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#16A085" label="DATA" />,
+  },
+  {
+    slug: "pos-inventory",
+    num: "09",
+    title: "POS & Inventory",
+    subtitle: "ระบบขายหน้าร้าน · คลังสินค้า",
+    description:
+      "ระบบ POS ขายหน้าร้านพร้อมจัดการคลังสินค้า รองรับหลายสาขา — ปรินต์ใบเสร็จ, ออกใบกำกับภาษีเต็มรูป/ย่อ, เชื่อมเครื่องอ่านบาร์โค้ด, รองรับ E-Tax สำหรับ VAT 7% และเชื่อมระบบบัญชีอัตโนมัติ",
+    features: [
+      "POS หน้าร้าน · Multi-branch",
+      "Inventory · Stock Transfer ระหว่างสาขา",
+      "Barcode · Receipt Printer · Cash Drawer",
+      "ใบกำกับภาษี เต็มรูป / ย่อ · E-Tax",
+      "เชื่อมระบบบัญชีและ E-commerce",
+      "รายงานยอดขาย Real-time",
+    ],
+    duration: "เริ่มต้น 6 สัปดาห์",
+    startingPrice: "55,000 บาท",
+    accent: "#E91E63",
+    featured: false,
+    meta: {
+      title: "POS & Inventory — ระบบขายหน้าร้านและคลังสินค้า Multi-branch | RubKianCode",
+      description:
+        "ระบบ POS ขายหน้าร้านและจัดการคลังสินค้า รองรับหลายสาขา ใบกำกับภาษี E-Tax เชื่อมระบบบัญชีและ E-commerce พร้อม Barcode Scanner และ Receipt Printer",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="4" y="2" width="8" height="3" />
+          <rect x="2" y="5" width="12" height="8" />
+          <rect x="4" y="13" width="8" height="2" />
+        </g>
+        <g fill="#0A2540">
+          <rect x="6" y="7" width="4" height="2" />
+          <rect x="5" y="9" width="6" height="2" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#E91E63" label="POS" />,
+  },
+  {
+    slug: "it-consulting",
+    num: "10",
+    title: "IT Consulting",
+    subtitle: "Tech Roadmap · Cloud Migration",
+    description:
+      "บริการที่ปรึกษาด้านเทคโนโลยี — วางแผน Tech Roadmap, สถาปัตยกรรมระบบ, Cloud Migration, Security Audit สำหรับ SME ที่ไม่มีทีม IT เอง หรือทีมเล็กแต่อยากโตอย่างเป็นระบบและประหยัดค่า cloud",
+    features: [
+      "Tech Strategy & Roadmap",
+      "System Architecture Review",
+      "Cloud Migration (On-premise → Cloud)",
+      "Security Audit · OWASP Top 10",
+      "Cost Optimization (AWS/GCP)",
+      "Tech Hiring Support",
+    ],
+    duration: "ราย project · 2-8 สัปดาห์",
+    startingPrice: "ตามขอบเขตงาน",
+    accent: "#34495E",
+    featured: false,
+    meta: {
+      title: "IT Consulting — ที่ปรึกษาเทคโนโลยี, Cloud Migration, Security Audit | RubKianCode",
+      description:
+        "บริการที่ปรึกษาด้านเทคโนโลยี Tech Roadmap, Cloud Migration, Security Audit สำหรับ SME ไทย — วางแผนระบบให้โตอย่างยั่งยืน ประหยัดค่า cloud และผ่าน Compliance",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="6" y="2" width="4" height="2" />
+          <rect x="3" y="4" width="10" height="8" />
+        </g>
+        <g fill="#0A2540">
+          <rect x="5" y="6" width="2" height="2" />
+          <rect x="9" y="6" width="2" height="2" />
+          <rect x="5" y="9" width="6" height="1" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#34495E" label="CONSULT" />,
+  },
 ]
 
 // ════════════════════════════════════════════════════════════════════════
@@ -313,8 +675,16 @@ export function getFeaturedServices(): Service[] {
   return SERVICES.filter((s) => s.featured)
 }
 
+export function getExtraServices(): Service[] {
+  return SERVICES.filter((s) => !s.featured)
+}
+
+export function getAllServices(): Service[] {
+  return SERVICES
+}
+
 export function getRelatedServices(slug: string, limit = 3): Service[] {
-  return SERVICES.filter((s) => s.slug !== slug).slice(0, limit)
+  return SERVICES.filter((s) => s.slug !== slug && s.featured).slice(0, limit)
 }
 
 /**
@@ -333,6 +703,39 @@ export function getServiceHref(service: Service): string {
 // ════════════════════════════════════════════════════════════════════════
 // PIXEL ART ILLUSTRATIONS
 // ════════════════════════════════════════════════════════════════════════
+
+/**
+ * IconArt — preview แบบ generic สำหรับ service ที่ไม่มี art เฉพาะตัว
+ * ใช้ accent color เป็นพื้นหลัง + label ข้อความ pixel กลางจอ
+ * เหมาะกับ Extra Services ที่ยังไม่มีรูป screenshot/ภาพประกอบ
+ */
+function IconArt({ accent, label }: { accent: string; label: string }) {
+  return (
+    <div className="relative flex h-full w-full items-center justify-center" style={{ background: accent }}>
+      {/* Pixel pattern background */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(255,255,255,0.5) 6px,rgba(255,255,255,0.5) 7px)",
+        }}
+      />
+      {/* Center label box */}
+      <div
+        className="font-pixel relative bg-[#0A2540] px-5 py-3 text-base uppercase tracking-widest text-[#F1C40F] sm:px-6 sm:py-4 sm:text-lg"
+        style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 white" }}
+      >
+        {label}
+      </div>
+      {/* Pixel corner accents */}
+      <span aria-hidden className="absolute left-0 top-0 h-2 w-2 bg-[#F1C40F]" />
+      <span aria-hidden className="absolute right-0 top-0 h-2 w-2 bg-[#F1C40F]" />
+      <span aria-hidden className="absolute bottom-0 left-0 h-2 w-2 bg-[#F1C40F]" />
+      <span aria-hidden className="absolute bottom-0 right-0 h-2 w-2 bg-[#F1C40F]" />
+    </div>
+  )
+}
 
 function MarketingArt() {
   return (

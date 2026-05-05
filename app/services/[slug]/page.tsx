@@ -192,12 +192,32 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               </span>
             </div>
 
-            {/* Preview frame — 16:10 aspect ratio (matches dashboard ratio) */}
+            {/* Preview frame — 16:10 aspect ratio (matches dashboard ratio)
+                — heroImage = real screenshot (dark bg + pixel corners)
+                — fallback = pixel art (cream bg) */}
             <div
-              className="relative aspect-16/10 overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] bg-[#F4EDE0]"
+              className={`relative aspect-16/10 overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] ${service.heroImage ? "bg-[#0F1419]" : "bg-[#F4EDE0]"}`}
               style={{ boxShadow: "8px 8px 0 #0A2540" }}
             >
-              {service.art}
+              {service.heroImage ? (
+                <>
+                  <Image
+                    src={service.heroImage.src}
+                    alt={service.heroImage.alt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 500px"
+                    className="object-cover object-top"
+                    priority
+                  />
+                  {/* Pixel corner accents — รักษา arcade theme บนภาพจริง */}
+                  <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                  <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                  <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#F1C40F]" />
+                  <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#F1C40F]" />
+                </>
+              ) : (
+                service.art
+              )}
             </div>
           </div>
         </div>

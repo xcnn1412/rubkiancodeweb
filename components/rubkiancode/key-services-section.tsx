@@ -5,9 +5,15 @@
 //    เพิ่ม service ใหม่ → แก้แค่ไฟล์ data ที่เดียว ไม่ต้องแตะที่นี่
 
 import Link from "next/link"
+import Image from "next/image"
 import { getFeaturedServices, getServiceHref } from "@/app/services/_data/services"
 
-export function KeyServicesSection() {
+export function KeyServicesSection({
+  showAllProductsCta = true,
+}: {
+  // ซ่อนปุ่ม "สินค้าทั้งหมด" เมื่อ render บนหน้า /services เอง — กัน loop
+  showAllProductsCta?: boolean
+} = {}) {
   const services = getFeaturedServices()
 
   return (
@@ -48,8 +54,50 @@ export function KeyServicesSection() {
                 </h3>
               </div>
 
-              <div className="border-b-[3px] border-[#0A2540] bg-[#F4EDE0]">
-                <div className="h-44 w-full">{s.art}</div>
+              {/* Preview — priority: heroVideo > heroImage > pixel art (fallback)
+                  - video: autoplay/muted/loop · ดูเหมือน live preview
+                  - image: dark bg + pixel corners ครบ
+                  - art: pixel illustration บน cream bg (default) */}
+              <div
+                className={`relative border-b-[3px] border-[#0A2540] ${s.heroVideo || s.heroImage ? "bg-[#0F1419]" : "bg-[#F4EDE0]"}`}
+              >
+                <div className="relative h-44 w-full">
+                  {s.heroVideo ? (
+                    <>
+                      <video
+                        src={s.heroVideo}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="metadata"
+                        aria-label={`Preview ${s.title}`}
+                        className="h-full w-full object-cover"
+                      />
+                      <span aria-hidden className="absolute left-0 top-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute right-0 top-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 left-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 right-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                    </>
+                  ) : s.heroImage ? (
+                    <>
+                      <Image
+                        src={s.heroImage.src}
+                        alt={s.heroImage.alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
+                        className="object-cover object-top"
+                        loading="lazy"
+                      />
+                      <span aria-hidden className="absolute left-0 top-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute right-0 top-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 left-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 right-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                    </>
+                  ) : (
+                    s.art
+                  )}
+                </div>
               </div>
 
               <div className="flex flex-1 flex-col gap-4 p-5">
@@ -80,6 +128,21 @@ export function KeyServicesSection() {
             </Link>
           ))}
         </div>
+
+        {/* CTA — ดูสินค้า/บริการทั้งหมด (รวม Extra Services อีก 6 ตัว) */}
+        {showAllProductsCta && (
+          <div className="mt-12 flex justify-center sm:mt-14">
+            <Link
+              href="/services"
+              className="font-pixel inline-flex items-center gap-3 bg-[#0A2540] px-8 py-4 text-xs uppercase tracking-widest text-[#F1C40F] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:text-sm"
+              style={{ border: "3px solid #0A2540", boxShadow: "6px 6px 0 #E63946" }}
+            >
+              <span className="text-[10px]">★</span>
+              สินค้าทั้งหมด
+              <span className="text-[10px]">▶</span>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   )
