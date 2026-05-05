@@ -12,6 +12,7 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import dynamic from "next/dynamic"
 
 import { Navbar } from "@/components/rubkiancode/navbar"
@@ -126,12 +127,37 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             </div>
           </div>
 
-          {/* Illustration */}
-          <div
-            className="relative mx-auto w-full max-w-md bg-[#F4EDE0]"
-            style={{ border: "3px solid #0A2540", boxShadow: "8px 8px 0 #0A2540" }}
-          >
-            {service.art}
+          {/* Illustration / Preview — aspect-ratio กำหนดเพื่อกัน height collapse */}
+          <div className="relative mx-auto w-full max-w-md">
+            {/* Window chrome — arcade style title bar */}
+            <div
+              className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2"
+              style={{ border: "3px solid #0A2540" }}
+            >
+              <span className="flex gap-1.5">
+                <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
+                <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
+                <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
+              </span>
+              <span className="font-pixel text-[9px] uppercase text-[#F1C40F]">
+                PREVIEW · {service.subtitle.toUpperCase()}
+              </span>
+              <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+                </span>
+                LIVE
+              </span>
+            </div>
+
+            {/* Preview frame — 16:10 aspect ratio (matches dashboard ratio) */}
+            <div
+              className="relative aspect-16/10 overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] bg-[#F4EDE0]"
+              style={{ boxShadow: "8px 8px 0 #0A2540" }}
+            >
+              {service.art}
+            </div>
           </div>
         </div>
       </header>
@@ -188,6 +214,221 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
           </ul>
         </div>
       </section>
+
+      {/* Screenshots gallery — โชว์ภาพจริงของ product/dashboard */}
+      {service.screenshots && service.screenshots.length > 0 && (
+        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            {/* Section head */}
+            <div className="mb-12 max-w-3xl">
+              <span
+                className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
+                style={{ boxShadow: "4px 4px 0 " + service.accent }}
+              >
+                ★ PRODUCT SCREENSHOTS
+              </span>
+              <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+                ดูภาพจริง
+                <br />
+                <span style={{ color: service.accent }}>เข้าใจระบบใน 30 วินาที</span>
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
+                ระบบที่ลูกค้าใช้งานจริงทุกวัน — Dashboard ดูภาพรวม,
+                Marketing Automation ส่งให้ลูกค้ากลับมาซ้ำ,
+                และ Multi-touch Attribution บอกว่าแต่ละบาทที่ลงโฆษณา <b className="text-white">คืนกำไรกลับมาเท่าไหร่</b>
+              </p>
+            </div>
+
+            {/* Gallery — 1 col mobile, 2 col tablet, 3 col desktop */}
+            <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {service.screenshots.map((shot, i) => (
+                <figure
+                  key={shot.src}
+                  className="group flex flex-col bg-[#F4EDE0] transition-transform hover:-translate-x-1 hover:-translate-y-1"
+                  style={{ border: "3px solid " + service.accent, boxShadow: "8px 8px 0 " + service.accent }}
+                >
+                  {/* Browser chrome — arcade window style */}
+                  <div className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2 sm:px-4">
+                    <span className="flex gap-1.5">
+                      <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
+                      <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
+                      <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
+                    </span>
+                    <span className="font-pixel hidden text-[9px] uppercase text-[#F1C40F] sm:inline">
+                      SCREEN · {String(i + 1).padStart(2, "0")} · {service.subtitle.toUpperCase()}
+                    </span>
+                    <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+                      </span>
+                      LIVE
+                    </span>
+                  </div>
+
+                  {/* Image */}
+                  <div className="relative aspect-video overflow-hidden border-y-[3px] border-[#0A2540] bg-[#0A2540]">
+                    <Image
+                      src={shot.src}
+                      alt={shot.alt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 600px"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      loading={i === 0 ? "eager" : "lazy"}
+                    />
+                    {/* Pixel corner accents */}
+                    <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#F1C40F]" />
+                  </div>
+
+                  {/* Caption */}
+                  <figcaption className="flex items-center justify-between gap-3 p-4 sm:p-5">
+                    <span
+                      className="font-pixel bg-[#0A2540] px-2 py-1.5 text-[10px] uppercase text-[#F1C40F]"
+                      style={{ boxShadow: "2px 2px 0 " + service.accent }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="flex-1 text-sm font-bold text-[#0A2540] sm:text-base">
+                      {shot.caption}
+                    </span>
+                    <span className="font-pixel hidden text-xs sm:inline" style={{ color: service.accent }}>
+                      ▶
+                    </span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+
+            {/* Note */}
+            <p className="mt-8 text-center text-sm text-[#F4EDE0]/55">
+              ★ ภาพตัวอย่างจาก Pulse Marketing OS · ระบบที่พัฒนาส่งมอบลูกค้าจริง
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* Key Features Deep Dive — สลับ layout image ซ้าย/ขวา + bg ต่างกัน */}
+      {service.keyFeatures?.map((kf, idx) => {
+        const imageOnRight = idx % 2 === 1
+        const sectionBg = idx % 2 === 0 ? "bg-white" : "bg-[#F4EDE0]"
+        const cardBg = idx % 2 === 0 ? "bg-[#F4EDE0]" : "bg-white"
+        // Filename ใน window chrome — ปรับตาม eyebrow
+        const fileName = kf.eyebrow
+          .replace(/[★·\s]+/g, "_")
+          .replace(/^_+|_+$/g, "")
+          .toLowerCase() + ".json"
+        return (
+          <section
+            key={kf.eyebrow}
+            className={`border-t-[3px] border-[#0A2540] ${sectionBg} py-14 sm:py-20 lg:py-28`}
+          >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="grid gap-10 lg:grid-cols-[5fr_6fr] lg:items-center lg:gap-14">
+                {/* Image block */}
+                <div className={`relative ${imageOnRight ? "lg:order-2" : ""}`}>
+                  {/* Window chrome */}
+                  <div
+                    className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2"
+                    style={{ border: "3px solid #0A2540" }}
+                  >
+                    <span className="flex gap-1.5">
+                      <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
+                      <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
+                      <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
+                    </span>
+                    <span className="font-pixel hidden truncate text-[9px] uppercase text-[#F1C40F] sm:inline">
+                      {fileName}
+                    </span>
+                    <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+                      </span>
+                      LIVE
+                    </span>
+                  </div>
+                  {/* Image frame */}
+                  <div
+                    className="relative aspect-4/5 overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] bg-[#0A2540] sm:aspect-5/4"
+                    style={{ boxShadow: "10px 10px 0 " + service.accent }}
+                  >
+                    <Image
+                      src={kf.image.src}
+                      alt={kf.image.alt}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 600px"
+                      className="object-contain"
+                      loading="lazy"
+                    />
+                    {/* Pixel corner accents */}
+                    <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#F1C40F]" />
+                  </div>
+                  <p className="font-pixel mt-4 text-center text-[10px] uppercase tracking-widest text-[#0A2540]/55">
+                    ★ {kf.image.caption}
+                  </p>
+                </div>
+
+                {/* Content block */}
+                <div className={imageOnRight ? "lg:order-1" : ""}>
+                  <span
+                    className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
+                    style={{ boxShadow: "4px 4px 0 " + service.accent }}
+                  >
+                    {kf.eyebrow}
+                  </span>
+                  <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+                    {kf.title}
+                    <br />
+                    <span style={{ color: service.accent }}>{kf.highlightedTitle}</span>
+                  </h2>
+                  <p className="mt-5 text-base leading-relaxed text-[#0A2540]/80 sm:text-lg">
+                    {kf.description}
+                  </p>
+
+                  {/* Benefit cards */}
+                  <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {kf.benefits.map((b, i) => (
+                      <li
+                        key={b.title}
+                        className={`${cardBg} p-4 transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5`}
+                        style={{
+                          border: "2px solid #0A2540",
+                          boxShadow: "4px 4px 0 " + service.accent,
+                        }}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span
+                            className="font-pixel flex h-7 w-7 shrink-0 items-center justify-center text-[10px]"
+                            style={{
+                              background: service.accent,
+                              border: "2px solid #0A2540",
+                              color: service.accent === "#F1C40F" ? "#0A2540" : "white",
+                            }}
+                          >
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <h3 className="text-sm font-black uppercase leading-tight text-[#0A2540] sm:text-base">
+                            {b.title}
+                          </h3>
+                        </div>
+                        <p className="mt-2 text-sm leading-relaxed text-[#0A2540]/75">
+                          {b.description}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      })}
 
       {/* Related services */}
       {related.length > 0 && (

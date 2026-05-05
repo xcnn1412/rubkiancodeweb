@@ -11,7 +11,7 @@ export function KeyServicesSection() {
   const services = getFeaturedServices()
 
   return (
-    <section id="services" className="bg-[#F4EDE0] py-20 sm:py-28">
+    <section id="services" className="bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHead
           eyebrow={`CORE SERVICES · ${String(services.length).padStart(2, "0")}`}

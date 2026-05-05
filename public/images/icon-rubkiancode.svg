@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1040 1040">
+  <!-- Generator: Adobe Illustrator 30.2.1, SVG Export Plug-In . SVG Version: 2.1.1 Build 1)  -->
+  <defs>
+    <style>
+      .st0 {
+        stroke: #003049;
+        stroke-miterlimit: 10;
+        stroke-width: 4.89px;
+      }
+
+      .st0, .st1 {
+        fill: none;
+      }
+
+      .st2 {
+        font-size: 38.01px;
+      }
+
+      .st2, .st3, .st4, .st5, .st6, .st7, .st8, .st9, .st10, .st11, .st12, .st13, .st14, .st15, .st16, .st17 {
+        fill: #003049;
+      }
+
+      .st2, .st18, .st19, .st11, .st13, .st15, .st20, .st16 {
+        font-family: IBMPlexSansThai-Regular, 'IBM Plex Sans Thai';
+      }
+
+      .st21, .st6 {
+        font-family: IBMPlexSansThai-ExtraLight, 'IBM Plex Sans Thai';
+        font-weight: 200;
+      }
+
+      .st3 {
+        font-size: 43.86px;
+      }
+
+      .st3, .st22, .st23, .st4, .st7, .st24, .st25, .st26, .st27, .st28, .st14, .st29, .st30, .st31, .st17 {
+        font-family: Minecraft, Minecraft;
+      }
+
+      .st32 {
+        clip-path: url(#clippath-4);
+      }
+
+      .st22 {
+        font-size: 53.04px;
+      }
+
+      .st22, .st23, .st33, .st24, .st25, .st27, .st29, .st31 {
+        fill: #fff;
+      }
+
+      .st23 {
+        font-size: 182.37px;
+      }
+
+      .st18, .st34, .st26, .st28, .st35, .st30 {
+        fill: #f7a700;
+      }
+
+      .st18, .st13 {
+        font-size: 76.45px;
+      }
+
+      .st4, .st26 {
+        font-size: 65.18px;
+      }
+
+      .st34, .st9 {
+        font-size: 151.65px;
+      }
+
+      .st34, .st9, .st36 {
+        font-family: IBMPlexSansThai-SemiBold, 'IBM Plex Sans Thai';
+        font-weight: 600;
+      }
+
+      .st5 {
+        font-family: IBMPlexSansThai-Medium, 'IBM Plex Sans Thai';
+        font-weight: 500;
+      }
+
+      .st5, .st15 {
+        font-size: 32.95px;
+      }
+
+      .st6, .st10 {
+        font-size: 17.38px;
+      }
+
+      .st7 {
+        font-size: 38.02px;
+      }
+
+      .st8 {
+        font-family: IBMPlexSansThai-Bold, 'IBM Plex Sans Thai';
+        font-size: 62.51px;
+        font-weight: 700;
+      }
+
+      .st24 {
+        font-size: 177.04px;
+      }
+
+      .st37 {
+        clip-path: url(#clippath-1);
+      }
+
+      .st38, .st19 {
+        fill: #f1f2f2;
+      }
+
+      .st25 {
+        font-size: 165.83px;
+      }
+
+      .st36 {
+        font-size: 168.15px;
+      }
+
+      .st39 {
+        clip-path: url(#clippath-3);
+      }
+
+      .st19 {
+        font-size: 64.97px;
+      }
+
+      .st11 {
+        font-size: 11.05px;
+      }
+
+      .st27 {
+        font-size: 197.64px;
+      }
+
+      .st28 {
+        font-size: 58.6px;
+      }
+
+      .st14 {
+        font-size: 33.8px;
+      }
+
+      .st29 {
+        font-size: 22.17px;
+      }
+
+      .st40 {
+        clip-path: url(#clippath-2);
+      }
+
+      .st30 {
+        font-size: 8.72px;
+      }
+
+      .st16 {
+        font-size: 59.53px;
+      }
+
+      .st41 {
+        clip-path: url(#clippath);
+      }
+
+      .st31 {
+        font-size: 85.99px;
+      }
+
+      .st17 {
+        font-size: 12.76px;
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="st1" x="-8501.76" y="228.06" width="2203.57" height="731.4"/>
+    </clipPath>
+    <clipPath id="clippath-1">
+      <rect class="st1" x="-6026.51" width="1040" height="1040"/>
+    </clipPath>
+    <clipPath id="clippath-2">
+      <rect class="st1" x="-5838.21" y="5430.89" width="2128.65" height="215.23"/>
+    </clipPath>
+    <clipPath id="clippath-3">
+      <rect class="st1" x="-5837.48" y="5473.16" width="139.06" height="139.06"/>
+    </clipPath>
+    <clipPath id="clippath-4">
+      <rect class="st1" x="-5881.18" y="2199.41" width="2199.48" height="390.19"/>
+    </clipPath>
+  </defs>
+  <g>
+    <rect class="st0" x="-2012.83" y="192.53" width="896.11" height="813.06" rx="-110.31" ry="-110.31"/>
+    <g>
+      <path class="st12" d="M-1451.24,165.54c-27.68,168.92-38,231.86-41.84,255.31l-61.3-161.52c11.25-7.68,16.23-22.31,11.18-35.61-5.91-15.58-23.33-23.41-38.91-17.5-15.58,5.91-23.41,23.33-17.5,38.91,5.05,13.3,18.48,20.94,31.99,19.22l61.3,161.52c-18.44-15-67.91-55.25-200.7-163.27,49.28-86.18,20.06-128.78,20.06-128.78l67.64-25.67,67.64-25.67s6.4,51.27,100.45,83.05Z"/>
+      <path class="st12" d="M-1590.72,16.39l-115.97,44.01c-13.88,5.27-20.87,20.8-15.6,34.68h0c5.27,13.88,20.8,20.87,34.68,15.6l115.97-44.01c13.88-5.27,20.87-20.8,15.6-34.68h0c-5.27-13.88-20.8-20.87-34.68-15.6Z"/>
+    </g>
+    <g>
+      <text class="st16" transform="translate(-1890.7 849.1)"><tspan x="0" y="0">บริษัท รับเขียนโค้ด จำกัด</tspan></text>
+      <text class="st8" transform="translate(-1971.28 920.94)"><tspan x="0" y="0">RUB KIAN CODE Co., Ltd.</tspan></text>
+    </g>
+    <g>
+      <polygon class="st12" points="-1066.79 665.3 -2062.75 747.42 -2062.75 506.25 -1066.79 424.14 -1066.79 665.3"/>
+      <text class="st27" transform="translate(-2022.82 694.43) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="689.76" y="0">E&gt;</tspan></text>
+    </g>
+  </g>
+  <g>
+    <rect class="st0" x="-3298.1" y="221.8" width="859.68" height="647.59" rx="-789.37" ry="-789.37"/>
+    <g>
+      <path class="st12" d="M-2767.75,208.39c-22.58,137.77-30.99,189.11-34.13,208.24l-50-131.74c9.18-6.26,13.23-18.2,9.12-29.04-4.82-12.7-19.03-19.09-31.73-14.27-12.7,4.82-19.09,19.03-14.27,31.73,4.12,10.84,15.07,17.08,26.09,15.68l50,131.74c-15.04-12.23-55.39-45.06-163.69-133.16,40.2-70.29,16.36-105.04,16.36-105.04l55.17-20.94,55.17-20.94s5.22,41.81,81.93,67.74Z"/>
+      <path class="st12" d="M-2881.52,86.74l-94.59,35.9c-11.32,4.3-17.02,16.96-12.72,28.28h0c4.3,11.32,16.96,17.02,28.28,12.72l94.59-35.9c11.32-4.3,17.02-16.96,12.72-28.28h0c-4.3-11.32-16.96-17.02-28.28-12.72Z"/>
+    </g>
+    <g>
+      <text class="st2" transform="translate(-3072.46 776.51)"><tspan x="0" y="0">บริษัท รับเขียนโค้ด จำกัด</tspan></text>
+      <text class="st3" transform="translate(-3136.31 826.36)"><tspan x="0" y="0">Rub Kian Code Co., Ltd.</tspan></text>
+    </g>
+    <g>
+      <polygon class="st12" points="-2412.11 631.56 -3331.11 707.33 -3331.11 484.8 -2412.11 409.03 -2412.11 631.56"/>
+      <text class="st23" transform="translate(-3294.28 658.43) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="636.45" y="0">E&gt;</tspan></text>
+    </g>
+  </g>
+  <rect class="st35" x="-4663.47" y="-40.58" width="1211.58" height="1157.44"/>
+  <g>
+    <g>
+      <g>
+        <path class="st12" d="M-3954.53,245.4c-24.67,150.5-33.86,206.57-37.28,227.47l-54.61-143.91c10.02-6.84,14.46-19.88,9.96-31.72-5.27-13.88-20.79-20.86-34.66-15.59-13.88,5.27-20.86,20.79-15.59,34.66,4.5,11.85,16.46,18.66,28.5,17.13l54.61,143.91c-16.43-13.36-60.51-49.22-178.81-145.46,43.91-76.78,17.87-114.74,17.87-114.74l60.26-22.87,60.26-22.87s5.7,45.67,89.49,73.99Z"/>
+        <path class="st12" d="M-4078.8,112.52l-103.32,39.21c-12.37,4.69-18.59,18.53-13.9,30.9h0c4.69,12.37,18.53,18.59,30.9,13.9l103.32-39.21c12.37-4.69,18.59-18.53,13.9-30.9h0c-4.69-12.37-18.53-18.59-30.9-13.9Z"/>
+      </g>
+      <g>
+        <polygon class="st12" points="-3641.73 679.71 -4477.41 748.6 -4477.41 546.25 -3641.73 477.35 -3641.73 679.71"/>
+        <text class="st25" transform="translate(-4443.92 704.14) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="578.76" y="0">E&gt;</tspan></text>
+      </g>
+    </g>
+    <text class="st4" transform="translate(-4464.17 821.5) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">RUB KIAN CODE Co.,Ltd.</tspan></text>
+  </g>
+  <g class="st41">
+    <rect class="st35" x="-8501.76" y="294.05" width="856.02" height="520.15"/>
+    <g>
+      <g>
+        <g>
+          <path class="st12" d="M-8022.71,435.39c-12.79,78.04-17.56,107.12-19.33,117.95l-28.32-74.62c5.2-3.55,7.5-10.31,5.16-16.45-2.73-7.2-10.78-10.82-17.97-8.08-7.2,2.73-10.82,10.78-8.08,17.97,2.33,6.14,8.54,9.68,14.78,8.88l28.32,74.62c-8.52-6.93-31.38-25.52-92.72-75.43,22.77-39.82,9.27-59.5,9.27-59.5l31.25-11.86,31.25-11.86s2.95,23.68,46.41,38.37Z"/>
+          <path class="st12" d="M-8087.15,366.48l-53.58,20.33c-6.41,2.43-9.64,9.61-7.21,16.02h0c2.43,6.41,9.61,9.64,16.02,7.21l53.58-20.33c6.41-2.43,9.64-9.61,7.21-16.02h0c-2.43-6.41-9.61-9.64-16.02-7.21Z"/>
+        </g>
+        <g>
+          <polygon class="st12" points="-7860.51 660.59 -8293.85 696.32 -8293.85 591.39 -7860.51 555.66 -7860.51 660.59"/>
+          <text class="st31" transform="translate(-8276.48 673.27) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="300.11" y="0">E&gt;</tspan></text>
+        </g>
+      </g>
+      <text class="st14" transform="translate(-8286.98 734.12) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">RUB KIAN CODE Co.,Ltd.</tspan></text>
+    </g>
+    <rect class="st12" x="-7645.74" y="294.13" width="1347.31" height="520"/>
+    <g>
+      <text class="st36" transform="translate(-7380.08 613.92)"><tspan class="st38" x="0" y="0">รับเขียน</tspan><tspan class="st35" x="552.22" y="0">โค้ด</tspan></text>
+      <text class="st19" transform="translate(-7542.68 613.14)"><tspan x="0" y="0">บริษัท</tspan></text>
+      <text class="st19" transform="translate(-6550.73 613.13)"><tspan x="0" y="0">จำกัด</tspan></text>
+    </g>
+  </g>
+  <g class="st37">
+    <rect class="st12" x="-6097.34" y="-40.58" width="1211.58" height="1157.44"/>
+    <g>
+      <g>
+        <g>
+          <path class="st35" d="M-5388.4,245.4c-24.67,150.5-33.86,206.57-37.28,227.47l-54.61-143.91c10.02-6.84,14.46-19.88,9.96-31.72-5.27-13.88-20.79-20.86-34.66-15.59-13.88,5.27-20.86,20.79-15.59,34.66,4.5,11.85,16.46,18.66,28.5,17.13l54.61,143.91c-16.43-13.36-60.51-49.22-178.81-145.46,43.91-76.78,17.87-114.74,17.87-114.74l60.26-22.87,60.26-22.87s5.7,45.67,89.49,73.99Z"/>
+          <path class="st35" d="M-5512.68,112.52l-103.32,39.21c-12.37,4.69-18.59,18.53-13.9,30.9h0c4.69,12.37,18.53,18.59,30.9,13.9l103.32-39.21c12.37-4.69,18.59-18.53,13.9-30.9h0c-4.69-12.37-18.53-18.59-30.9-13.9Z"/>
+        </g>
+        <g>
+          <polygon class="st35" points="-5075.6 679.71 -5911.29 748.6 -5911.29 546.25 -5075.6 477.35 -5075.6 679.71"/>
+          <text class="st25" transform="translate(-5877.79 704.14) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="578.76" y="0">E&gt;</tspan></text>
+        </g>
+      </g>
+      <text class="st26" transform="translate(-5898.05 821.5) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">RUB KIAN CODE Co.,Ltd.</tspan></text>
+    </g>
+  </g>
+  <g class="st40">
+    <rect class="st33" x="-5838.21" y="5430.89" width="2128.65" height="215.23"/>
+    <g class="st39">
+      <rect class="st12" x="-5846.96" y="5467.73" width="162" height="154.76"/>
+      <g>
+        <g>
+          <g>
+            <path class="st35" d="M-5752.16,5505.97c-3.3,20.12-4.53,27.62-4.98,30.41l-7.3-19.24c1.34-.91,1.93-2.66,1.33-4.24-.7-1.86-2.78-2.79-4.63-2.08-1.86.7-2.79,2.78-2.08,4.63.6,1.58,2.2,2.49,3.81,2.29l7.3,19.24c-2.2-1.79-8.09-6.58-23.91-19.45,5.87-10.27,2.39-15.34,2.39-15.34l8.06-3.06,8.06-3.06s.76,6.11,11.97,9.89Z"/>
+            <path class="st35" d="M-5768.78,5488.2l-13.82,5.24c-1.65.63-2.49,2.48-1.86,4.13h0c.63,1.65,2.48,2.49,4.13,1.86l13.82-5.24c1.65-.63,2.49-2.48,1.86-4.13h0c-.63-1.65-2.48-2.49-4.13-1.86Z"/>
+          </g>
+          <g>
+            <polygon class="st35" points="-5710.34 5564.04 -5822.08 5573.25 -5822.08 5546.2 -5710.34 5536.99 -5710.34 5564.04"/>
+            <text class="st29" transform="translate(-5817.58 5567.31) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="77.39" y="0">E&gt;</tspan></text>
+          </g>
+        </g>
+        <text class="st30" transform="translate(-5820.29 5583) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">RUB KIAN CODE Co.,Ltd.</tspan></text>
+      </g>
+    </g>
+    <g>
+      <text class="st5" transform="translate(-5677.16 5531.9)"><tspan x="0" y="0">บริษัท รับเขียนโค้ด จำกัด</tspan></text>
+      <text class="st6" transform="translate(-5675.27 5557.68)"><tspan x="0" y="0">91 เฉลิมพระเกียรติ ร.๙ ซอย 14 แขวงดอกไม้ เขตประเวศ กทม 10205</tspan></text>
+      <text class="st10" transform="translate(-5675.61 5583.12)"><tspan class="st20" x="0" y="0">Email :</tspan><tspan class="st21" x="58.92" y="0" xml:space="preserve"> rubkiancode@gmai.com</tspan></text>
+      <text class="st10" transform="translate(-5675.03 5608.97)"><tspan class="st20" x="0" y="0">โทร :</tspan><tspan class="st21" x="38.62" y="0" xml:space="preserve"> +66 63 594 4429 , +66 62 424 9936</tspan></text>
+    </g>
+    <text class="st28" transform="translate(-3944.86 5559.92)"><tspan x="0" y="0">CRAFT</tspan></text>
+    <text class="st7" transform="translate(-3944.86 5603.8)"><tspan x="0" y="0">with CODE</tspan></text>
+  </g>
+  <g class="st32">
+    <rect class="st33" x="-5881.18" y="2199.41" width="2199.48" height="390.19"/>
+    <g>
+      <text class="st34" transform="translate(-5850.14 2362.22)"><tspan x="0" y="0">PROJECT</tspan></text>
+      <text class="st9" transform="translate(-5850.14 2501.86)"><tspan x="0" y="0">PROPOSAL</tspan></text>
+      <rect class="st12" x="-5838.5" y="2538.65" width="2128.08" height="19.55" rx="-791.17" ry="-791.17"/>
+      <g>
+        <text class="st15" transform="translate(-4071.09 2466.88)"><tspan x="0" y="0">บริษัท รับเขียนโค้ด จำกัด</tspan></text>
+        <text class="st7" transform="translate(-4181.95 2510.09)"><tspan x="0" y="0">Rub Kian Code Co., Ltd.</tspan></text>
+      </g>
+    </g>
+  </g>
+  <g>
+    <g>
+      <rect class="st0" x="-9890.77" y="1904.6" width="250.01" height="188.33" rx="-4695.37" ry="-4695.37"/>
+      <g>
+        <path class="st12" d="M-9736.53,1900.7c-6.57,40.07-9.01,55-9.93,60.56l-14.54-38.31c2.67-1.82,3.85-5.29,2.65-8.45-1.4-3.69-5.53-5.55-9.23-4.15-3.69,1.4-5.55,5.53-4.15,9.23,1.2,3.15,4.38,4.97,7.59,4.56l14.54,38.31c-4.37-3.56-16.11-13.1-47.61-38.73,11.69-20.44,4.76-30.55,4.76-30.55l16.04-6.09,16.04-6.09s1.52,12.16,23.83,19.7Z"/>
+        <path class="st12" d="M-9769.62,1865.32l-27.51,10.44c-3.29,1.25-4.95,4.93-3.7,8.23h0c1.25,3.29,4.93,4.95,8.23,3.7l27.51-10.44c3.29-1.25,4.95-4.93,3.7-8.23h0c-1.25-3.29-4.93-4.95-8.23-3.7Z"/>
+      </g>
+      <g>
+        <text class="st11" transform="translate(-9825.14 2065.93)"><tspan x="0" y="0">บริษัท รับเขียนโค้ด จำกัด</tspan></text>
+        <text class="st17" transform="translate(-9843.71 2080.42)"><tspan x="0" y="0">Rub Kian Code Co., Ltd.</tspan></text>
+      </g>
+      <g>
+        <polygon class="st12" points="-9633.1 2023.77 -9900.37 2045.8 -9900.37 1981.09 -9633.1 1959.05 -9633.1 2023.77"/>
+        <text class="st22" transform="translate(-9889.65 2031.58) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="185.1" y="0">E&gt;</tspan></text>
+      </g>
+    </g>
+    <text class="st13" transform="translate(-10039.29 2197.02)"><tspan x="0" y="0">เอกสารตัวอย่าง</tspan></text>
+    <text class="st18" transform="translate(-10177.24 2299.38)"><tspan x="0" y="0">รอจดบริษัทสักครู่นะครับ</tspan></text>
+  </g>
+  <rect class="st35" x="-98.17" y="-21.56" width="1211.58" height="1157.44"/>
+  <g>
+    <g>
+      <path class="st12" d="M632.14,323.16c-26.33,160.67-36.14,220.53-39.8,242.84l-58.31-153.64c10.7-7.3,15.43-21.22,10.63-33.87-5.62-14.82-22.19-22.27-37.01-16.65-14.82,5.62-22.27,22.19-16.64,37.01,4.8,12.65,17.57,19.92,30.43,18.28l58.31,153.63c-17.54-14.27-64.6-52.55-190.9-155.29,46.88-81.97,19.08-122.49,19.08-122.49l64.34-24.42,64.34-24.42s6.08,48.76,95.54,78.99Z"/>
+      <path class="st12" d="M499.47,181.29l-110.31,41.86c-13.21,5.01-19.85,19.78-14.84,32.99h0c5.01,13.21,19.78,19.85,32.99,14.84l110.31-41.86c13.21-5.01,19.85-19.78,14.84-32.99h0c-5.01-13.21-19.78-19.85-32.99-14.84Z"/>
+    </g>
+    <g>
+      <polygon class="st12" points="966.09 786.82 73.91 860.38 73.91 644.34 966.09 570.78 966.09 786.82"/>
+      <text class="st24" transform="translate(109.67 812.91) rotate(-4.71) skewX(-4.68)"><tspan x="0" y="0">&lt;/COD</tspan><tspan x="617.88" y="0">E&gt;</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -4,7 +4,7 @@ import { ArrowIcon } from "./icons"
 
 export function CtaSection() {
   return (
-    <section className="relative overflow-hidden bg-[#0A2540] py-20 sm:py-28">
+    <section className="relative overflow-hidden bg-[#0A2540] py-14 sm:py-20 lg:py-28">
       {/* ตารางพิกเซลเป็น background */}
       <div
         aria-hidden="true"

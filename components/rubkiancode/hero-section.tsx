@@ -65,13 +65,13 @@ export function HeroSection() {
       id="top"
       className="relative overflow-hidden bg-[#FFF8F0] py-16 sm:py-20 lg:py-24"
     >
-      {/* ── Server Racks 6 ตู้ — cluster ติดกัน 2 ข้าง ── */}
+      {/* ── Server Racks — cluster ติดกัน 2 ข้าง (ลดขนาดบน mobile) ── */}
       <div aria-hidden className="pointer-events-none">
         {/* Left cluster — pro (ขอบ) → classic → mini (ใน) */}
-        <div className="absolute bottom-0 left-0 z-0 flex items-end gap-0.5">
+        <div className="absolute bottom-0 left-0 z-0 flex items-end gap-0.5 opacity-70 sm:opacity-100">
           <ServerRack
             variant="pro"
-            className="w-20 shrink-0 sm:w-28 lg:w-36"
+            className="w-14 shrink-0 sm:w-28 lg:w-36"
           />
           <ServerRack
             variant="classic"
@@ -84,7 +84,7 @@ export function HeroSection() {
         </div>
 
         {/* Right cluster — mini (ใน) → pro → classic (ขอบ) */}
-        <div className="absolute bottom-0 right-0 z-0 flex items-end gap-0.5">
+        <div className="absolute bottom-0 right-0 z-0 flex items-end gap-0.5 opacity-70 sm:opacity-100">
           <ServerRack
             variant="mini"
             className="hidden w-12 shrink-0 opacity-55 sm:block sm:w-14 lg:w-20"
@@ -95,7 +95,7 @@ export function HeroSection() {
           />
           <ServerRack
             variant="classic"
-            className="w-20 shrink-0 sm:w-28 lg:w-36"
+            className="w-14 shrink-0 sm:w-28 lg:w-36"
           />
         </div>
       </div>
@@ -142,7 +142,7 @@ export function HeroSection() {
             ★ SOFTWARE HOUSE · LV.99
           </span>
 
-          <h1 className="mt-6 text-4xl font-black uppercase leading-[1.08] tracking-tight text-[#0A2540] sm:text-5xl lg:text-[64px] lg:leading-[1.05]">
+          <h1 className="mt-6 text-3xl font-black uppercase leading-[1.1] tracking-tight text-[#0A2540] sm:text-5xl lg:text-[64px] lg:leading-[1.05]">
             รับทำซอฟต์แวร์ทุกระบบ
             <br />
             เพื่อ
@@ -157,12 +157,12 @@ export function HeroSection() {
             </span>
           </h1>
 
-          <p className="mt-7 max-w-2xl text-lg font-medium leading-snug text-[#0A2540]/85 sm:text-xl lg:text-2xl">
+          <p className="mt-6 max-w-2xl text-base font-medium leading-snug text-[#0A2540]/85 sm:mt-7 sm:text-xl lg:text-2xl">
             <TypewriterText text="อัปเลเวลธุรกิจคุณ ด้วยซอฟต์แวร์ครบมือ 🎯" />
           </p>
 
           {/* Pills */}
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
+          <div className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
             {PILLS.map((p) => (
               <span
                 key={p.label}
@@ -174,11 +174,11 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* CTAs */}
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          {/* CTAs — full-width บน mobile เพื่อ tap target ใหญ่ */}
+          <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:justify-center sm:gap-4">
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-[#E63946] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 bg-[#E63946] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
               style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
             >
               เริ่มโปรเจกต์
@@ -186,7 +186,7 @@ export function HeroSection() {
             </a>
             <a
               href="#portfolio"
-              className="inline-flex items-center gap-2 bg-[#F1C40F] px-6 py-3 font-black uppercase tracking-wider text-[#0A2540] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-2 bg-[#F1C40F] px-6 py-3 font-black uppercase tracking-wider text-[#0A2540] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
               style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
             >
               ดูผลงาน

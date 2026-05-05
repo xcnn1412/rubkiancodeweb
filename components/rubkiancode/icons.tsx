@@ -1,20 +1,17 @@
-// ไอคอนพิกเซลที่ใช้ร่วมกันหลาย ๆ section
-// — BrandLogo: โลโก้ rubkiancode (ปุ่ม + คนสองคน)
+// ไอคอนที่ใช้ร่วมกันหลาย ๆ section
+// — BrandLogo: โลโก้ rubkiancode SVG (จาก /public/images/icon-rubkiancode.svg)
 // — ArrowIcon: ลูกศรชี้ขวาสำหรับปุ่ม CTA
 
 export function BrandLogo({ className }: { className?: string }) {
+  // ใช้ <img> เพราะ SVG มี viewBox + อยากให้ render ได้ทุกขนาดผ่าน className
+  // eslint-disable-next-line @next/next/no-img-element
   return (
-    <svg viewBox="0 0 16 16" className={`pixel-svg ${className ?? ""}`}>
-      <g fill="currentColor">
-        <rect x="2" y="2" width="2" height="2" />
-        <rect x="4" y="4" width="2" height="2" />
-        <rect x="6" y="6" width="2" height="2" />
-        <rect x="4" y="8" width="2" height="2" />
-        <rect x="2" y="10" width="2" height="2" />
-        <rect x="9" y="10" width="2" height="2" />
-        <rect x="11" y="10" width="2" height="2" />
-      </g>
-    </svg>
+    <img
+      src="/images/icon-rubkiancode.svg"
+      alt=""
+      aria-hidden="true"
+      className={`pixel-svg ${className ?? ""}`}
+    />
   )
 }
 

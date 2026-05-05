@@ -85,7 +85,7 @@ const LOG_ENTRIES = [
 
 export function WhyUsSection() {
   return (
-    <section id="why" className="bg-[#F4EDE0] py-20 sm:py-28">
+    <section id="why" className="bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHead
           eyebrow="WHY US · 04 REASONS"

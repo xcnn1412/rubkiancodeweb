@@ -561,3 +561,53 @@
   background: #0A2540;
   animation: rk-caret-fancy-blink 0.55s steps(1, end) infinite;
 }
+
+/* ═══ Firework launch — ยิงขึ้น → ระเบิด → จาง ═══ */
+/* Variant A — ยิงตรง 5s */
+@keyframes rk-firework-launch-a {
+  0%   { transform: translate(0,    180px) scale(0);    opacity: 0;   }
+  4%   { opacity: 0.55; }
+  20%  { transform: translate(0,    50px)  scale(0.08); opacity: 0.75;}
+  25%  { transform: translate(0,    8px)   scale(0.14); opacity: 0.9; }
+  /* === BURST === */
+  30%  { transform: translate(0,    0)     scale(1.1);  opacity: 1;   }
+  /* Hold */
+  45%  { transform: translate(0,    0)     scale(1);    opacity: 0.95;}
+  65%  { transform: translate(0,    0)     scale(1.08); opacity: 0.55;}
+  /* Fade */
+  85%  { transform: translate(0,    0)     scale(1.15); opacity: 0;   }
+  100% { transform: translate(0,    180px) scale(0);    opacity: 0;   }
+}
+
+/* Variant B — ยิงเฉียง 6.5s (ช้ากว่า + drift) */
+@keyframes rk-firework-launch-b {
+  0%   { transform: translate(0,     200px) scale(0);    opacity: 0;   }
+  5%   { opacity: 0.5; }
+  18%  { transform: translate(-6px,  90px)  scale(0.07); opacity: 0.7; }
+  28%  { transform: translate(-2px,  10px)  scale(0.13); opacity: 0.85;}
+  /* === BURST === */
+  33%  { transform: translate(0,     0)     scale(1.12); opacity: 1;   }
+  /* Hold */
+  50%  { transform: translate(0,     0)     scale(1);    opacity: 0.9; }
+  72%  { transform: translate(0,     0)     scale(1.1);  opacity: 0.45;}
+  /* Fade */
+  90%  { transform: translate(0,     0)     scale(1.18); opacity: 0;   }
+  100% { transform: translate(0,     200px) scale(0);    opacity: 0;   }
+}
+
+/* Variant C — ยิงเร็ว 4s (ลูกเล็ก) */
+@keyframes rk-firework-launch-c {
+  0%   { transform: translate(0,    140px) scale(0);    opacity: 0;   }
+  6%   { opacity: 0.6; }
+  22%  { transform: translate(3px,  35px)  scale(0.1);  opacity: 0.8; }
+  /* === BURST (เร็ว) === */
+  28%  { transform: translate(0,    0)     scale(1.15); opacity: 1;   }
+  42%  { transform: translate(0,    0)     scale(1);    opacity: 0.92;}
+  60%  { transform: translate(0,    0)     scale(1.08); opacity: 0.5; }
+  82%  { transform: translate(0,    0)     scale(1.2);  opacity: 0;   }
+  100% { transform: translate(0,    140px) scale(0);    opacity: 0;   }
+}
+
+.rk-firework-launch-a { animation: rk-firework-launch-a 5.0s ease-out infinite; }
+.rk-firework-launch-b { animation: rk-firework-launch-b 6.5s ease-out infinite; }
+.rk-firework-launch-c { animation: rk-firework-launch-c 4.0s ease-out infinite; }

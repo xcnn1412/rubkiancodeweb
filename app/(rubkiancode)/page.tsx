@@ -20,6 +20,9 @@ const ProcessSection = dynamic(
 const WhyUsSection = dynamic(
   () => import("@/components/rubkiancode/why-us-section").then((m) => ({ default: m.WhyUsSection }))
 )
+const TrustSection = dynamic(
+  () => import("@/components/rubkiancode/trust-section").then((m) => ({ default: m.TrustSection }))
+)
 const FaqSection = dynamic(
   () => import("@/components/rubkiancode/faq-section").then((m) => ({ default: m.FaqSection }))
 )
@@ -34,22 +37,55 @@ const Footer = dynamic(
 )
 
 export const metadata: Metadata = {
-  title: "RubKianCode — รับเขียนโค้ด พัฒนาซอฟต์แวร์ เว็บไซต์ และแอปพลิเคชัน",
+  title: "RubKianCode — รับเขียนซอฟต์แวร์ SME ไทย เริ่มต้น 35,000 บาท/ปี",
   description:
-    "RubKianCode รับเขียนโค้ด พัฒนาซอฟต์แวร์ เว็บไซต์ แอปมือถือ และระบบเฉพาะทาง ครบวงจรตั้งแต่ออกแบบ พัฒนา ทดสอบ ถึงดูแลหลังส่งมอบ",
+    "บริษัท รับเขียนโค้ด จำกัด — รับพัฒนาซอฟต์แวร์ครบวงจรสำหรับ SME ไทย: Marketing System, Office ERP, Lucky Draw และ Photobooth Software เริ่ม 35,000 บาท/ปี จดทะเบียนพาณิชย์ถูกต้อง ตรวจสอบได้",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "RubKianCode — รับเขียนโค้ด พัฒนาซอฟต์แวร์ครบวงจร",
+    title: "RubKianCode — รับเขียนซอฟต์แวร์ SME ไทย",
     description:
-      "ทีมนักพัฒนาคุณภาพ รับงาน Marketing System, Office ERP, Lucky Draw และ Custom Software",
+      "Marketing System, Office ERP, Lucky Draw, Photobooth Software ครบวงจร — เริ่มต้น 35,000 บาท/ปี",
     url: "/",
     type: "website",
+    locale: "th_TH",
+    siteName: "RubKianCode",
   },
+}
+
+// Website + ItemList JSON-LD — สำหรับ rich snippet ของบริการทั้ง 4
+const HOMEPAGE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://rubkiancode.com/#website",
+      url: "https://rubkiancode.com",
+      name: "RubKianCode",
+      description: "รับเขียนซอฟต์แวร์ SME ไทย เริ่มต้น 35,000 บาท/ปี",
+      inLanguage: "th-TH",
+      publisher: { "@id": "https://rubkiancode.com/#organization" },
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://rubkiancode.com/#services",
+      name: "บริการหลักของ RubKianCode",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Marketing System",  url: "https://rubkiancode.com/services/marketing-system" },
+        { "@type": "ListItem", position: 2, name: "Office ERP",        url: "https://rubkiancode.com/services/office-erp" },
+        { "@type": "ListItem", position: 3, name: "Lucky Draw",        url: "https://rubkiancode.com/services/lucky-draw" },
+        { "@type": "ListItem", position: 4, name: "Photobooth Software", url: "https://rubkiancode.com/services/photoboothsoftware" },
+      ],
+    },
+  ],
 }
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#F4EDE0] text-[#0A2540]">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(HOMEPAGE_JSON_LD) }}
+      />
       <Navbar />
       <HeroSection />
       <MarqueeSection />
@@ -58,6 +94,7 @@ export default function HomePage() {
       <PortfolioSection />
       <ProcessSection />
       <WhyUsSection />
+      <TrustSection />
       <FaqSection />
       <CtaSection />
       <ContactSection />

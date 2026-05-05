@@ -40,7 +40,7 @@ const STEPS = [
 
 export function ProcessSection() {
   return (
-    <section id="process" className="bg-white py-20 sm:py-28">
+    <section id="process" className="bg-white py-14 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHead
           eyebrow="HOW WE WORK · 04 STEPS"

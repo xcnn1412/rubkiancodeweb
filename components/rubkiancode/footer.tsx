@@ -38,8 +38,8 @@ export function Footer() {
               className="flex items-center gap-3 text-[#F1C40F]"
             >
               <span
-                className="flex h-10 w-10 items-center justify-center bg-[#F1C40F] text-[#0A2540]"
-                style={{ border: "2px solid #F1C40F", boxShadow: "3px 3px 0 #E63946" }}
+                className="flex h-10 w-10 items-center justify-center bg-[#f7a700] text-[#0A2540]"
+                style={{ border: "2px solid #f7a700", boxShadow: "3px 3px 0 #E63946" }}
               >
                 <BrandLogo className="h-6 w-6" />
               </span>
