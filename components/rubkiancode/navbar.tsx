@@ -48,7 +48,7 @@ export function Navbar() {
         >
           <span
             aria-hidden="true"
-            className="flex h-10 w-10 items-center justify-center bg-[#F1C40F] text-[#0A2540]"
+            className="flex h-10 w-10 items-center justify-center bg-[#f7a700] text-[#0A2540]"
             style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 #0A2540" }}
           >
             <BrandLogo className="h-6 w-6" />

@@ -249,7 +249,7 @@ function Slideshow({
           }}
         />
 
-        {/* Video */}
+        {/* Video — preload metadata only, ลด initial bytes */}
         <video
           key={slide.id}
           ref={videoRef}
@@ -259,6 +259,9 @@ function Slideshow({
           playsInline
           loop
           preload="metadata"
+          disablePictureInPicture
+          disableRemotePlayback
+          aria-label={slide.title}
           className="rk-slide-in absolute inset-0 block h-full w-full object-contain"
         />
 

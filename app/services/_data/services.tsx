@@ -56,7 +56,7 @@ export const SERVICES: Service[] = [
       "เชื่อม Facebook · Google · TikTok Ads",
     ],
     duration: "เริ่มต้น 4 สัปดาห์",
-    startingPrice: "180,000 บาท",
+    startingPrice: "35,000 บาท / ปี",
     accent: "#E63946",
     featured: true,
     meta: {
@@ -82,7 +82,7 @@ export const SERVICES: Service[] = [
       "Report & BI Dashboard",
     ],
     duration: "เริ่มต้น 12 สัปดาห์",
-    startingPrice: "480,000 บาท",
+    startingPrice: "35,000 บาท / ปี",
     accent: "#3498DB",
     featured: true,
     meta: {
@@ -108,7 +108,7 @@ export const SERVICES: Service[] = [
       "Export ผลรางวัล PDF / Excel",
     ],
     duration: "เริ่มต้น 1 สัปดาห์ · ต่อ event",
-    startingPrice: "35,000 บาท / event",
+    startingPrice: "35,000 บาท / ปี",
     accent: "#F1C40F",
     featured: true,
     meta: {
@@ -134,7 +134,7 @@ export const SERVICES: Service[] = [
       "Realtime Photo Gallery",
     ],
     duration: "ให้เช่ารายวัน · เริ่ม 1 สัปดาห์",
-    startingPrice: "8,500 บาท / วัน",
+    startingPrice: "35,000 บาท / ปี",
     accent: "#2ECC71",
     featured: true,
     customPage: true, // → ใช้ /services/photoboothsoftware/page.tsx (static) แทน dynamic template
