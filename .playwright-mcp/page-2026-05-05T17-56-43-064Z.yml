@@ -1,0 +1,348 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e4]:
+      - link "RubKianCode หน้าแรก" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img [ref=e7]
+        - generic [ref=e8]:
+          - generic [ref=e9]: rubkiancode
+          - generic [ref=e10]: "> software_studio.exe"
+      - navigation "Primary" [ref=e11]:
+        - link "บริการ" [ref=e12] [cursor=pointer]:
+          - /url: /#services
+          - text: บริการ
+        - link "ผลงาน" [ref=e13] [cursor=pointer]:
+          - /url: /#portfolio
+          - text: ผลงาน
+        - link "วิธีทำงาน" [ref=e14] [cursor=pointer]:
+          - /url: /#process
+          - text: วิธีทำงาน
+        - link "ทำไมต้องเรา" [ref=e15] [cursor=pointer]:
+          - /url: /#why
+          - text: ทำไมต้องเรา
+        - link "ติดต่อ" [ref=e16] [cursor=pointer]:
+          - /url: /#contact
+          - text: ติดต่อ
+      - link "ขอใบเสนอราคา" [ref=e18] [cursor=pointer]:
+        - /url: /#contact
+        - generic [ref=e19]: ขอใบเสนอราคา
+    - navigation "Breadcrumb" [ref=e20]:
+      - generic [ref=e21]:
+        - link "Home" [ref=e22] [cursor=pointer]:
+          - /url: /
+        - generic [ref=e23]: /
+        - link "Services" [ref=e24] [cursor=pointer]:
+          - /url: /#services
+        - generic [ref=e25]: /
+        - generic [ref=e26]: Marketing System
+    - generic [ref=e27]:
+      - generic: ★
+      - generic: ★
+      - generic: ★
+      - generic: ★
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e30]: ★ CORE SERVICE · 01
+          - heading "ระบบการตลาด" [level=1] [ref=e31]
+          - paragraph [ref=e33]: ▸ Marketing System
+          - paragraph [ref=e34]: เพิ่มยอดขายและลูกค้ากลับมาซ้ำ ด้วยระบบที่วัดผลได้ทุกบาท ตั้งแต่ Landing, CRM, Email/LINE Automation จนถึง Dashboard รวม
+          - generic [ref=e35]:
+            - link "ขอใบเสนอราคา" [ref=e36] [cursor=pointer]:
+              - /url: /#contact
+              - text: ขอใบเสนอราคา
+              - img [ref=e37]
+            - link "ดูฟีเจอร์" [ref=e42] [cursor=pointer]:
+              - /url: "#features"
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e49]: PREVIEW · MARKETING SYSTEM
+            - generic [ref=e50]: LIVE
+          - img "Marketing Dashboard ของระบบการตลาด — รายได้ · ROAS · Attribution" [ref=e56]
+    - generic [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e64]: ระยะเวลาส่งมอบ
+        - generic [ref=e65]: เริ่มต้น 4 สัปดาห์
+      - generic [ref=e66]:
+        - generic [ref=e67]: ราคาเริ่มต้น
+        - generic [ref=e68]: 35,000 บาท / ปี
+      - generic [ref=e69]:
+        - generic [ref=e70]: การดูแลหลังส่งมอบ
+        - generic [ref=e71]: 30 วัน Hypercare ฟรี
+    - generic [ref=e73]:
+      - generic [ref=e74]:
+        - generic [ref=e75]: FEATURES · 06
+        - heading "สิ่งที่คุณได้ จากระบบนี้" [level=2] [ref=e76]:
+          - text: สิ่งที่คุณได้
+          - text: จากระบบนี้
+      - list [ref=e77]:
+        - listitem [ref=e78]:
+          - generic [ref=e79]: "01"
+          - generic [ref=e80]: Marketing Automation (LINE OA · Email)
+        - listitem [ref=e81]:
+          - generic [ref=e82]: "02"
+          - generic [ref=e83]: Multi-touch Attribution Dashboard
+        - listitem [ref=e84]:
+          - generic [ref=e85]: "03"
+          - generic [ref=e86]: Customer Data Platform
+        - listitem [ref=e87]:
+          - generic [ref=e88]: "04"
+          - generic [ref=e89]: A/B Testing & Conversion Tracking
+        - listitem [ref=e90]:
+          - generic [ref=e91]: "05"
+          - generic [ref=e92]: Lead scoring · Segmentation
+        - listitem [ref=e93]:
+          - generic [ref=e94]: "06"
+          - generic [ref=e95]: เชื่อม Facebook · Google · TikTok Ads
+    - generic [ref=e97]:
+      - generic [ref=e98]:
+        - generic [ref=e99]: ★ PRODUCT SCREENSHOTS
+        - heading "ดูภาพจริง เข้าใจระบบใน 30 วินาที" [level=2] [ref=e100]:
+          - text: ดูภาพจริง
+          - text: เข้าใจระบบใน 30 วินาที
+        - paragraph [ref=e101]: ระบบที่ลูกค้าใช้งานจริงทุกวัน — Dashboard ดูภาพรวม, Marketing Automation ส่งให้ลูกค้ากลับมาซ้ำ, และ Multi-touch Attribution บอกว่าแต่ละบาทที่ลงโฆษณา คืนกำไรกลับมาเท่าไหร่
+      - generic [ref=e102]:
+        - figure "01 เห็นภาพรวมธุรกิจในจอเดียว — รายได้, ค่าโฆษณา, กำไร, ROAS ครบ ไม่ต้องเปิดหลายแอป ▶" [ref=e103]:
+          - generic [ref=e104]:
+            - generic [ref=e109]: SCREEN · 01 · MARKETING SYSTEM
+            - generic [ref=e110]: LIVE
+          - img "Marketing Dashboard ภาพรวม — รายได้ · ROAS · CAC · LTV · Channel Mix ครบในจอเดียว" [ref=e115]
+          - generic [ref=e120]:
+            - generic [ref=e121]: "01"
+            - generic [ref=e122]: เห็นภาพรวมธุรกิจในจอเดียว — รายได้, ค่าโฆษณา, กำไร, ROAS ครบ ไม่ต้องเปิดหลายแอป
+            - generic [ref=e123]: ▶
+        - figure "02 ระบบส่ง LINE/Email อัตโนมัติ 24 ชม. + AI Score บอกว่า 'ลูกค้าคนไหนพร้อมซื้อ' ตอนนี้ ▶" [ref=e124]:
+          - generic [ref=e125]:
+            - generic [ref=e130]: SCREEN · 02 · MARKETING SYSTEM
+            - generic [ref=e131]: LIVE
+          - img "Marketing Automation Dashboard — Conversion Funnel · A/B Experiments · Hot Leads scoring" [ref=e136]
+          - generic [ref=e141]:
+            - generic [ref=e142]: "02"
+            - generic [ref=e143]: ระบบส่ง LINE/Email อัตโนมัติ 24 ชม. + AI Score บอกว่า 'ลูกค้าคนไหนพร้อมซื้อ' ตอนนี้
+            - generic [ref=e144]: ▶
+        - figure "03 รู้ทันทีว่าโฆษณาช่องไหนคุ้ม — เห็นเงินจาก Google/Facebook/LINE/TikTok ทุกบาทที่ลง ▶" [ref=e145]:
+          - generic [ref=e146]:
+            - generic [ref=e151]: SCREEN · 03 · MARKETING SYSTEM
+            - generic [ref=e152]: LIVE
+          - img "Multi-touch Attribution — Revenue Performance chart + Channel breakdown (Google, Facebook, LINE, TikTok)" [ref=e157]
+          - generic [ref=e162]:
+            - generic [ref=e163]: "03"
+            - generic [ref=e164]: รู้ทันทีว่าโฆษณาช่องไหนคุ้ม — เห็นเงินจาก Google/Facebook/LINE/TikTok ทุกบาทที่ลง
+            - generic [ref=e165]: ▶
+      - paragraph [ref=e166]: ★ ภาพตัวอย่างจาก Pulse Marketing OS · ระบบที่พัฒนาส่งมอบลูกค้าจริง
+    - generic [ref=e169]:
+      - generic [ref=e170]:
+        - generic [ref=e171]:
+          - generic [ref=e176]: deep_dive_multi-touch_path.json
+          - generic [ref=e177]: LIVE
+        - img "Top Conversion Paths — multi-touch sequences ของ 30 วันล่าสุด · Google → Email → Direct, Facebook → LINE → Direct, TikTok → Google → Email → Direct" [ref=e182]
+        - paragraph [ref=e187]: ★ Top Conversion Paths · 30 วันล่าสุด
+      - generic [ref=e188]:
+        - generic [ref=e189]: ★ DEEP DIVE · MULTI-TOUCH PATH
+        - heading "เห็นเส้นทางที่ลูกค้า ซื้อจริง ไม่ต้องเดา" [level=2] [ref=e190]:
+          - text: เห็นเส้นทางที่ลูกค้า
+          - text: ซื้อจริง ไม่ต้องเดา
+        - paragraph [ref=e191]: ลูกค้าไม่ได้ซื้อเพราะโฆษณาตัวเดียว — บางคนเริ่มจาก Google → ตามด้วย Email → แล้วปิดที่ Direct ระบบ Top Conversion Path ของเราจะเห็นเส้นทางจริงทั้งหมด ทำให้คุณรู้ว่าช่องไหน 'เริ่ม' ช่องไหน 'ปิด' กระจายงบให้ถูกที่ ไม่ใช่ทุ่มที่ช่องสุดท้ายอย่างเดียว
+        - list [ref=e192]:
+          - listitem [ref=e193]:
+            - generic [ref=e194]:
+              - generic [ref=e195]: "01"
+              - heading "เห็นทุกจุดสัมผัส (Touch Point)" [level=3] [ref=e196]
+            - paragraph [ref=e197]: ไม่ใช่แค่ช่องสุดท้าย — เห็นทุกครั้งที่ลูกค้าเจอแบรนด์เรา ตั้งแต่ Google, Facebook, TikTok ไปจนถึงปิดดีลที่ Direct
+          - listitem [ref=e198]:
+            - generic [ref=e199]:
+              - generic [ref=e200]: "02"
+              - heading "ลงทุนงบโฆษณาฉลาดขึ้น" [level=3] [ref=e201]
+            - paragraph [ref=e202]: รู้ว่าช่องไหนคน 'เริ่มต้น' ช่องไหน 'ปิด' → กระจายงบให้ถูกที่ ลด CAC ขึ้น ROAS
+          - listitem [ref=e203]:
+            - generic [ref=e204]:
+              - generic [ref=e205]: "03"
+              - heading "เลิกเสียเงินกับช่องไม่คุ้ม" [level=3] [ref=e206]
+            - paragraph [ref=e207]: ตัด channel ที่ไม่มีส่วนช่วยจริงออก เห็นเงินคืนชัด — ไม่ต้องทุ่มงบกับช่องที่แค่ได้ยอดผิวเผิน
+          - listitem [ref=e208]:
+            - generic [ref=e209]:
+              - generic [ref=e210]: "04"
+              - heading "เพิ่มยอดปิดการขาย 30%+" [level=3] [ref=e211]
+            - paragraph [ref=e212]: ส่ง remarketing ตามเส้นทางที่ Convert จริง → ลูกค้าได้รับโฆษณาที่เหมาะสมในจังหวะที่ใช่
+    - generic [ref=e215]:
+      - generic [ref=e216]:
+        - generic [ref=e217]:
+          - generic [ref=e222]: deep_dive_marketing_automation.json
+          - generic [ref=e223]: LIVE
+        - img "Marketing automation 12 active flows — Welcome Series LINE OA, Cart Abandon Email, Re-engagement 60-day, Demo Booked Nurture, Repeat Purchase 30d พร้อม Sent/Open/Click/Revenue metrics" [ref=e228]
+        - paragraph [ref=e233]: ★ Marketing Automation · 12 active flows
+      - generic [ref=e234]:
+        - generic [ref=e235]: ★ DEEP DIVE · MARKETING AUTOMATION
+        - heading "ตั้งครั้งเดียว ทำงาน 24 ชม. ลูกค้าซื้อซ้ำเองอัตโนมัติ" [level=2] [ref=e236]:
+          - text: ตั้งครั้งเดียว ทำงาน 24 ชม.
+          - text: ลูกค้าซื้อซ้ำเองอัตโนมัติ
+        - paragraph [ref=e237]: เซ็ตอัพ flow ครั้งเดียว ระบบจะส่ง LINE OA / Email ตามจังหวะของลูกค้าแต่ละคน — ตั้งแต่ Welcome Series ตอนเริ่มต้น, Cart Abandon ดึงคนกลับ, Re-engagement ปลุกลูกค้าเก่า, ไปจนถึง Repeat Purchase ลูกค้าได้รับเนื้อหาที่ตรงสถานะตัวเอง คุณนอนหลับ — ระบบทำงานต่อ พร้อมโชว์ sent / open / click / revenue ทุก flow แบบ real-time
+        - list [ref=e238]:
+          - listitem [ref=e239]:
+            - generic [ref=e240]:
+              - generic [ref=e241]: "01"
+              - heading "ตั้งครั้งเดียว ทำงานตลอด" [level=3] [ref=e242]
+            - paragraph [ref=e243]: Welcome / Cart Abandon / Re-engagement — ส่งตามจังหวะลูกค้าแต่ละคน ไม่ต้องนั่งคิดทุกวัน
+          - listitem [ref=e244]:
+            - generic [ref=e245]:
+              - generic [ref=e246]: "02"
+              - heading "เห็น performance ทุก flow" [level=3] [ref=e247]
+            - paragraph [ref=e248]: Sent · Open rate · CTR · Revenue ของแต่ละ campaign บอกชัดว่า flow ไหนคุ้ม flow ไหนต้องปรับ
+          - listitem [ref=e249]:
+            - generic [ref=e250]:
+              - generic [ref=e251]: "03"
+              - heading "Personalize ระดับลึก" [level=3] [ref=e252]
+            - paragraph [ref=e253]: Segment ลูกค้าตาม behavior — VIP, Inactive, New follower แต่ละกลุ่มได้ message ต่างกัน ตรงใจกว่า
+          - listitem [ref=e254]:
+            - generic [ref=e255]:
+              - generic [ref=e256]: "04"
+              - heading "คืนทุนใน 30 วันแรก" [level=3] [ref=e257]
+            - paragraph [ref=e258]: Cart Abandon flow เดียวดึง revenue กลับมา ฿2M+ ใน 30 วัน — เซ็ตครั้งเดียวแต่ขายให้ตลอดปี
+    - generic [ref=e261]:
+      - generic [ref=e262]:
+        - generic [ref=e263]:
+          - generic [ref=e268]: deep_dive_a/b_testing.json
+          - generic [ref=e269]: LIVE
+        - 'img "A/B Testing dashboard — 3 running experiments: Pricing page hero copy (12,480 visitors, significance 98%, Variant B Outcome-led winner +42% CVR 4.86%), Demo CTA placement (8,920 visitors, significance 94%, Variant A Sticky bar winner +18% CVR 5.18%), LINE welcome message (4,210 followers, significance 91%, Variant B Single CTA winner +23% CVR 22.4%)" [ref=e274]'
+        - paragraph [ref=e279]: ★ A/B Experiments · 3 running · ประกาศ Winner อัตโนมัติ
+      - generic [ref=e280]:
+        - generic [ref=e281]: ★ DEEP DIVE · A/B TESTING
+        - heading "ทดสอบทุกการตัดสินใจ ก่อนทุ่มงบเต็มสเกล" [level=2] [ref=e282]:
+          - text: ทดสอบทุกการตัดสินใจ
+          - text: ก่อนทุ่มงบเต็มสเกล
+        - paragraph [ref=e283]: A/B Testing คือการทดสอบเปรียบเทียบสองเวอร์ชันแบบเป็นวิทยาศาสตร์ — Headline แบบไหนคนคลิกมากกว่า, ปุ่ม CTA สีไหนปิดการขายได้เยอะกว่า, ข้อความ LINE OA แบบไหนได้ Open Rate สูงกว่า ระบบของเรารัน Split Test พร้อมกันได้หลาย experiments แสดง Conversion Rate, Uplift % และ Statistical Significance แบบ real-time พร้อมประกาศ 'Winner' อัตโนมัติเมื่อข้อมูลถึงระดับเชื่อถือได้ ทำให้ทุกการตัดสินใจมีหลักฐานเชิงข้อมูล (Data-driven Decision) ลด Risk ก่อน Scale และเพิ่ม Conversion Rate ได้ 20–50% โดยไม่ต้องเพิ่มงบโฆษณาแม้แต่บาทเดียว
+        - list [ref=e284]:
+          - listitem [ref=e285]:
+            - generic [ref=e286]:
+              - generic [ref=e287]: "01"
+              - heading "ตัดสินใจด้วยข้อมูลจริง" [level=3] [ref=e288]
+            - paragraph [ref=e289]: Statistical Significance · Sample Size · p-value — รู้ทันทีว่าผลทดลองเชื่อถือได้แค่ไหน ก่อนเปลี่ยนของจริงทั้งหมด
+          - listitem [ref=e290]:
+            - generic [ref=e291]:
+              - generic [ref=e292]: "02"
+              - heading "ทดสอบได้ทุก Touch Point" [level=3] [ref=e293]
+            - paragraph [ref=e294]: Headline · CTA Copy · Pricing Page · Email Subject · LINE Message — ปรับทีละจุด หา Winner ที่ Convert จริง
+          - listitem [ref=e295]:
+            - generic [ref=e296]:
+              - generic [ref=e297]: "03"
+              - heading "ลด Risk ก่อน Scale" [level=3] [ref=e298]
+            - paragraph [ref=e299]: ทดสอบกับ traffic แค่ 10% ก่อน เห็นเวอร์ชันใหม่ชนะอย่างมีนัยสำคัญ ค่อยขยายเต็มที่ — ประหยัดงบที่อาจเสียเปล่า
+          - listitem [ref=e300]:
+            - generic [ref=e301]:
+              - generic [ref=e302]: "04"
+              - heading "เพิ่ม Conversion Rate 20–50%" [level=3] [ref=e303]
+            - paragraph [ref=e304]: Optimize Headline + CTA + UX ทีละชิ้น เอฟเฟกต์ทบต้น (Compound) ดัน ROAS ขึ้นชัดภายใน 60 วัน ไม่ต้องเพิ่มงบ Ads
+    - generic [ref=e306]:
+      - generic [ref=e307]:
+        - generic [ref=e308]: MORE · CORE SERVICES
+        - heading "บริการอื่นที่อาจสนใจ" [level=2] [ref=e309]
+      - generic [ref=e310]:
+        - link "02 ระบบภายในออฟฟิศ Office ERP ▶" [ref=e311] [cursor=pointer]:
+          - /url: /services/office-erp
+          - generic [ref=e312]:
+            - generic [ref=e313]: "02"
+            - heading "ระบบภายในออฟฟิศ" [level=3] [ref=e314]
+          - generic [ref=e315]:
+            - generic [ref=e316]: Office ERP
+            - generic [ref=e317]: ▶
+        - link "03 ระบบ Lucky Draw สำหรับงานอีเวนต์ ▶" [ref=e318] [cursor=pointer]:
+          - /url: /services/lucky-draw
+          - generic [ref=e319]:
+            - generic [ref=e320]: "03"
+            - heading "ระบบ Lucky Draw" [level=3] [ref=e321]
+          - generic [ref=e322]:
+            - generic [ref=e323]: สำหรับงานอีเวนต์
+            - generic [ref=e324]: ▶
+        - link "04 ระบบ Photobooth Korean-style Booth ▶" [ref=e325] [cursor=pointer]:
+          - /url: /services/photoboothsoftware
+          - generic [ref=e326]:
+            - generic [ref=e327]: "04"
+            - heading "ระบบ Photobooth" [level=3] [ref=e328]
+          - generic [ref=e329]:
+            - generic [ref=e330]: Korean-style Booth
+            - generic [ref=e331]: ▶
+    - generic [ref=e334]:
+      - generic [ref=e335]: PRESS START
+      - heading "พร้อมเริ่มโปรเจกต์ของคุณ? คุยฟรี 30 นาที ไม่มีค่าใช้จ่าย" [level=2] [ref=e336]:
+        - text: พร้อมเริ่มโปรเจกต์ของคุณ?
+        - text: คุยฟรี 30 นาที ไม่มีค่าใช้จ่าย
+      - paragraph [ref=e337]: เล่าโจทย์ของคุณให้ฟัง เราจะตอบกลับด้วย Scope, ราคาเบื้องต้น และไอเดียสถาปัตยกรรม — เป็นลายลักษณ์อักษร ภายใน 1 วันทำการ
+      - generic [ref=e338]:
+        - link "ขอใบเสนอราคา" [ref=e339] [cursor=pointer]:
+          - /url: "#contact"
+          - text: ขอใบเสนอราคา
+          - img [ref=e340]
+        - link "คุยผ่าน LINE @rubkiancode" [ref=e345] [cursor=pointer]:
+          - /url: https://lin.ee/py7hRoKC
+    - generic [ref=e347]:
+      - generic [ref=e348]:
+        - generic [ref=e349]:
+          - link "RubKianCode หน้าแรก" [ref=e350] [cursor=pointer]:
+            - /url: "#top"
+            - img [ref=e352]
+            - generic [ref=e353]:
+              - generic [ref=e354]: rubkiancode
+              - generic [ref=e355]: "> software_studio.exe"
+          - paragraph [ref=e356]: บริษัทรับเขียนโปรแกรมครบวงจร สำหรับผู้ประกอบการไทย — ผลิต จำหน่าย ให้คำปรึกษา การเช่าซอฟต์แวร์ที่ขึ้นชื่อจากเรา
+          - generic [ref=e357]: ระบบออนไลน์ 24/7
+        - generic [ref=e359]:
+          - heading "บริการ" [level=6] [ref=e360]
+          - list [ref=e361]:
+            - listitem [ref=e362]:
+              - link "ระบบการตลาด" [ref=e363] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e364]:
+              - link "Office ERP" [ref=e365] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e366]:
+              - link "Lucky Draw System" [ref=e367] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e368]:
+              - link "Custom Software" [ref=e369] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e370]:
+              - link "Web & E-commerce" [ref=e371] [cursor=pointer]:
+                - /url: "#services"
+            - listitem [ref=e372]:
+              - link "IT Consulting" [ref=e373] [cursor=pointer]:
+                - /url: "#services"
+        - generic [ref=e374]:
+          - heading "เกี่ยวกับเรา" [level=6] [ref=e375]
+          - list [ref=e376]:
+            - listitem [ref=e377]:
+              - link "ผลงาน" [ref=e378] [cursor=pointer]:
+                - /url: "#portfolio"
+            - listitem [ref=e379]:
+              - link "วิธีการทำงาน" [ref=e380] [cursor=pointer]:
+                - /url: "#process"
+            - listitem [ref=e381]:
+              - link "ทำไมต้องเรา" [ref=e382] [cursor=pointer]:
+                - /url: "#why"
+            - listitem [ref=e383]:
+              - link "ติดต่อ" [ref=e384] [cursor=pointer]:
+                - /url: "#contact"
+        - generic [ref=e385]:
+          - heading "ติดต่อ" [level=6] [ref=e386]
+          - list [ref=e387]:
+            - listitem [ref=e388]:
+              - link "rubkiancode@gmail.com" [ref=e389] [cursor=pointer]:
+                - /url: mailto:rubkiancode@gmail.com
+            - listitem [ref=e390]:
+              - link "063-594-4429" [ref=e391] [cursor=pointer]:
+                - /url: tel:0635944429
+            - listitem [ref=e392]:
+              - link "@rubkiancode" [ref=e393] [cursor=pointer]:
+                - /url: https://lin.ee/py7hRoKC
+            - listitem [ref=e394]:
+              - link "กรุงเทพมหานคร" [ref=e395] [cursor=pointer]:
+                - /url: "#"
+      - generic [ref=e396]:
+        - generic [ref=e397]: © 2026 RubKianCode Co., Ltd. — รับเขียนโปรแกรมครบวงจร · สงวนลิขสิทธิ์
+        - generic [ref=e398]:
+          - link "Privacy Policy" [ref=e399] [cursor=pointer]:
+            - /url: "#"
+          - link "Terms of Service" [ref=e400] [cursor=pointer]:
+            - /url: "#"
+          - link "PDPA" [ref=e401] [cursor=pointer]:
+            - /url: "#"
+  - button "Open Next.js Dev Tools" [ref=e407] [cursor=pointer]:
+    - img [ref=e408]

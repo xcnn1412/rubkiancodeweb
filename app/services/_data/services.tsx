@@ -30,6 +30,10 @@ export type KeyFeature = {
   highlightedTitle: string      // ส่วนที่ระบายสี accent
   description: string           // 1 paragraph อธิบาย concept
   image: Screenshot             // ภาพประกอบ
+  // ปรับสัดส่วน frame ภาพให้แมตช์กับ aspect ratio ของภาพจริง
+  // ค่า default = "auto" → portrait บน mobile / landscape บน desktop (เหมาะกับภาพ landscape ส่วนใหญ่)
+  // ใช้ "portrait" เมื่อภาพเป็นแนวตั้ง เพื่อกัน letterbox กว้างบน desktop
+  imageAspect?: "auto" | "portrait" | "square" | "landscape"
   benefits: { title: string; description: string }[]  // 3-4 ข้อ
 }
 
@@ -80,9 +84,9 @@ export const SERVICES: Service[] = [
     accent: "#E63946",
     featured: true,
     meta: {
-      title: "ระบบการตลาด — Marketing System | RubKianCode",
+      title: "ระบบการตลาด — Marketing System & A/B Testing | RubKianCode",
       description:
-        "ระบบการตลาดครบวงจร — Marketing Automation, CRM, Multi-touch Attribution พร้อม Dashboard วัดผลแบบ Real-time",
+        "ระบบการตลาดครบวงจร — Marketing Automation, CRM, Multi-touch Attribution, A/B Testing & Conversion Rate Optimization พร้อม Dashboard วัดผล Real-time เพิ่ม Conversion Rate 20–50% โดยไม่ต้องเพิ่มงบโฆษณา",
     },
     art: <MarketingArt />,
     screenshots: [
@@ -174,6 +178,43 @@ export const SERVICES: Service[] = [
             title: "คืนทุนใน 30 วันแรก",
             description:
               "Cart Abandon flow เดียวดึง revenue กลับมา ฿2M+ ใน 30 วัน — เซ็ตครั้งเดียวแต่ขายให้ตลอดปี",
+          },
+        ],
+      },
+
+      // ── Deep dive 3: A/B Testing & Conversion Rate Optimization ──
+      {
+        eyebrow: "★ DEEP DIVE · A/B TESTING",
+        title: "ทดสอบทุกการตัดสินใจ",
+        highlightedTitle: "ก่อนทุ่มงบเต็มสเกล",
+        description:
+          "A/B Testing คือการทดสอบเปรียบเทียบสองเวอร์ชันแบบเป็นวิทยาศาสตร์ — Headline แบบไหนคนคลิกมากกว่า, ปุ่ม CTA สีไหนปิดการขายได้เยอะกว่า, ข้อความ LINE OA แบบไหนได้ Open Rate สูงกว่า ระบบของเรารัน Split Test พร้อมกันได้หลาย experiments แสดง Conversion Rate, Uplift % และ Statistical Significance แบบ real-time พร้อมประกาศ 'Winner' อัตโนมัติเมื่อข้อมูลถึงระดับเชื่อถือได้ ทำให้ทุกการตัดสินใจมีหลักฐานเชิงข้อมูล (Data-driven Decision) ลด Risk ก่อน Scale และเพิ่ม Conversion Rate ได้ 20–50% โดยไม่ต้องเพิ่มงบโฆษณาแม้แต่บาทเดียว",
+        image: {
+          src: "/images/example-products/marketing6.jpg",
+          alt: "A/B Testing dashboard — 3 running experiments: Pricing page hero copy (12,480 visitors, significance 98%, Variant B Outcome-led winner +42% CVR 4.86%), Demo CTA placement (8,920 visitors, significance 94%, Variant A Sticky bar winner +18% CVR 5.18%), LINE welcome message (4,210 followers, significance 91%, Variant B Single CTA winner +23% CVR 22.4%)",
+          caption: "A/B Experiments · 3 running · ประกาศ Winner อัตโนมัติ",
+        },
+        imageAspect: "portrait",
+        benefits: [
+          {
+            title: "ตัดสินใจด้วยข้อมูลจริง",
+            description:
+              "Statistical Significance · Sample Size · p-value — รู้ทันทีว่าผลทดลองเชื่อถือได้แค่ไหน ก่อนเปลี่ยนของจริงทั้งหมด",
+          },
+          {
+            title: "ทดสอบได้ทุก Touch Point",
+            description:
+              "Headline · CTA Copy · Pricing Page · Email Subject · LINE Message — ปรับทีละจุด หา Winner ที่ Convert จริง",
+          },
+          {
+            title: "ลด Risk ก่อน Scale",
+            description:
+              "ทดสอบกับ traffic แค่ 10% ก่อน เห็นเวอร์ชันใหม่ชนะอย่างมีนัยสำคัญ ค่อยขยายเต็มที่ — ประหยัดงบที่อาจเสียเปล่า",
+          },
+          {
+            title: "เพิ่ม Conversion Rate 20–50%",
+            description:
+              "Optimize Headline + CTA + UX ทีละชิ้น เอฟเฟกต์ทบต้น (Compound) ดัน ROAS ขึ้นชัดภายใน 60 วัน ไม่ต้องเพิ่มงบ Ads",
           },
         ],
       },

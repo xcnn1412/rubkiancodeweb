@@ -69,6 +69,17 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
   if (!service || service.customPage) notFound()
 
   const related = getRelatedServices(service.slug, 3)
+  // สีตกแต่ง pixel — yellow คือสี signature แต่ถ้า accent ของ service เป็น yellow อยู่แล้ว
+  // (เช่น lucky-draw) ให้ fallback เป็น red เพื่อกัน yellow-on-yellow มองไม่เห็น
+  const decorAccent = service.accent === "#F1C40F" ? "#E63946" : "#F1C40F"
+  // Hero text สี — bg เข้ม (red/blue) ใช้ตัวอักษรขาว, bg เหลืองสว่าง (lucky-draw) ใช้ navy
+  const isLightAccent = service.accent === "#F1C40F"
+  const heroTitleClass = isLightAccent ? "text-[#0A2540]" : "text-white"
+  const heroBodyClass = isLightAccent ? "text-[#0A2540]" : "text-[#FFF8F0]"
+  const heroMutedClass = isLightAccent ? "text-[#0A2540]/85" : "text-[#FFF8F0]/90"
+  const heroCornerClass = isLightAccent ? "text-[#0A2540]/35" : "text-[#FFF8F0]/40"
+  // Title pixel shadow — เฉพาะ accent เข้มที่ใช้ตัวอักษรขาว เพื่อให้ดูเป็น 8-bit arcade
+  const heroTitleShadow = isLightAccent ? undefined : "3px 3px 0 #0A2540"
 
   return (
     <main className="min-h-screen bg-[#F4EDE0] text-[#0A2540]">
@@ -92,38 +103,68 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         </div>
       </nav>
 
-      {/* Hero — สี theme ของ service */}
+      {/* Hero — สี theme ของ service + CRT scanline overlay */}
       <header
-        className="relative overflow-hidden border-b-[3px] border-[#0A2540]"
+        className="retro-scanlines relative overflow-hidden border-b-[3px] border-[#0A2540]"
         style={{ background: service.accent }}
       >
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
+        {/* Pixel ★ corners — ตกแต่งมุมทั้ง 4 ให้ดูเป็น arcade frame */}
+        <span aria-hidden className={`font-pixel pointer-events-none absolute left-3 top-3 select-none text-base ${heroCornerClass} sm:left-4 sm:top-4 sm:text-lg`}>★</span>
+        <span aria-hidden className={`font-pixel pointer-events-none absolute right-3 top-3 select-none text-base ${heroCornerClass} sm:right-4 sm:top-4 sm:text-lg`}>★</span>
+        <span aria-hidden className={`font-pixel pointer-events-none absolute bottom-3 left-3 select-none text-base ${heroCornerClass} sm:bottom-4 sm:left-4 sm:text-lg`}>★</span>
+        <span aria-hidden className={`font-pixel pointer-events-none absolute bottom-3 right-3 select-none text-base ${heroCornerClass} sm:bottom-4 sm:right-4 sm:text-lg`}>★</span>
+
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
           <div>
+            {/* Badge — เพิ่ม shadow สี accent ตรงข้ามให้ pop */}
             <span
               className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
-              style={{ boxShadow: "4px 4px 0 #0A2540" }}
+              style={{ boxShadow: `4px 4px 0 ${decorAccent}` }}
             >
-              CORE SERVICE · {service.num}
+              ★ CORE SERVICE · {service.num}
             </span>
-            <h1 className="mt-6 text-4xl font-black uppercase leading-[1.05] text-[#0A2540] sm:text-5xl lg:text-6xl">
+
+            <h1
+              className={`mt-6 text-4xl font-black uppercase leading-[1.05] sm:text-5xl lg:text-6xl ${heroTitleClass}`}
+              style={heroTitleShadow ? { textShadow: heroTitleShadow } : undefined}
+            >
               {service.title}
             </h1>
-            <p className="mt-3 text-xl font-bold uppercase tracking-wide text-[#0A2540]/80 sm:text-2xl">
-              {service.subtitle}
+
+            {/* Pixel underline accent — signature ของ pixel theme */}
+            <span
+              aria-hidden
+              className="mt-3 block h-1.5 w-28"
+              style={{ background: decorAccent, boxShadow: "0 3px 0 #0A2540" }}
+            />
+
+            {/* Subtitle — pixel-styled tag พร้อม ▸ prefix */}
+            <p className={`font-pixel mt-5 text-sm uppercase tracking-[0.3em] sm:text-base ${heroMutedClass}`}>
+              ▸ {service.subtitle}
             </p>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-[#0A2540]/85 sm:text-lg">
+
+            {/* Description — เต็ม opacity + leading กว้างขึ้น เพื่ออ่านง่าย */}
+            <p className={`mt-6 max-w-xl text-base font-medium leading-relaxed sm:text-lg ${heroBodyClass}`}>
               {service.description}
             </p>
 
+            {/* CTAs — primary (navy) + secondary (yellow → ดูฟีเจอร์) */}
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
                 href="/#contact"
                 className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 white" }}
+                style={{ border: "3px solid #0A2540", boxShadow: `5px 5px 0 ${decorAccent}` }}
               >
                 ขอใบเสนอราคา
                 <ArrowIcon className="h-4 w-4" />
               </Link>
+              <a
+                href="#features"
+                className="inline-flex items-center gap-2 bg-[#F1C40F] px-6 py-3 font-black uppercase tracking-wider text-[#0A2540] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
+              >
+                ดูฟีเจอร์
+              </a>
             </div>
           </div>
 
@@ -174,7 +215,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
       </section>
 
       {/* Features */}
-      <section className="bg-[#F4EDE0] py-20 sm:py-28">
+      <section id="features" className="scroll-mt-20 bg-[#F4EDE0] py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 max-w-3xl">
             <span
@@ -315,6 +356,16 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         const imageOnRight = idx % 2 === 1
         const sectionBg = idx % 2 === 0 ? "bg-white" : "bg-[#F4EDE0]"
         const cardBg = idx % 2 === 0 ? "bg-[#F4EDE0]" : "bg-white"
+        // เลือก aspect ratio ของ image frame ตามแนวภาพจริง
+        // — กัน letterbox กว้างเกินไปบน desktop เมื่อภาพไม่ใช่ landscape
+        const imageAspectClass = (() => {
+          switch (kf.imageAspect) {
+            case "portrait":  return "aspect-3/4 sm:aspect-3/4"
+            case "square":    return "aspect-square"
+            case "landscape": return "aspect-4/3"
+            default:          return "aspect-4/5 sm:aspect-5/4"
+          }
+        })()
         // Filename ใน window chrome — ปรับตาม eyebrow
         const fileName = kf.eyebrow
           .replace(/[★·\s]+/g, "_")
@@ -350,9 +401,11 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                       LIVE
                     </span>
                   </div>
-                  {/* Image frame */}
+                  {/* Image frame
+                      — bg-[#0F1419] เลียนสีพื้น dashboard ในภาพ → letterbox เนียนไร้รอยต่อ
+                      — padding บน <Image> ทำให้ภาพมีพื้นที่หายใจ ไม่ติดขอบ window chrome */}
                   <div
-                    className="relative aspect-4/5 overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] bg-[#0A2540] sm:aspect-5/4"
+                    className={`relative ${imageAspectClass} overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] bg-[#0F1419]`}
                     style={{ boxShadow: "10px 10px 0 " + service.accent }}
                   >
                     <Image
@@ -360,7 +413,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                       alt={kf.image.alt}
                       fill
                       sizes="(max-width: 1024px) 100vw, 600px"
-                      className="object-contain"
+                      className="object-contain p-3 sm:p-4"
                       loading="lazy"
                     />
                     {/* Pixel corner accents */}
