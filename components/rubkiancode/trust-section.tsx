@@ -134,13 +134,80 @@ const SCOPE = [
   "Training",
 ] as const
 
+// พลุ pixel-art — ยิงขึ้นฟ้า ระเบิด แล้วจาง (launch animation 3 variants)
+const FIREWORKS: Array<{
+  left: string
+  top: string
+  size: number
+  color: string
+  delay: string
+  anim: string
+}> = [
+  { left: "3%",  top: "10%", size: 80, color: "#F1C40F", delay: "0s",   anim: "rk-firework-launch-a" },
+  { left: "92%", top: "13%", size: 70, color: "#E63946", delay: "1.4s", anim: "rk-firework-launch-b" },
+  { left: "1%",  top: "50%", size: 90, color: "#3498DB", delay: "2.6s", anim: "rk-firework-launch-a" },
+  { left: "94%", top: "52%", size: 65, color: "#2ECC71", delay: "0.7s", anim: "rk-firework-launch-c" },
+  { left: "12%", top: "82%", size: 75, color: "#9B59B6", delay: "3.8s", anim: "rk-firework-launch-b" },
+  { left: "86%", top: "85%", size: 80, color: "#E67E22", delay: "2.1s", anim: "rk-firework-launch-a" },
+  { left: "45%", top: "8%",  size: 50, color: "#E63946", delay: "5.0s", anim: "rk-firework-launch-c" },
+  { left: "55%", top: "92%", size: 55, color: "#3498DB", delay: "1.9s", anim: "rk-firework-launch-c" },
+  { left: "30%", top: "45%", size: 45, color: "#F1C40F", delay: "4.2s", anim: "rk-firework-launch-c" },
+  { left: "70%", top: "50%", size: 48, color: "#9B59B6", delay: "3.1s", anim: "rk-firework-launch-c" },
+]
+
+// Sparkles pikxel — ดาวเล็กๆ ตามมุม
+const SPARKLES: Array<{ left: string; top: string; color: string; delay: string }> = [
+  { left: "22%", top: "18%", color: "#F1C40F", delay: "0s"   },
+  { left: "76%", top: "22%", color: "#E63946", delay: "0.5s" },
+  { left: "48%", top: "8%",  color: "#3498DB", delay: "1.0s" },
+  { left: "62%", top: "14%", color: "#2ECC71", delay: "1.5s" },
+  { left: "8%",  top: "38%", color: "#9B59B6", delay: "0.3s" },
+  { left: "90%", top: "40%", color: "#F1C40F", delay: "0.8s" },
+  { left: "26%", top: "72%", color: "#E63946", delay: "1.2s" },
+  { left: "78%", top: "76%", color: "#3498DB", delay: "0.6s" },
+  { left: "52%", top: "88%", color: "#2ECC71", delay: "1.4s" },
+  { left: "38%", top: "62%", color: "#F1C40F", delay: "0.9s" },
+  { left: "70%", top: "5%",  color: "#9B59B6", delay: "2.0s" },
+  { left: "15%", top: "60%", color: "#E67E22", delay: "1.7s" },
+]
+
 export function TrustSection() {
   return (
     <section
       id="trust"
       className="relative overflow-hidden border-y-[3px] border-[#0A2540] bg-white py-20 sm:py-28"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* ── Background พลุยิงขึ้นฟ้า + ดาวประกาย ── */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        {FIREWORKS.map((f, i) => (
+          <div
+            key={`fw-${i}`}
+            className={`absolute ${f.anim}`}
+            style={{
+              left: f.left,
+              top: f.top,
+              animationDelay: f.delay,
+            }}
+          >
+            <FireworkBurst size={f.size} color={f.color} />
+          </div>
+        ))}
+        {SPARKLES.map((s, i) => (
+          <div
+            key={`sp-${i}`}
+            className="absolute rk-twinkle"
+            style={{
+              left: s.left,
+              top: s.top,
+              animationDelay: s.delay,
+            }}
+          >
+            <PixelSparkle color={s.color} />
+          </div>
+        ))}
+      </div>
+
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHead
           eyebrow="★ VERIFIED · LV.MAX"
           heading={
@@ -365,5 +432,94 @@ function PixelCertificate() {
         ✓ VERIFIED
       </span>
     </div>
+  )
+}
+
+/* ══════════════════════════════════════════════════════
+   FIREWORK BURST — พลุ pixel-art 8 ทิศ
+   ══════════════════════════════════════════════════════ */
+function FireworkBurst({ size = 64, color = "#F1C40F" }: { size?: number; color?: string }) {
+  return (
+    <svg
+      viewBox="0 0 64 64"
+      className="pixel-svg"
+      style={{ width: size, height: size }}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* === 4 cardinal rays === */}
+      <g fill={color}>
+        {/* North */}
+        <rect x="31" y="6"  width="2" height="18" />
+        {/* South */}
+        <rect x="31" y="40" width="2" height="18" />
+        {/* West */}
+        <rect x="6"  y="31" width="18" height="2" />
+        {/* East */}
+        <rect x="40" y="31" width="18" height="2" />
+
+        {/* === 4 diagonal rays (staircase pixel) === */}
+        {/* NE */}
+        <rect x="42" y="22" width="2" height="2" />
+        <rect x="44" y="20" width="2" height="2" />
+        <rect x="46" y="18" width="2" height="2" />
+        {/* NW */}
+        <rect x="20" y="22" width="2" height="2" />
+        <rect x="18" y="20" width="2" height="2" />
+        <rect x="16" y="18" width="2" height="2" />
+        {/* SE */}
+        <rect x="42" y="40" width="2" height="2" />
+        <rect x="44" y="42" width="2" height="2" />
+        <rect x="46" y="44" width="2" height="2" />
+        {/* SW */}
+        <rect x="20" y="40" width="2" height="2" />
+        <rect x="18" y="42" width="2" height="2" />
+        <rect x="16" y="44" width="2" height="2" />
+
+        {/* === Sparkle tips (cardinal) === */}
+        <rect x="30" y="2"  width="4" height="3" />
+        <rect x="30" y="59" width="4" height="3" />
+        <rect x="2"  y="30" width="3" height="4" />
+        <rect x="59" y="30" width="3" height="4" />
+
+        {/* === Sparkle tips (diagonal) === */}
+        <rect x="48" y="14" width="3" height="3" />
+        <rect x="13" y="14" width="3" height="3" />
+        <rect x="48" y="47" width="3" height="3" />
+        <rect x="13" y="47" width="3" height="3" />
+      </g>
+
+      {/* Bright white center */}
+      <g fill="white">
+        <rect x="28" y="28" width="8" height="8" />
+      </g>
+      <g fill={color}>
+        <rect x="30" y="30" width="4" height="4" />
+      </g>
+    </svg>
+  )
+}
+
+/* ══════════════════════════════════════════════════════
+   PIXEL SPARKLE — ดาวประกายเล็กๆ
+   ══════════════════════════════════════════════════════ */
+function PixelSparkle({ size = 14, color = "#F1C40F" }: { size?: number; color?: string }) {
+  return (
+    <svg
+      viewBox="0 0 10 10"
+      className="pixel-svg"
+      style={{ width: size, height: size }}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* 4-direction sparkle */}
+      <g fill={color}>
+        <rect x="4" y="0" width="2" height="3" />
+        <rect x="4" y="7" width="2" height="3" />
+        <rect x="0" y="4" width="3" height="2" />
+        <rect x="7" y="4" width="3" height="2" />
+        <rect x="3" y="3" width="4" height="4" />
+      </g>
+      {/* Center bright */}
+      <rect x="4" y="4" width="2" height="2" fill="white" />
+    </svg>
   )
 }
