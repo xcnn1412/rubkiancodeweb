@@ -14,6 +14,24 @@
 // ════════════════════════════════════════════════════════════════════════
 
 import type { ReactNode } from "react"
+import Image from "next/image"
+
+export type Screenshot = {
+  src: string                   // path ไป /public/images/...
+  alt: string                   // alt text สำหรับ SEO + a11y
+  caption: string               // สั้นๆ บอกว่าภาพนี้คืออะไร
+}
+
+// Section deep-dive ของ feature เด่น 1 ตัวของ service (optional)
+// — ใช้เน้น USP ที่อยากให้ลูกค้าจำได้แม่น 1 อย่าง
+export type KeyFeature = {
+  eyebrow: string               // เช่น "★ INSIGHT · MULTI-TOUCH"
+  title: string                 // ส่วนแรกของ heading
+  highlightedTitle: string      // ส่วนที่ระบายสี accent
+  description: string           // 1 paragraph อธิบาย concept
+  image: Screenshot             // ภาพประกอบ
+  benefits: { title: string; description: string }[]  // 3-4 ข้อ
+}
 
 export type Service = {
   slug: string                  // URL path: /services/{slug}
@@ -32,7 +50,9 @@ export type Service = {
     title: string               // <title> ของ detail page
     description: string         // <meta description>
   }
-  art: ReactNode                // pixel art illustration
+  art: ReactNode                // pixel art illustration / preview รูปจริง
+  screenshots?: Screenshot[]    // (optional) แกลเลอรี screenshot สำหรับ /services/{slug}
+  keyFeature?: KeyFeature       // (optional) section deep-dive ของ USP เด่น
 }
 
 // ════════════════════════════════════════════════════════════════════════
@@ -65,6 +85,60 @@ export const SERVICES: Service[] = [
         "ระบบการตลาดครบวงจร — Marketing Automation, CRM, Multi-touch Attribution พร้อม Dashboard วัดผลแบบ Real-time",
     },
     art: <MarketingArt />,
+    screenshots: [
+      {
+        src: "/images/example-products/marketing1.jpg",
+        alt: "Marketing Dashboard ภาพรวม — รายได้ · ROAS · CAC · LTV · Channel Mix ครบในจอเดียว",
+        caption:
+          "เห็นภาพรวมธุรกิจในจอเดียว — รายได้, ค่าโฆษณา, กำไร, ROAS ครบ ไม่ต้องเปิดหลายแอป",
+      },
+      {
+        src: "/images/example-products/marketing2.jpg",
+        alt: "Marketing Automation Dashboard — Conversion Funnel · A/B Experiments · Hot Leads scoring",
+        caption:
+          "ระบบส่ง LINE/Email อัตโนมัติ 24 ชม. + AI Score บอกว่า 'ลูกค้าคนไหนพร้อมซื้อ' ตอนนี้",
+      },
+      {
+        src: "/images/example-products/marketing3.jpg",
+        alt: "Multi-touch Attribution — Revenue Performance chart + Channel breakdown (Google, Facebook, LINE, TikTok)",
+        caption:
+          "รู้ทันทีว่าโฆษณาช่องไหนคุ้ม — เห็นเงินจาก Google/Facebook/LINE/TikTok ทุกบาทที่ลง",
+      },
+    ],
+    keyFeature: {
+      eyebrow: "★ DEEP DIVE · MULTI-TOUCH PATH",
+      title: "เห็นเส้นทางที่ลูกค้า",
+      highlightedTitle: "ซื้อจริง ไม่ต้องเดา",
+      description:
+        "ลูกค้าไม่ได้ซื้อเพราะโฆษณาตัวเดียว — บางคนเริ่มจาก Google → ตามด้วย Email → แล้วปิดที่ Direct ระบบ Top Conversion Path ของเราจะเห็นเส้นทางจริงทั้งหมด ทำให้คุณรู้ว่าช่องไหน 'เริ่ม' ช่องไหน 'ปิด' กระจายงบให้ถูกที่ ไม่ใช่ทุ่มที่ช่องสุดท้ายอย่างเดียว",
+      image: {
+        src: "/images/example-products/marketing4.jpg",
+        alt: "Top Conversion Paths — multi-touch sequences ของ 30 วันล่าสุด · Google → Email → Direct, Facebook → LINE → Direct, TikTok → Google → Email → Direct",
+        caption: "Top Conversion Paths · 30 วันล่าสุด",
+      },
+      benefits: [
+        {
+          title: "เห็นทุกจุดสัมผัส (Touch Point)",
+          description:
+            "ไม่ใช่แค่ช่องสุดท้าย — เห็นทุกครั้งที่ลูกค้าเจอแบรนด์เรา ตั้งแต่ Google, Facebook, TikTok ไปจนถึงปิดดีลที่ Direct",
+        },
+        {
+          title: "ลงทุนงบโฆษณาฉลาดขึ้น",
+          description:
+            "รู้ว่าช่องไหนคน 'เริ่มต้น' ช่องไหน 'ปิด' → กระจายงบให้ถูกที่ ลด CAC ขึ้น ROAS",
+        },
+        {
+          title: "เลิกเสียเงินกับช่องไม่คุ้ม",
+          description:
+            "ตัด channel ที่ไม่มีส่วนช่วยจริงออก เห็นเงินคืนชัด — ไม่ต้องทุ่มงบกับช่องที่แค่ได้ยอดผิวเผิน",
+        },
+        {
+          title: "เพิ่มยอดปิดการขาย 30%+",
+          description:
+            "ส่ง remarketing ตามเส้นทางที่ Convert จริง → ลูกค้าได้รับโฆษณาที่เหมาะสมในจังหวะที่ใช่",
+        },
+      ],
+    },
   },
   {
     slug: "office-erp",
@@ -182,39 +256,29 @@ export function getServiceHref(service: Service): string {
 
 function MarketingArt() {
   return (
-    <svg viewBox="0 0 320 200" className="pixel-svg block h-full w-full">
-      <rect width="320" height="200" fill="#F4EDE0" />
-      <g fill="#E63946">
-        <rect x="40" y="140" width="20" height="40" />
-        <rect x="70" y="120" width="20" height="60" />
-        <rect x="100" y="90" width="20" height="90" />
-        <rect x="130" y="60" width="20" height="120" />
-        <rect x="160" y="40" width="20" height="140" />
-      </g>
-      <g fill="#0A2540">
-        <rect x="40" y="180" width="160" height="4" />
-        <rect x="40" y="20" width="4" height="160" />
-      </g>
-      <g fill="#2ECC71">
-        <rect x="220" y="60" width="60" height="8" />
-        <rect x="220" y="68" width="50" height="8" />
-        <rect x="220" y="76" width="40" height="8" />
-        <rect x="240" y="40" width="20" height="20" />
-        <rect x="232" y="48" width="8" height="8" />
-        <rect x="260" y="48" width="8" height="8" />
-      </g>
-      <g fill="#F1C40F">
-        <rect x="220" y="120" width="16" height="16" />
-        <rect x="244" y="120" width="16" height="16" />
-        <rect x="268" y="120" width="16" height="16" />
-      </g>
-      <g fill="#0A2540">
-        <rect x="226" y="126" width="4" height="4" />
-        <rect x="250" y="126" width="4" height="4" />
-        <rect x="274" y="126" width="4" height="4" />
-      </g>
-      <text x="220" y="160" className="font-pixelify" fontSize="14" fill="#0A2540">+218%</text>
-    </svg>
+    <div className="relative h-full w-full overflow-hidden bg-[#0A2540]">
+      <Image
+        src="/images/example-products/marketing1.jpg"
+        alt="Marketing Dashboard ของระบบการตลาด — รายได้ · ROAS · Attribution"
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 320px"
+        className="object-cover object-top"
+      />
+      {/* Pixel corner accents — 8-bit frame */}
+      <span aria-hidden className="absolute left-0 top-0 h-2 w-2 bg-[#F1C40F]" />
+      <span aria-hidden className="absolute right-0 top-0 h-2 w-2 bg-[#F1C40F]" />
+      <span aria-hidden className="absolute bottom-0 left-0 h-2 w-2 bg-[#F1C40F]" />
+      <span aria-hidden className="absolute bottom-0 right-0 h-2 w-2 bg-[#F1C40F]" />
+      {/* Subtle scanline overlay (CRT feel) */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-15"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.5) 3px,rgba(0,0,0,0.5) 4px)",
+        }}
+      />
+    </div>
   )
 }
 
