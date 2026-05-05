@@ -175,7 +175,7 @@ export function TrustSection() {
   return (
     <section
       id="trust"
-      className="relative overflow-hidden border-y-[3px] border-[#0A2540] bg-white py-20 sm:py-28"
+      className="relative overflow-hidden border-y-[3px] border-[#0A2540] bg-white py-14 sm:py-20 lg:py-28"
     >
       {/* ── Background พลุยิงขึ้นฟ้า + ดาวประกาย ── */}
       <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">

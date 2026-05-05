@@ -111,7 +111,7 @@ export function PortfolioSection() {
   const prev = () => setCurrent((c) => (c - 1 + total) % total)
 
   return (
-    <section id="portfolio" className="relative overflow-hidden bg-[#F4EDE0] py-20 sm:py-28">
+    <section id="portfolio" className="relative overflow-hidden bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHead
           eyebrow="PORTFOLIO · LV.UP"
