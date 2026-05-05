@@ -20,6 +20,9 @@ const ProcessSection = dynamic(
 const WhyUsSection = dynamic(
   () => import("@/components/rubkiancode/why-us-section").then((m) => ({ default: m.WhyUsSection }))
 )
+const TrustSection = dynamic(
+  () => import("@/components/rubkiancode/trust-section").then((m) => ({ default: m.TrustSection }))
+)
 const FaqSection = dynamic(
   () => import("@/components/rubkiancode/faq-section").then((m) => ({ default: m.FaqSection }))
 )
@@ -58,6 +61,7 @@ export default function HomePage() {
       <PortfolioSection />
       <ProcessSection />
       <WhyUsSection />
+      <TrustSection />
       <FaqSection />
       <CtaSection />
       <ContactSection />
