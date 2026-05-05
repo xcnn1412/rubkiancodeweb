@@ -52,7 +52,7 @@ export type Service = {
   }
   art: ReactNode                // pixel art illustration / preview รูปจริง
   screenshots?: Screenshot[]    // (optional) แกลเลอรี screenshot สำหรับ /services/{slug}
-  keyFeature?: KeyFeature       // (optional) section deep-dive ของ USP เด่น
+  keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
 }
 
 // ════════════════════════════════════════════════════════════════════════
@@ -105,40 +105,79 @@ export const SERVICES: Service[] = [
           "รู้ทันทีว่าโฆษณาช่องไหนคุ้ม — เห็นเงินจาก Google/Facebook/LINE/TikTok ทุกบาทที่ลง",
       },
     ],
-    keyFeature: {
-      eyebrow: "★ DEEP DIVE · MULTI-TOUCH PATH",
-      title: "เห็นเส้นทางที่ลูกค้า",
-      highlightedTitle: "ซื้อจริง ไม่ต้องเดา",
-      description:
-        "ลูกค้าไม่ได้ซื้อเพราะโฆษณาตัวเดียว — บางคนเริ่มจาก Google → ตามด้วย Email → แล้วปิดที่ Direct ระบบ Top Conversion Path ของเราจะเห็นเส้นทางจริงทั้งหมด ทำให้คุณรู้ว่าช่องไหน 'เริ่ม' ช่องไหน 'ปิด' กระจายงบให้ถูกที่ ไม่ใช่ทุ่มที่ช่องสุดท้ายอย่างเดียว",
-      image: {
-        src: "/images/example-products/marketing4.jpg",
-        alt: "Top Conversion Paths — multi-touch sequences ของ 30 วันล่าสุด · Google → Email → Direct, Facebook → LINE → Direct, TikTok → Google → Email → Direct",
-        caption: "Top Conversion Paths · 30 วันล่าสุด",
+    keyFeatures: [
+      // ── Deep dive 1: Top Conversion Path ──
+      {
+        eyebrow: "★ DEEP DIVE · MULTI-TOUCH PATH",
+        title: "เห็นเส้นทางที่ลูกค้า",
+        highlightedTitle: "ซื้อจริง ไม่ต้องเดา",
+        description:
+          "ลูกค้าไม่ได้ซื้อเพราะโฆษณาตัวเดียว — บางคนเริ่มจาก Google → ตามด้วย Email → แล้วปิดที่ Direct ระบบ Top Conversion Path ของเราจะเห็นเส้นทางจริงทั้งหมด ทำให้คุณรู้ว่าช่องไหน 'เริ่ม' ช่องไหน 'ปิด' กระจายงบให้ถูกที่ ไม่ใช่ทุ่มที่ช่องสุดท้ายอย่างเดียว",
+        image: {
+          src: "/images/example-products/marketing4.jpg",
+          alt: "Top Conversion Paths — multi-touch sequences ของ 30 วันล่าสุด · Google → Email → Direct, Facebook → LINE → Direct, TikTok → Google → Email → Direct",
+          caption: "Top Conversion Paths · 30 วันล่าสุด",
+        },
+        benefits: [
+          {
+            title: "เห็นทุกจุดสัมผัส (Touch Point)",
+            description:
+              "ไม่ใช่แค่ช่องสุดท้าย — เห็นทุกครั้งที่ลูกค้าเจอแบรนด์เรา ตั้งแต่ Google, Facebook, TikTok ไปจนถึงปิดดีลที่ Direct",
+          },
+          {
+            title: "ลงทุนงบโฆษณาฉลาดขึ้น",
+            description:
+              "รู้ว่าช่องไหนคน 'เริ่มต้น' ช่องไหน 'ปิด' → กระจายงบให้ถูกที่ ลด CAC ขึ้น ROAS",
+          },
+          {
+            title: "เลิกเสียเงินกับช่องไม่คุ้ม",
+            description:
+              "ตัด channel ที่ไม่มีส่วนช่วยจริงออก เห็นเงินคืนชัด — ไม่ต้องทุ่มงบกับช่องที่แค่ได้ยอดผิวเผิน",
+          },
+          {
+            title: "เพิ่มยอดปิดการขาย 30%+",
+            description:
+              "ส่ง remarketing ตามเส้นทางที่ Convert จริง → ลูกค้าได้รับโฆษณาที่เหมาะสมในจังหวะที่ใช่",
+          },
+        ],
       },
-      benefits: [
-        {
-          title: "เห็นทุกจุดสัมผัส (Touch Point)",
-          description:
-            "ไม่ใช่แค่ช่องสุดท้าย — เห็นทุกครั้งที่ลูกค้าเจอแบรนด์เรา ตั้งแต่ Google, Facebook, TikTok ไปจนถึงปิดดีลที่ Direct",
+
+      // ── Deep dive 2: Marketing Automation ──
+      {
+        eyebrow: "★ DEEP DIVE · MARKETING AUTOMATION",
+        title: "ตั้งครั้งเดียว ทำงาน 24 ชม.",
+        highlightedTitle: "ลูกค้าซื้อซ้ำเองอัตโนมัติ",
+        description:
+          "เซ็ตอัพ flow ครั้งเดียว ระบบจะส่ง LINE OA / Email ตามจังหวะของลูกค้าแต่ละคน — ตั้งแต่ Welcome Series ตอนเริ่มต้น, Cart Abandon ดึงคนกลับ, Re-engagement ปลุกลูกค้าเก่า, ไปจนถึง Repeat Purchase ลูกค้าได้รับเนื้อหาที่ตรงสถานะตัวเอง คุณนอนหลับ — ระบบทำงานต่อ พร้อมโชว์ sent / open / click / revenue ทุก flow แบบ real-time",
+        image: {
+          src: "/images/example-products/marketing5.jpg",
+          alt: "Marketing automation 12 active flows — Welcome Series LINE OA, Cart Abandon Email, Re-engagement 60-day, Demo Booked Nurture, Repeat Purchase 30d พร้อม Sent/Open/Click/Revenue metrics",
+          caption: "Marketing Automation · 12 active flows",
         },
-        {
-          title: "ลงทุนงบโฆษณาฉลาดขึ้น",
-          description:
-            "รู้ว่าช่องไหนคน 'เริ่มต้น' ช่องไหน 'ปิด' → กระจายงบให้ถูกที่ ลด CAC ขึ้น ROAS",
-        },
-        {
-          title: "เลิกเสียเงินกับช่องไม่คุ้ม",
-          description:
-            "ตัด channel ที่ไม่มีส่วนช่วยจริงออก เห็นเงินคืนชัด — ไม่ต้องทุ่มงบกับช่องที่แค่ได้ยอดผิวเผิน",
-        },
-        {
-          title: "เพิ่มยอดปิดการขาย 30%+",
-          description:
-            "ส่ง remarketing ตามเส้นทางที่ Convert จริง → ลูกค้าได้รับโฆษณาที่เหมาะสมในจังหวะที่ใช่",
-        },
-      ],
-    },
+        benefits: [
+          {
+            title: "ตั้งครั้งเดียว ทำงานตลอด",
+            description:
+              "Welcome / Cart Abandon / Re-engagement — ส่งตามจังหวะลูกค้าแต่ละคน ไม่ต้องนั่งคิดทุกวัน",
+          },
+          {
+            title: "เห็น performance ทุก flow",
+            description:
+              "Sent · Open rate · CTR · Revenue ของแต่ละ campaign บอกชัดว่า flow ไหนคุ้ม flow ไหนต้องปรับ",
+          },
+          {
+            title: "Personalize ระดับลึก",
+            description:
+              "Segment ลูกค้าตาม behavior — VIP, Inactive, New follower แต่ละกลุ่มได้ message ต่างกัน ตรงใจกว่า",
+          },
+          {
+            title: "คืนทุนใน 30 วันแรก",
+            description:
+              "Cart Abandon flow เดียวดึง revenue กลับมา ฿2M+ ใน 30 วัน — เซ็ตครั้งเดียวแต่ขายให้ตลอดปี",
+          },
+        ],
+      },
+    ],
   },
   {
     slug: "office-erp",
