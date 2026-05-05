@@ -1,14 +1,17 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Link from "next/link"
 import { BrandLogo } from "./icons"
 
+// ใช้ /# prefix เพื่อให้ link ทำงานได้จากทุกหน้า ไม่ใช่แค่ homepage
+// (จากหน้าอื่นจะ navigate ไป homepage แล้ว scroll ไป section นั้น)
 const NAV_ITEMS = [
-  { href: "#services", section: "services", label: "บริการ" },
-  { href: "#portfolio", section: "portfolio", label: "ผลงาน" },
-  { href: "#process", section: "process", label: "วิธีทำงาน" },
-  { href: "#why", section: "why", label: "ทำไมต้องเรา" },
-  { href: "#contact", section: "contact", label: "ติดต่อ" },
+  { href: "/#services", section: "services", label: "บริการ" },
+  { href: "/#portfolio", section: "portfolio", label: "ผลงาน" },
+  { href: "/#process", section: "process", label: "วิธีทำงาน" },
+  { href: "/#why", section: "why", label: "ทำไมต้องเรา" },
+  { href: "/#contact", section: "contact", label: "ติดต่อ" },
 ] as const
 
 export function Navbar() {
@@ -41,8 +44,8 @@ export function Navbar() {
       className="sticky top-0 z-50 border-b-[3px] border-[#0A2540] bg-[#F4EDE0]/95 backdrop-blur"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3 sm:px-6 lg:px-8">
-        <a
-          href="#top"
+        <Link
+          href="/"
           aria-label="RubKianCode หน้าแรก"
           className="flex items-center gap-3 text-[#0A2540] transition-transform hover:-translate-y-0.5"
         >
@@ -61,7 +64,7 @@ export function Navbar() {
               &gt; software_studio.exe
             </small>
           </span>
-        </a>
+        </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-7 lg:flex">
           {NAV_ITEMS.map((item) => {
@@ -76,7 +79,7 @@ export function Navbar() {
               >
                 {item.label}
                 <span
-                  className={`absolute -bottom-1.5 left-0 h-[3px] bg-[#E63946] transition-all ${
+                  className={`absolute -bottom-1.5 left-0 h-0.75 bg-[#E63946] transition-all ${
                     isActive ? "w-full" : "w-0"
                   }`}
                 />
