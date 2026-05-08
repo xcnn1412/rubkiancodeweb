@@ -57,9 +57,13 @@ export type Service = {
   art: ReactNode                // pixel art illustration / preview รูปจริง — ใช้เป็น fallback
   icon?: ReactNode              // (optional) ไอคอน 16x16 viewBox สำหรับ card บน list view
                                 //            ถ้ากำหนด — ใช้ใน catalog grid (/services index, ExtraServices)
+  extraOnly?: boolean           // true = บริการทั่วไป (Custom Software, Web ฯลฯ) → ขึ้นใน Extra Services เท่านั้น
+                                // false/undefined = สินค้าเฉพาะตัว → ขึ้นใน Main Products grid ของ /services
   heroImage?: Screenshot        // (optional) screenshot จริงใช้แทน art ใน hero preview
                                 //           ถ้ากำหนด — render <Image> แทน pixel art
-  heroVideo?: string            // (optional) video path สำหรับ preview — autoplay/muted/loop
+  heroVideo?: string | string[] // (optional) video path สำหรับ preview — autoplay/muted/loop
+                                //           string  = ไฟล์เดียว วน loop
+                                //           array   = หลายไฟล์ เล่นต่อกัน วนกลับ [0]
                                 //           priority: heroVideo > heroImage > art
   screenshots?: Screenshot[]    // (optional) แกลเลอรี screenshot สำหรับ /services/{slug}
   keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
@@ -426,13 +430,16 @@ export const SERVICES: Service[] = [
         "ตู้ถ่ายรูปสไตล์เกาหลีพร้อมซอฟต์แวร์ครบวงจร AI Filter, Custom Frame, Print + QR Share สำหรับงาน event ทุกขนาด",
     },
     art: <PhotoboothArt />,
+    // เล่น live1.mp4 → live2 → ... → live11 แล้ววนกลับมา live1
+    // ถ้ามีไฟล์ใหม่ใน /public/videos/liveview/ แค่อัปเลขนี้
+    heroVideo: Array.from({ length: 11 }, (_, i) => `/videos/liveview/live${i + 1}.mp4`),
   },
 
   // ── Extra Services ── (featured: false → ไม่ขึ้น homepage card หลัก)
   // แต่ยังมีหน้า detail อัตโนมัติที่ /services/{slug} + ขึ้น list บน /services
   {
     slug: "custom-software",
-    num: "05",
+    num: "01",
     title: "Custom Software",
     subtitle: "ซอฟต์แวร์เฉพาะกิจ",
     description:
@@ -449,6 +456,7 @@ export const SERVICES: Service[] = [
     startingPrice: "ตามขอบเขตงาน",
     accent: "#9B59B6",
     featured: false,
+    extraOnly: true,
     meta: {
       title: "Custom Software Development — รับเขียนซอฟต์แวร์เฉพาะกิจ | RubKianCode",
       description:
@@ -469,7 +477,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "web-ecommerce",
-    num: "06",
+    num: "02",
     title: "Web & E-commerce",
     subtitle: "เว็บไซต์องค์กร · ร้านค้าออนไลน์",
     description:
@@ -486,6 +494,7 @@ export const SERVICES: Service[] = [
     startingPrice: "35,000 บาท / ปี",
     accent: "#1ABC9C",
     featured: false,
+    extraOnly: true,
     meta: {
       title: "Web & E-commerce Development — เว็บไซต์องค์กรและร้านค้าออนไลน์ | RubKianCode",
       description:
@@ -509,7 +518,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "mobile-app",
-    num: "07",
+    num: "03",
     title: "Mobile App",
     subtitle: "iOS · Android · Cross-platform",
     description:
@@ -526,6 +535,7 @@ export const SERVICES: Service[] = [
     startingPrice: "120,000 บาท",
     accent: "#E67E22",
     featured: false,
+    extraOnly: true,
     meta: {
       title: "Mobile App Development — iOS, Android, React Native | RubKianCode",
       description:
@@ -547,7 +557,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "data-analytics",
-    num: "08",
+    num: "04",
     title: "Data & Analytics",
     subtitle: "BI · Data Warehouse · ETL",
     description:
@@ -564,6 +574,7 @@ export const SERVICES: Service[] = [
     startingPrice: "80,000 บาท",
     accent: "#16A085",
     featured: false,
+    extraOnly: true,
     meta: {
       title: "Data & Analytics — BI Dashboard, Data Warehouse, ETL Pipeline | RubKianCode",
       description:
@@ -585,7 +596,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "pos-inventory",
-    num: "09",
+    num: "05",
     title: "POS & Inventory",
     subtitle: "ระบบขายหน้าร้าน · คลังสินค้า",
     description:
@@ -602,6 +613,7 @@ export const SERVICES: Service[] = [
     startingPrice: "55,000 บาท",
     accent: "#E91E63",
     featured: false,
+    extraOnly: true,
     meta: {
       title: "POS & Inventory — ระบบขายหน้าร้านและคลังสินค้า Multi-branch | RubKianCode",
       description:
@@ -624,7 +636,7 @@ export const SERVICES: Service[] = [
   },
   {
     slug: "it-consulting",
-    num: "10",
+    num: "06",
     title: "IT Consulting",
     subtitle: "Tech Roadmap · Cloud Migration",
     description:
@@ -641,6 +653,7 @@ export const SERVICES: Service[] = [
     startingPrice: "ตามขอบเขตงาน",
     accent: "#34495E",
     featured: false,
+    extraOnly: true,
     meta: {
       title: "IT Consulting — ที่ปรึกษาเทคโนโลยี, Cloud Migration, Security Audit | RubKianCode",
       description:
@@ -661,6 +674,87 @@ export const SERVICES: Service[] = [
     ),
     art: <IconArt accent="#34495E" label="CONSULT" />,
   },
+  {
+    slug: "wishboard",
+    num: "05",
+    title: "Wishboard",
+    subtitle: "การ์ดอวยพรดิจิทัล",
+    description:
+      "ระบบ Wishboard / Digital Greeting Card สำหรับงานแต่งงาน, วันเกิด, ปีใหม่, งานบริษัท — ผู้ร่วมงานสแกน QR เขียนคำอวยพรลง wall เดียวกัน เห็นแบบ Real-time พร้อมรองรับรูป/วิดีโอ/เสียง และ Export PDF เก็บเป็นที่ระลึก",
+    features: [
+      "Wishboard ออนไลน์ · QR Share",
+      "Custom Background · ตามธีมงาน",
+      "รองรับ ข้อความ · รูป · วิดีโอ · เสียง",
+      "Real-time Wall · Live Display",
+      "Moderation · กรองคำไม่เหมาะสม",
+      "Export PDF · พิมพ์เก็บได้",
+    ],
+    duration: "เริ่มต้น 1 สัปดาห์",
+    startingPrice: "25,000 บาท / event",
+    accent: "#C2185B",
+    featured: false,
+    meta: {
+      title: "Wishboard — การ์ดอวยพรดิจิทัลสำหรับงานอีเวนต์ | RubKianCode",
+      description:
+        "ระบบ Wishboard ออนไลน์ สำหรับงานแต่งงาน วันเกิด ปีใหม่ Corporate Event — สแกน QR เขียนคำอวยพรลง Live Wall เดียวกัน รองรับรูป/วิดีโอ/เสียง พร้อม Export PDF เก็บเป็นที่ระลึก",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="2" y="3" width="12" height="10" />
+        </g>
+        <g fill="#E63946">
+          <rect x="5" y="6" width="2" height="1" />
+          <rect x="9" y="6" width="2" height="1" />
+          <rect x="4" y="7" width="8" height="1" />
+          <rect x="5" y="8" width="6" height="1" />
+          <rect x="6" y="9" width="4" height="1" />
+          <rect x="7" y="10" width="2" height="1" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#C2185B" label="WISH" />,
+  },
+  {
+    slug: "event-registration",
+    num: "06",
+    title: "ระบบลงทะเบียนงานอีเวนต์",
+    subtitle: "Event Registration & Check-in",
+    description:
+      "ระบบรับสมัคร/ลงทะเบียนงานอีเวนต์ออนไลน์ พร้อม QR Code Check-in หน้างาน — รองรับ Ticket Tier (Early Bird, VIP, Group), เชื่อม Payment Gateway ไทย, Real-time Attendee Dashboard และ Export ข้อมูลเข้า CRM อัตโนมัติ เหมาะสำหรับงานสัมมนา, คอนเสิร์ต, Workshop, Trade Show",
+    features: [
+      "Custom Form · Multi-step Registration",
+      "Ticket Tier · Early Bird · Group Discount",
+      "Payment Gateway (Omise · 2C2P · พร้อมเพย์)",
+      "QR Code Check-in หน้างาน",
+      "Real-time Attendee Dashboard",
+      "Export Excel · เชื่อม CRM อัตโนมัติ",
+    ],
+    duration: "เริ่มต้น 2 สัปดาห์",
+    startingPrice: "35,000 บาท / event",
+    accent: "#00ACC1",
+    featured: false,
+    meta: {
+      title: "ระบบลงทะเบียนงานอีเวนต์ — Event Registration & QR Check-in | RubKianCode",
+      description:
+        "ระบบรับสมัครลงทะเบียนงานอีเวนต์ออนไลน์พร้อม QR Check-in หน้างาน รองรับ Ticket Tier, Payment Gateway ไทย, Real-time Dashboard, Export CRM สำหรับงานสัมมนา คอนเสิร์ต Workshop",
+    },
+    icon: (
+      <svg viewBox="0 0 16 16" className="pixel-svg h-8 w-8">
+        <g fill="#F1C40F">
+          <rect x="2" y="4" width="12" height="8" />
+        </g>
+        <g fill="#0A2540">
+          <rect x="4" y="6" width="2" height="2" />
+          <rect x="7" y="6" width="2" height="2" />
+          <rect x="10" y="6" width="2" height="2" />
+          <rect x="4" y="9" width="2" height="2" />
+          <rect x="10" y="9" width="2" height="2" />
+        </g>
+      </svg>
+    ),
+    art: <IconArt accent="#00ACC1" label="EVENT" />,
+  },
 ]
 
 // ════════════════════════════════════════════════════════════════════════
@@ -671,12 +765,23 @@ export function getService(slug: string): Service | undefined {
   return SERVICES.find((s) => s.slug === slug)
 }
 
+/** Service ที่ตั้ง featured: true → ขึ้น Core Services grid บน homepage (4 cards) */
 export function getFeaturedServices(): Service[] {
   return SERVICES.filter((s) => s.featured)
 }
 
+/** Service ที่ตั้ง extraOnly: true → ขึ้น Extra Services section (บริการทั่วไป 6 รายการ) */
 export function getExtraServices(): Service[] {
-  return SERVICES.filter((s) => !s.featured)
+  return SERVICES.filter((s) => s.extraOnly)
+}
+
+/**
+ * สินค้าเฉพาะตัว (named products) — ทุก service ที่ไม่ใช่ extraOnly
+ * รวม 4 featured + Wishboard + Event Registration + future products
+ * ใช้บนหน้า /services เป็น Main Products grid
+ */
+export function getMainProducts(): Service[] {
+  return SERVICES.filter((s) => !s.extraOnly)
 }
 
 export function getAllServices(): Service[] {

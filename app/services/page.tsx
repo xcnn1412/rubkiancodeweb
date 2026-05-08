@@ -17,7 +17,7 @@ import dynamic from "next/dynamic"
 
 import { Navbar } from "@/components/rubkiancode/navbar"
 import { ArrowIcon } from "@/components/rubkiancode/icons"
-import { SERVICES, getServiceHref, getFeaturedServices, getExtraServices } from "./_data/services"
+import { SERVICES, getServiceHref, getMainProducts, getExtraServices } from "./_data/services"
 
 const KeyServicesSection = dynamic(() =>
   import("@/components/rubkiancode/key-services-section").then((m) => ({ default: m.KeyServicesSection }))
@@ -145,7 +145,7 @@ export default function ServicesIndexPage() {
                 className="font-pixel inline-flex items-center gap-2 bg-white px-4 py-2 text-xs uppercase tracking-wider text-[#0A2540]"
                 style={{ border: "2px solid #0A2540", boxShadow: "3px 3px 0 #E63946" }}
               >
-                <span className="text-[#E63946]">★</span> {getFeaturedServices().length} CORE SERVICES
+                <span className="text-[#E63946]">★</span> {getMainProducts().length} MAIN PRODUCTS
               </span>
               <span
                 className="font-pixel inline-flex items-center gap-2 bg-white px-4 py-2 text-xs uppercase tracking-wider text-[#0A2540]"
@@ -167,10 +167,22 @@ export default function ServicesIndexPage() {
       {/* Anchor target ของปุ่ม "ดูบริการ" ใน hero */}
       <div id="core-services" className="scroll-mt-20" aria-hidden />
 
-      {/* 4 Core Services — ซ่อนปุ่ม "สินค้าทั้งหมด" เพราะอยู่หน้านี้แล้ว */}
-      <KeyServicesSection showAllProductsCta={false} />
+      {/* Main Products — ทุกสินค้าเฉพาะตัว (4 featured + Wishboard + Event Registration) */}
+      <KeyServicesSection
+        showAllProductsCta={false}
+        services={getMainProducts()}
+        eyebrow={`OUR PRODUCTS · ${String(getMainProducts().length).padStart(2, "0")}`}
+        heading={
+          <>
+            บริการทั้งหมด
+            <br />
+            ที่เรามี
+          </>
+        }
+        description="รวมทุกสินค้าและซอฟต์แวร์ที่เราพัฒนา — ตั้งแต่ระบบหลักสำหรับ SME ไปจนถึงระบบเฉพาะกิจสำหรับงานอีเวนต์ ทุกตัวมาพร้อม Hypercare 30 วันและการดูแลระยะยาว"
+      />
 
-      {/* 6 Extra Services */}
+      {/* Extra Services — บริการทั่วไป (Custom Software, Web, Mobile, Data, POS, IT Consulting) */}
       <ExtraServicesSection />
 
       <CtaSection />

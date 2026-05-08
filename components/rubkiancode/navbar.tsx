@@ -4,10 +4,11 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import { BrandLogo } from "./icons"
 
-// ใช้ /# prefix เพื่อให้ link ทำงานได้จากทุกหน้า ไม่ใช่แค่ homepage
+// ใช้ /# prefix สำหรับ section บน homepage — link ทำงานได้จากทุกหน้า
 // (จากหน้าอื่นจะ navigate ไป homepage แล้ว scroll ไป section นั้น)
+// "บริการ" ผูก path ตรงไปหน้า /services (รวมทุกบริการครบ ไม่ใช่ scroll anchor)
 const NAV_ITEMS = [
-  { href: "/#services", section: "services", label: "บริการ" },
+  { href: "/services", section: "services", label: "บริการ" },
   { href: "/#portfolio", section: "portfolio", label: "ผลงาน" },
   { href: "/#process", section: "process", label: "วิธีทำงาน" },
   { href: "/#why", section: "why", label: "ทำไมต้องเรา" },

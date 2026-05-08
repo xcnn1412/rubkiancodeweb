@@ -1,37 +1,62 @@
-// 4 บริการหลักของ RubKianCode
+// Services Grid — ใช้ทั้ง homepage (4 featured) และ /services (6 main products)
 //
 // ⚠️ ข้อมูล service ทั้งหมดอยู่ที่ app/services/_data/services.tsx (single source of truth)
-//    ที่นี่อ่านมาแสดงเป็น card บน homepage และลิงก์ไป detail page /services/{slug}
+//    ที่นี่อ่านมาแสดงเป็น card + ลิงก์ไป detail page /services/{slug}
 //    เพิ่ม service ใหม่ → แก้แค่ไฟล์ data ที่เดียว ไม่ต้องแตะที่นี่
 
 import Link from "next/link"
 import Image from "next/image"
-import { getFeaturedServices, getServiceHref } from "@/app/services/_data/services"
+import type { ReactNode } from "react"
+import { getFeaturedServices, getServiceHref, type Service } from "@/app/services/_data/services"
+import { VideoLoopPreview } from "./video-loop-preview"
+
+type KeyServicesSectionProps = {
+  // ซ่อนปุ่ม "สินค้าทั้งหมด" เมื่อ render บนหน้า /services เอง — กัน loop
+  showAllProductsCta?: boolean
+  // override list — ถ้าไม่ส่ง ใช้ getFeaturedServices() (4 ตัวบน homepage)
+  services?: Service[]
+  // override section header copy
+  eyebrow?: string
+  heading?: ReactNode
+  description?: string
+}
 
 export function KeyServicesSection({
   showAllProductsCta = true,
-}: {
-  // ซ่อนปุ่ม "สินค้าทั้งหมด" เมื่อ render บนหน้า /services เอง — กัน loop
-  showAllProductsCta?: boolean
-} = {}) {
-  const services = getFeaturedServices()
+  services: servicesProp,
+  eyebrow,
+  heading,
+  description,
+}: KeyServicesSectionProps = {}) {
+  const services = servicesProp ?? getFeaturedServices()
+  // ปรับ grid ตามจำนวน — 4 ตัว = 4 cols, > 4 = 3 cols (เลย่อมเหมาะกว่า)
+  const gridCols =
+    services.length <= 4
+      ? "md:grid-cols-2 xl:grid-cols-4"
+      : "md:grid-cols-2 lg:grid-cols-3"
 
   return (
     <section id="services" className="bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <SectionHead
-          eyebrow={`CORE SERVICES · ${String(services.length).padStart(2, "0")}`}
+          eyebrow={eyebrow ?? `CORE SERVICES · ${String(services.length).padStart(2, "0")}`}
           heading={
-            <>
-              {services.length} ระบบหลัก
-              <br />
-              ที่เราชำนาญที่สุด
-            </>
+            heading ?? (
+              <>
+                {services.length} ระบบหลัก
+                <br />
+                ที่เราชำนาญที่สุด
+              </>
+            )
           }
-          description="ชูจุดแข็งด้านที่ผู้ประกอบการต้องการมากที่สุด พร้อมเทมเพลตที่ติดตั้งได้ใน 2 สัปดาห์ และปรับแต่งได้ตามขนาดธุรกิจ — ไม่ว่าจะเริ่มจาก 0 หรือต่อยอดของเดิม"
+          description={
+            description ??
+            "ชูจุดแข็งด้านที่ผู้ประกอบการต้องการมากที่สุด พร้อมเทมเพลตที่ติดตั้งได้ใน 2 สัปดาห์ และปรับแต่งได้ตามขนาดธุรกิจ — ไม่ว่าจะเริ่มจาก 0 หรือต่อยอดของเดิม"
+          }
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className={`mt-14 grid gap-6 ${gridCols}`}>
+
           {services.map((s) => (
             <Link
               key={s.slug}
@@ -55,29 +80,24 @@ export function KeyServicesSection({
               </div>
 
               {/* Preview — priority: heroVideo > heroImage > pixel art (fallback)
-                  - video: autoplay/muted/loop · ดูเหมือน live preview
-                  - image: dark bg + pixel corners ครบ
+                  - video: autoplay/muted/loop · พื้นครีมกลืนกับ web bg ตอนเป็น letterbox
+                  - image: dark bg + pixel corners ครบ (screenshot ของจริงพื้นเข้ม)
                   - art: pixel illustration บน cream bg (default) */}
               <div
-                className={`relative border-b-[3px] border-[#0A2540] ${s.heroVideo || s.heroImage ? "bg-[#0F1419]" : "bg-[#F4EDE0]"}`}
+                className={`relative border-b-[3px] border-[#0A2540] ${s.heroImage ? "bg-[#0F1419]" : "bg-[#F4EDE0]"}`}
               >
                 <div className="relative h-44 w-full">
                   {s.heroVideo ? (
                     <>
-                      <video
-                        src={s.heroVideo}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        preload="metadata"
-                        aria-label={`Preview ${s.title}`}
-                        className="h-full w-full object-cover"
+                      <VideoLoopPreview
+                        sources={s.heroVideo}
+                        ariaLabel={`Preview ${s.title}`}
+                        className="absolute inset-0 block h-full w-full object-contain"
                       />
-                      <span aria-hidden className="absolute left-0 top-0 h-2.5 w-2.5 bg-[#F1C40F]" />
-                      <span aria-hidden className="absolute right-0 top-0 h-2.5 w-2.5 bg-[#F1C40F]" />
-                      <span aria-hidden className="absolute bottom-0 left-0 h-2.5 w-2.5 bg-[#F1C40F]" />
-                      <span aria-hidden className="absolute bottom-0 right-0 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute left-0 top-0 z-10 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute right-0 top-0 z-10 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 left-0 z-10 h-2.5 w-2.5 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 right-0 z-10 h-2.5 w-2.5 bg-[#F1C40F]" />
                     </>
                   ) : s.heroImage ? (
                     <>
