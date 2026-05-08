@@ -248,7 +248,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
           {service.startingPrice && (
             <StatBox label="ราคาเริ่มต้น" value={service.startingPrice} accent={service.accent} />
           )}
-          <StatBox label="การดูแลหลังส่งมอบ" value="30 วัน Hypercare ฟรี" />
+          <StatBox label="การดูแลหลังส่งมอบ" value={service.postSupport ?? "30 วัน Hypercare ฟรี"} />
         </div>
       </section>
 
@@ -406,14 +406,22 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             case "landscape": return "aspect-4/3"
             // phone — 9:16 mobile UI shape สำหรับ payment screen / mobile app preview
             case "phone":     return "aspect-9/16"
+            // video — 16:9 standard video สำหรับ screen recording / promo clip
+            case "video":     return "aspect-video"
             default:          return "aspect-4/5 sm:aspect-5/4"
           }
         })()
-        // เมื่อเป็น phone aspect → จำกัด max-width ให้ดูเป็น mobile preview compact
-        const isPhoneFrame = kf.imageAspect === "phone"
-        const imageWrapperClass = isPhoneFrame
-          ? "mx-auto w-full max-w-[20rem] sm:max-w-[22rem] lg:max-w-[24rem]"
-          : ""
+        // phone & video → render บริสุทธิ์ ไม่มี window chrome (clean frameless display)
+        const isPhone = kf.imageAspect === "phone"
+        const isCleanFrame = isPhone || kf.imageAspect === "video"
+        // ขนาด wrapper ต่างกันตาม aspect:
+        //   phone — narrow column สำหรับ mobile preview
+        //   video — กว้างเต็มคอลัมน์ ให้เห็นรายละเอียดบน desktop
+        const imageWrapperClass = (() => {
+          if (kf.imageAspect === "phone") return "mx-auto w-full max-w-[20rem] sm:max-w-[22rem] lg:max-w-[24rem]"
+          if (kf.imageAspect === "video") return "mx-auto w-full"
+          return ""
+        })()
         // Filename ใน window chrome — ปรับตาม eyebrow
         const fileName = kf.eyebrow
           .replace(/[★·\s]+/g, "_")
@@ -424,13 +432,19 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             key={kf.eyebrow}
             className={`border-t-[3px] border-[#0A2540] ${sectionBg} py-14 sm:py-20 lg:py-28`}
           >
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="grid gap-10 lg:grid-cols-[5fr_6fr] lg:items-center lg:gap-14">
+            <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${isPhone ? "max-w-6xl" : "max-w-7xl"}`}>
+              <div
+                className={`grid gap-10 lg:items-center lg:gap-14 ${
+                  isPhone
+                    ? "lg:grid-cols-[auto_minmax(0,1fr)] lg:gap-16"
+                    : "lg:grid-cols-[5fr_6fr]"
+                }`}
+              >
                 {/* Image block
-                    — phone aspect: render บริสุทธิ์ ไม่มี window chrome / frame / corner accents
+                    — phone/video: render บริสุทธิ์ ไม่มี window chrome / frame / corner accents
                     — aspects อื่น: ใช้ arcade window frame ครบ */}
                 <div className={`relative ${imageOnRight ? "lg:order-2" : ""} ${imageWrapperClass}`}>
-                  {isPhoneFrame ? (
+                  {isCleanFrame ? (
                     <>
                       <div className={`relative ${imageAspectClass} overflow-hidden`}>
                         {kf.video ? (
@@ -513,22 +527,39 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                   )}
                 </div>
 
-                {/* Content block */}
-                <div className={imageOnRight ? "lg:order-1" : ""}>
+                {/* Content block — phone aspect: จำกัด max-width ให้อ่านง่าย + ลดขนาด heading */}
+                <div
+                  className={`${imageOnRight ? "lg:order-1" : ""} ${
+                    isPhone ? "lg:max-w-2xl" : ""
+                  }`}
+                >
                   <span
                     className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
                     style={{ boxShadow: "4px 4px 0 " + service.accent }}
                   >
                     {kf.eyebrow}
                   </span>
-                  <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+                  <h2
+                    className={`mt-5 font-black uppercase leading-tight text-[#0A2540] ${
+                      isPhone
+                        ? "text-2xl sm:text-3xl lg:text-4xl"
+                        : "text-3xl sm:text-4xl lg:text-5xl"
+                    }`}
+                  >
                     {kf.title}
                     <br />
                     <span style={{ color: service.accent }}>{kf.highlightedTitle}</span>
                   </h2>
-                  <p className="mt-5 text-base leading-relaxed text-[#0A2540]/80 sm:text-lg">
-                    {kf.description}
-                  </p>
+                  {/* Description — รองรับหลาย paragraphs ผ่าน \n\n
+                      paragraph แรก = mt-5, paragraphs ถัดไป = mt-4 (เว้นห่างกันสวยๆ) */}
+                  {kf.description.split(/\n\n+/).map((para, i) => (
+                    <p
+                      key={i}
+                      className={`${i === 0 ? "mt-5" : "mt-4"} text-base leading-relaxed text-[#0A2540]/80 sm:text-lg`}
+                    >
+                      {para}
+                    </p>
+                  ))}
 
                   {/* Benefit cards */}
                   <ul className="mt-8 grid gap-4 sm:grid-cols-2">
@@ -568,6 +599,81 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
           </section>
         )
       })}
+
+      {/* CTA_Payment — settlement timeline banner ต่อท้าย Payment Channel
+          highlight ตัวเลขใหญ่ "T + 2" เป็น focal point + body อธิบายระยะเวลาเข้าบัญชี */}
+      {service.ctaPayment && (
+        <section
+          className="relative overflow-hidden border-t-[3px] border-[#0A2540] bg-[#0A2540] py-16 sm:py-24 lg:py-28"
+        >
+          {/* Pixel grid background — เลียนสไตล์ CTA หลัก */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-15"
+            style={{
+              backgroundImage: `linear-gradient(${service.accent} 1px, transparent 1px), linear-gradient(90deg, ${service.accent} 1px, transparent 1px)`,
+              backgroundSize: "32px 32px",
+            }}
+          />
+
+          <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="grid items-center gap-10 lg:grid-cols-[auto_1fr] lg:gap-14">
+              {/* Big "T + 2" highlight block */}
+              <div
+                className="relative mx-auto flex aspect-square w-44 flex-col items-center justify-center sm:w-52 lg:w-64"
+                style={{
+                  background: service.accent,
+                  border: "4px solid #F1C40F",
+                  boxShadow: "10px 10px 0 #F1C40F",
+                }}
+              >
+                <span className="font-pixel text-[10px] uppercase tracking-widest text-[#0A2540]/70">
+                  SETTLEMENT
+                </span>
+                <span
+                  className={`mt-1 text-5xl font-black leading-none sm:text-6xl lg:text-7xl ${
+                    service.accent === "#F1C40F" ? "text-[#0A2540]" : "text-white"
+                  }`}
+                  style={{
+                    textShadow: service.accent === "#F1C40F" ? undefined : "3px 3px 0 #0A2540",
+                  }}
+                >
+                  {service.ctaPayment.highlight}
+                </span>
+                <span className="font-pixel mt-2 text-[10px] uppercase tracking-widest text-[#0A2540]/70">
+                  WORKING DAYS
+                </span>
+                {/* Pixel corners */}
+                <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#0A2540]" />
+                <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#0A2540]" />
+                <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#0A2540]" />
+                <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#0A2540]" />
+              </div>
+
+              {/* Copy */}
+              <div className="text-center lg:text-left">
+                <span
+                  className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
+                  style={{ boxShadow: `4px 4px 0 ${service.accent}` }}
+                >
+                  {service.ctaPayment.badge}
+                </span>
+                <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+                  {service.ctaPayment.title}
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-white/80 sm:text-lg">
+                  {service.ctaPayment.description}
+                </p>
+                {service.ctaPayment.note && (
+                  <p className="font-pixel mt-6 text-[10px] uppercase tracking-widest text-white/50">
+                    {service.ctaPayment.note}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related services */}
       {related.length > 0 && (
