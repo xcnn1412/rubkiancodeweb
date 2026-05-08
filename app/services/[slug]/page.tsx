@@ -18,6 +18,7 @@ import dynamic from "next/dynamic"
 import { Navbar } from "@/components/rubkiancode/navbar"
 import { ArrowIcon } from "@/components/rubkiancode/icons"
 import { VideoLoopPreview } from "@/components/rubkiancode/video-loop-preview"
+import { ScreenshotsGallery } from "@/components/rubkiancode/screenshots-gallery"
 import {
   SERVICES,
   getService,
@@ -298,91 +299,43 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
       {service.screenshots && service.screenshots.length > 0 && (
         <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-20 sm:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Section head */}
+            {/* Section head — ใช้ screenshotsHeader override ถ้ามี ไม่งั้น fallback ไป default */}
             <div className="mb-12 max-w-3xl">
               <span
                 className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
                 style={{ boxShadow: "4px 4px 0 " + service.accent }}
               >
-                ★ PRODUCT SCREENSHOTS
+                {service.screenshotsHeader?.badge ?? "★ PRODUCT SCREENSHOTS"}
               </span>
               <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
-                ดูภาพจริง
+                {service.screenshotsHeader?.title ?? "ดูภาพจริง"}
                 <br />
-                <span style={{ color: service.accent }}>เข้าใจระบบใน 30 วินาที</span>
+                <span style={{ color: service.accent }}>
+                  {service.screenshotsHeader?.highlightedTitle ?? "เข้าใจระบบใน 30 วินาที"}
+                </span>
               </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
-                ระบบที่ลูกค้าใช้งานจริงทุกวัน — Dashboard ดูภาพรวม,
-                Marketing Automation ส่งให้ลูกค้ากลับมาซ้ำ,
-                และ Multi-touch Attribution บอกว่าแต่ละบาทที่ลงโฆษณา <b className="text-white">คืนกำไรกลับมาเท่าไหร่</b>
-              </p>
+              {service.screenshotsHeader ? (
+                <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
+                  {service.screenshotsHeader.description}
+                </p>
+              ) : (
+                <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
+                  ระบบที่ลูกค้าใช้งานจริงทุกวัน — Dashboard ดูภาพรวม,
+                  Marketing Automation ส่งให้ลูกค้ากลับมาซ้ำ,
+                  และ Multi-touch Attribution บอกว่าแต่ละบาทที่ลงโฆษณา <b className="text-white">คืนกำไรกลับมาเท่าไหร่</b>
+                </p>
+              )}
             </div>
 
-            {/* Gallery — 1 col mobile, 2 col tablet, 3 col desktop */}
-            <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {service.screenshots.map((shot, i) => (
-                <figure
-                  key={shot.src}
-                  className="group flex flex-col bg-[#F4EDE0] transition-transform hover:-translate-x-1 hover:-translate-y-1"
-                  style={{ border: "3px solid " + service.accent, boxShadow: "8px 8px 0 " + service.accent }}
-                >
-                  {/* Browser chrome — arcade window style */}
-                  <div className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2 sm:px-4">
-                    <span className="flex gap-1.5">
-                      <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
-                      <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
-                      <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
-                    </span>
-                    <span className="font-pixel hidden text-[9px] uppercase text-[#F1C40F] sm:inline">
-                      SCREEN · {String(i + 1).padStart(2, "0")} · {service.subtitle.toUpperCase()}
-                    </span>
-                    <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
-                      <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
-                      </span>
-                      LIVE
-                    </span>
-                  </div>
-
-                  {/* Image
-                      — aspect-[4/3] รองรับทั้ง portrait และ landscape ได้สมดุล
-                      — object-contain โชว์ภาพเต็มไม่ครอป (ภาพจริงจาก event/photobooth ที่มีหลาย aspect)
-                      — bg #0F1419 ให้ letterbox/pillarbox ดูเป็น cinematic black bar กลืนเนียน */}
-                  <div className="relative aspect-[4/3] overflow-hidden border-y-[3px] border-[#0A2540] bg-[#0F1419]">
-                    <Image
-                      src={shot.src}
-                      alt={shot.alt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 600px"
-                      className="object-contain transition-transform duration-500 group-hover:scale-105"
-                      loading={i === 0 ? "eager" : "lazy"}
-                    />
-                    {/* Pixel corner accents */}
-                    <span aria-hidden className="absolute left-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute right-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 left-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 right-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                  </div>
-
-                  {/* Caption */}
-                  <figcaption className="flex items-center justify-between gap-3 p-4 sm:p-5">
-                    <span
-                      className="font-pixel bg-[#0A2540] px-2 py-1.5 text-[10px] uppercase text-[#F1C40F]"
-                      style={{ boxShadow: "2px 2px 0 " + service.accent }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="flex-1 text-sm font-bold text-[#0A2540] sm:text-base">
-                      {shot.caption}
-                    </span>
-                    <span className="font-pixel hidden text-xs sm:inline" style={{ color: service.accent }}>
-                      ▶
-                    </span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
+            {/* Gallery — โชว์ 9 รูปแรก + ปุ่ม "ดูรูปเพิ่มเติม" สำหรับขยาย/ย่อ
+                photobooth: ส่ง productionCta config เพิ่มปุ่ม "ติดต่อผลิตตู้" + popup
+                หน้าอื่นจะส่ง config คนละชุดได้ (override title/description/etc.) */}
+            <ScreenshotsGallery
+              screenshots={service.screenshots}
+              accent={service.accent}
+              subtitle={service.subtitle}
+              productionCta={service.slug === "photoboothsoftware" ? {} : undefined}
+            />
 
             {/* Note */}
             <p className="mt-8 text-center text-sm text-[#F4EDE0]/55">
@@ -658,12 +611,18 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                 >
                   {service.ctaPayment.badge}
                 </span>
-                <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+                <h2 className="mt-5 whitespace-pre-line text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
                   {service.ctaPayment.title}
                 </h2>
-                <p className="mt-5 text-base leading-relaxed text-white/80 sm:text-lg">
-                  {service.ctaPayment.description}
-                </p>
+                {/* Description — รองรับหลาย paragraphs ผ่าน \n\n เหมือน keyFeatures */}
+                {service.ctaPayment.description.split(/\n\n+/).map((para, i) => (
+                  <p
+                    key={i}
+                    className={`${i === 0 ? "mt-5" : "mt-3"} text-base leading-relaxed text-white/80 sm:text-lg`}
+                  >
+                    {para}
+                  </p>
+                ))}
                 {service.ctaPayment.note && (
                   <p className="font-pixel mt-6 text-[10px] uppercase tracking-widest text-white/50">
                     {service.ctaPayment.note}

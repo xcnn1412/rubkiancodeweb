@@ -75,6 +75,12 @@ export type Service = {
                                 //           ถ้ากำหนด — render <VideoLoopPreview> แทน art/heroImage
                                 //           priority บน hero: heroDetailVideo > heroImage > art
   screenshots?: Screenshot[]    // (optional) แกลเลอรี screenshot สำหรับ /services/{slug}
+  screenshotsHeader?: {         // (optional) override header ของ section screenshots
+    badge?: string              // override eyebrow "★ PRODUCT SCREENSHOTS"
+    title: string               // บรรทัดแรกของ h2
+    highlightedTitle: string    // บรรทัดที่ 2 ของ h2 (สี accent)
+    description: string         // body paragraph
+  }
   keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
   ctaPayment?: {                // (optional) banner สรุป settlement / payment timeline
     badge: string               // eyebrow pixel tag
@@ -464,6 +470,13 @@ export const SERVICES: Service[] = [
       "/videos/project0/reelsign2.mp4",
       "/videos/project0/reels1.mp4",
     ],
+    screenshotsHeader: {
+      badge: "★ PHOTOBOOTH GALLERY",
+      title: "ดูตู้จริง",
+      highlightedTitle: "ทุกธีมงาน ทุกสไตล์",
+      description:
+        "ตู้ Photobooth Korean-style ของ RubKianCode ติดตั้งจริงในงาน Wedding, Corporate Event, Brand Activation และ Roadshow Marketing — พร้อม Custom Frame ตามแบรนด์, AI Beauty Filter, Print + QR Cloud Share และ Realtime Photo Gallery ในเครื่องเดียว",
+    },
     screenshots: [
       {
         src: "/images/photobooth/photo1.jpg",
@@ -485,6 +498,15 @@ export const SERVICES: Service[] = [
         alt: "ตัวอย่างผลงาน Photobooth จาก RubKianCode — ติดตั้งในงาน Wedding / Birthday Party พร้อมกรอบ custom และ AI Beauty Filter ทำให้ภาพออกมาสวยทันทีไม่ต้องแต่ง",
         caption: "Wedding & Private Event Setup",
       },
+      // Model shoots — ภาพ Model โพสจริงในตู้ Photobooth ทั้งหมด 13 ภาพ
+      ...Array.from({ length: 13 }, (_, i) => {
+        const n = String(i + 1).padStart(2, "0")
+        return {
+          src: `/images/model/model${i + 1}.jpg`,
+          alt: `ตัวอย่างผลงาน Photobooth Software ของ RubKianCode — ภาพ Model Shoot ${n} ในตู้ถ่ายรูป Korean-style พร้อม AI Beauty Filter, Custom Frame และ Print + QR Cloud Share เหมาะกับ Wedding · Corporate · Brand Activation`,
+          caption: `Model Shoot ${n} — Korean-style Booth`,
+        }
+      }),
     ],
     keyFeatures: [
       // ── Deep dive 1: Signage Photobooth ──
@@ -629,9 +651,9 @@ export const SERVICES: Service[] = [
     ctaPayment: {
       badge: "★ MERCHANT SETTLEMENT",
       highlight: "T + 2",
-      title: "จะได้รับเงินภายในวันที่โอน + 2 วัน",
+      title: "จะได้รับเงิน\nภายในวันที่โอน + 2 วัน",
       description:
-        "ระบบ settle อัตโนมัติทุกวันทำการ — ยอดขายจาก Alipay · WeChat Pay · PromptPay เข้าบัญชีคุณภายใน 2 วันทำการ ไม่มีค่าธรรมเนียมแอบแฝง ไม่ต้องรอเป็นเดือน",
+        "ระบบ settle อัตโนมัติทุกวันทำการ\n\nยอดขายจาก Alipay · WeChat Pay · PromptPay เข้าบัญชีคุณภายใน 2 วันทำการ\n\nไม่มีค่าธรรมเนียมแอบแฝง ไม่ต้องรอเป็นเดือน",
       note: "★ T = วันที่ลูกค้าทำรายการสำเร็จ · นับเฉพาะวันทำการ (จันทร์–ศุกร์)",
     },
   },
