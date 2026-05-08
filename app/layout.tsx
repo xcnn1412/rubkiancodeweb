@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
 import { DynamicIntlProvider } from '@/lib/intl-provider'
 import { ExitTransitionProvider } from '@/providers/exit-transition-provider'
+import { FloatingContact } from '@/components/rubkiancode/floating-contact'
 import './globals.css'
 
 const prompt = Prompt({
@@ -164,6 +165,7 @@ export default function RootLayout({
             </ExitTransitionProvider>
           </DynamicIntlProvider>
         </LanguageProvider>
+        <FloatingContact />
         <Analytics />
       </body>
     </html>
