@@ -29,11 +29,14 @@ export type KeyFeature = {
   title: string                 // ส่วนแรกของ heading
   highlightedTitle: string      // ส่วนที่ระบายสี accent
   description: string           // 1 paragraph อธิบาย concept
-  image: Screenshot             // ภาพประกอบ
+  image: Screenshot             // ภาพประกอบ — ใช้เป็น SEO alt text + bottom caption ตลอด
+  // (optional) ถ้ากำหนด — render VideoLoopPreview แทน <Image>
+  // string = ไฟล์เดียว วน loop / array = หลายไฟล์ เล่นต่อกัน
+  video?: string | string[]
   // ปรับสัดส่วน frame ภาพให้แมตช์กับ aspect ratio ของภาพจริง
   // ค่า default = "auto" → portrait บน mobile / landscape บน desktop (เหมาะกับภาพ landscape ส่วนใหญ่)
   // ใช้ "portrait" เมื่อภาพเป็นแนวตั้ง เพื่อกัน letterbox กว้างบน desktop
-  imageAspect?: "auto" | "portrait" | "square" | "landscape"
+  imageAspect?: "auto" | "portrait" | "square" | "landscape" | "phone"
   benefits: { title: string; description: string }[]  // 3-4 ข้อ
 }
 
@@ -61,10 +64,14 @@ export type Service = {
                                 // false/undefined = สินค้าเฉพาะตัว → ขึ้นใน Main Products grid ของ /services
   heroImage?: Screenshot        // (optional) screenshot จริงใช้แทน art ใน hero preview
                                 //           ถ้ากำหนด — render <Image> แทน pixel art
-  heroVideo?: string | string[] // (optional) video path สำหรับ preview — autoplay/muted/loop
+  heroVideo?: string | string[] // (optional) video สำหรับ homepage card preview — autoplay/muted/loop
                                 //           string  = ไฟล์เดียว วน loop
                                 //           array   = หลายไฟล์ เล่นต่อกัน วนกลับ [0]
-                                //           priority: heroVideo > heroImage > art
+                                //           ใช้ใน KeyServicesSection card
+  heroDetailVideo?: string | string[]
+                                // (optional) video สำหรับ hero ของหน้า /services/{slug}
+                                //           ถ้ากำหนด — render <VideoLoopPreview> แทน art/heroImage
+                                //           priority บน hero: heroDetailVideo > heroImage > art
   screenshots?: Screenshot[]    // (optional) แกลเลอรี screenshot สำหรับ /services/{slug}
   keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
 }
@@ -408,31 +415,201 @@ export const SERVICES: Service[] = [
     slug: "photoboothsoftware",
     num: "04",
     title: "ระบบ Photobooth",
-    subtitle: "Korean-style Booth",
+    subtitle: "Korean-style Photobooth Software",
     description:
-      "ตู้ถ่ายรูปสไตล์เกาหลีพร้อมซอฟต์แวร์ครบวงจร — รับผลิต ให้เช่า มี operator มืออาชีพ ปรับ template/filter ตาม brand ลูกค้าได้ทุกงาน",
+      "ตู้ถ่ายรูปสไตล์เกาหลีพร้อมซอฟต์แวร์ครบวงจร — รับผลิต ให้เช่า บริการ operator มืออาชีพ ปรับ template/filter ตาม brand ลูกค้าได้ทุกงาน รองรับงานเลี้ยง, เปิดตัวสินค้า, Wedding และ Corporate Event",
     features: [
       "AI Filter & Auto Beauty Retouch",
       "Custom Frame · ตามธีมงานลูกค้า",
       "Print + QR Cloud Share ทันที",
       "งานเลี้ยง · เปิดตัวสินค้า · Wedding",
       "ตู้ผลิตเองในไทย · บริการหลังการขาย",
-      "Realtime Photo Gallery",
+      "Realtime Photo Gallery & Live Wall",
+      "Payment Channel · Alipay · PromptPay · WeChat Pay",
     ],
     duration: "ให้เช่ารายวัน · เริ่ม 1 สัปดาห์",
     startingPrice: "35,000 บาท / ปี",
     accent: "#2ECC71",
     featured: true,
-    customPage: true, // → ใช้ /services/photoboothsoftware/page.tsx (static) แทน dynamic template
     meta: {
-      title: "ระบบ Photobooth — Korean-style Booth | RubKianCode",
+      title: "ระบบ Photobooth — ตู้ถ่ายรูปสไตล์เกาหลี + Photobooth Software | RubKianCode",
       description:
-        "ตู้ถ่ายรูปสไตล์เกาหลีพร้อมซอฟต์แวร์ครบวงจร AI Filter, Custom Frame, Print + QR Share สำหรับงาน event ทุกขนาด",
+        "ระบบ Photobooth Software ครบวงจรสำหรับงานอีเวนต์ในไทย — ตู้ถ่ายรูปสไตล์เกาหลี (Korean-style Booth), AI Filter, Auto Beauty Retouch, Custom Frame ตามแบรนด์, Print + QR Cloud Share, Realtime Photo Gallery รับผลิต ให้เช่า มีทีม operator มืออาชีพ รองรับงานแต่งงาน เปิดตัวสินค้า Corporate Event",
     },
     art: <PhotoboothArt />,
-    // เล่น live1.mp4 → live2 → ... → live11 แล้ววนกลับมา live1
+    // homepage card preview — เล่น live1.mp4 → live2 → ... → live11 วนกลับ
     // ถ้ามีไฟล์ใหม่ใน /public/videos/liveview/ แค่อัปเลขนี้
     heroVideo: Array.from({ length: 11 }, (_, i) => `/videos/liveview/live${i + 1}.mp4`),
+    // hero ของหน้า /services/photoboothsoftware — เล่น project0 video sequence
+    // ครอบคลุม Vsign, liveview, preview, reels — ให้เห็น UI workflow ของ Photobooth จริง
+    heroDetailVideo: [
+      "/videos/project0/preview1.mp4",
+      "/videos/project0/liveview1.mp4",
+      "/videos/project0/liveview2.mp4",
+      "/videos/project0/Vsign1.mp4",
+      "/videos/project0/Vsign2.mp4",
+      "/videos/project0/reelsign1.mp4",
+      "/videos/project0/reelsign2.mp4",
+      "/videos/project0/reels1.mp4",
+    ],
+    screenshots: [
+      {
+        src: "/images/photobooth/photo1.jpg",
+        alt: "ตู้ Photobooth สไตล์เกาหลี (Korean-style Booth) ของ RubKianCode — โครงสีขาว Mirror Booth พร้อม Soft Light Lantern 2 ดวงให้แสงสวยถูกใจ ติดตั้งในงาน Corporate Event โรงแรม รองรับ Live Preview และ AI Beauty Retouch",
+        caption: "Mirror Booth + Soft Light — งาน Corporate · Hotel Event",
+      },
+      {
+        src: "/images/photobooth/photo2.jpg",
+        alt: "ตู้ Photobooth ออกงาน True 5G x dtac TU Temporium — ติด custom branding ตามธีมงาน, มีป้าย QR Code ให้ผู้ร่วมงานสแกน Add Line OA + โหลด True App รับสิทธิ์ถ่าย Photo Booth ฟรี ตัวอย่างการใช้งาน Photobooth Marketing",
+        caption: "Custom Branding — งาน Activation · Roadshow Marketing",
+      },
+      {
+        src: "/images/photobooth/photo3.jpg",
+        alt: "ตัวอย่างการใช้งาน Photobooth Software ของ RubKianCode — ตู้ถ่ายรูป Korean-style ในงานอีเวนต์ พร้อม Realtime Photo Gallery และ Print + QR Cloud Share สำหรับผู้ร่วมงาน",
+        caption: "Photobooth in Action — งานอีเวนต์จริง",
+      },
+      {
+        src: "/images/photobooth/photo4.jpg",
+        alt: "ตัวอย่างผลงาน Photobooth จาก RubKianCode — ติดตั้งในงาน Wedding / Birthday Party พร้อมกรอบ custom และ AI Beauty Filter ทำให้ภาพออกมาสวยทันทีไม่ต้องแต่ง",
+        caption: "Wedding & Private Event Setup",
+      },
+    ],
+    keyFeatures: [
+      // ── Deep dive 1: Signage Photobooth ──
+      {
+        eyebrow: "★ DEEP DIVE · SIGNAGE PHOTOBOOTH",
+        title: "Signage Photobooth",
+        highlightedTitle: "ตู้ถ่ายรูป + ป้ายดิจิทัลในเครื่องเดียว",
+        description:
+          "Signage Photobooth Software ของเรา — ตู้ถ่ายรูปทำหน้าที่เป็นจอ Digital Signage ในตัว เมื่อไม่มีคนใช้ตู้จะเล่น Reel โปรโมต Brand, ตารางอีเวนต์, หรือ Live Wall ภาพที่ถ่ายไปแล้ว เพิ่ม Brand Exposure ตลอดงานโดยไม่ต้องเช่าจอ Digital Signage แยก เหมาะกับงาน Activation, Roadshow, Trade Show และ Corporate Event ที่ต้องการให้ Photobooth ทำงานเป็น Marketing Asset ตลอดเวลา",
+        image: {
+          src: "/images/photobooth/photo1.jpg",
+          alt: "Signage Photobooth ของ RubKianCode — ตู้ถ่ายรูปทำหน้าที่เป็นทั้ง Photobooth และ Digital Signage แสดง Brand Reel, ตารางอีเวนต์, Live Photo Wall ในเครื่องเดียว เหมาะกับงาน Brand Activation, Roadshow Marketing และ Corporate Event",
+          caption: "Signage Photobooth · Reel + Photo + Digital Signage",
+        },
+        video: [
+          "/videos/project0/reelsign1.mp4",
+          "/videos/project0/reelsign2.mp4",
+        ],
+        imageAspect: "portrait",
+        benefits: [
+          {
+            title: "Dual Mode",
+            description: "ตู้ถ่ายรูป + Digital Signage ในเครื่องเดียว — ลด cost เช่าจอ ไม่ต้องลากสายไฟเพิ่ม",
+          },
+          {
+            title: "Auto-play Brand Reel",
+            description: "เล่น Brand Video / Promo Reel เมื่อ Idle — แตะหน้าจอเข้า Photobooth Mode ทันที",
+          },
+          {
+            title: "Live Photo Wall",
+            description: "สลับโชว์ภาพล่าสุดที่ผู้ร่วมงานถ่าย — เพิ่ม FOMO ดึงคนมาต่อคิว",
+          },
+          {
+            title: "Schedule Playlist",
+            description: "ตั้ง playlist ตามเวลางาน — เปิดงาน, Keynote Break, Closing แต่ละช่วงเล่นคนละ asset",
+          },
+        ],
+      },
+
+      // ── Deep dive 2: Custom Branding ──
+      {
+        eyebrow: "★ DEEP DIVE · BRAND CUSTOMIZATION",
+        title: "Custom Frame & Branding",
+        highlightedTitle: "ปรับตามธีมงานทุกงาน",
+        description:
+          "ทีมงานออกแบบ Frame, Logo Overlay, Background, UI ของหน้าจอ — ตรงตาม brand identity ของลูกค้า/sponsor ทุก asset แก้ไขได้ภายใน 24 ชม. ก่อนงาน เหมาะกับ Roadshow, Brand Activation และ Corporate Event ที่ต้องการ Photobooth Marketing เต็มรูปแบบ",
+        image: {
+          src: "/images/photobooth/photo2.jpg",
+          alt: "ตัวอย่าง Custom Branding ของ Photobooth Software RubKianCode — ติดตั้งในงาน True 5G x dtac TU Temporium พร้อม custom frame, brand color และ QR Code ให้ผู้ร่วมงานสแกน Add Line OA",
+          caption: "True 5G x dtac · Brand Activation",
+        },
+        benefits: [
+          {
+            title: "Frame ตาม Brand",
+            description: "Logo, Color, Tagline, Hashtag — ออกแบบให้ตรงโทนงาน",
+          },
+          {
+            title: "Live Preview UI",
+            description: "หน้าจอ Booth ปรับ background + animation ตามธีมงาน",
+          },
+          {
+            title: "QR Lead Capture",
+            description: "เก็บ Line OA / Email ผู้ร่วมงานก่อนถ่าย ส่งให้ Marketing CRM",
+          },
+          {
+            title: "แก้ไขด่วน 24 ชม.",
+            description: "Asset เปลี่ยนได้ก่อนงาน — รองรับการอัปเดตโลโก้/ข้อความล่วงหน้า",
+          },
+        ],
+      },
+
+      // ── Deep dive 3: Print + Cloud Share ──
+      {
+        eyebrow: "★ DEEP DIVE · PRINT & CLOUD",
+        title: "Print + QR Cloud Share",
+        highlightedTitle: "ภาพถึงมือทันที + เก็บออนไลน์",
+        description:
+          "พิมพ์ภาพสด ๆ ที่งานด้วยเครื่อง Dye-sublimation Printer คุณภาพสตูดิโอ + QR Code สำหรับโหลดไฟล์ดิจิทัลเก็บได้ทันที พร้อม Realtime Photo Gallery / Live Wall ฉายภาพล่าสุดบนจอ LED ในงาน — เพิ่ม engagement และให้ทุกคนเห็นโมเมนต์ไปด้วยกัน",
+        image: {
+          src: "/images/photobooth/photo3.jpg",
+          alt: "Photobooth Software RubKianCode รองรับ Print + QR Cloud Share พร้อม Realtime Photo Gallery — ผู้ร่วมงานได้ภาพถ่ายปริ้นในมือทันที + ลิงก์ดาวน์โหลดไฟล์ดิจิทัลผ่าน QR",
+          caption: "Print + QR Cloud Share",
+        },
+        benefits: [
+          {
+            title: "Print 6×4 Studio Quality",
+            description: "Dye-sublimation Printer · ภาพไม่ซีด ไม่ลอก เก็บได้ 50 ปี",
+          },
+          {
+            title: "QR Cloud Share",
+            description: "สแกนโหลดไฟล์ดิจิทัล HD เก็บไว้ในมือถือ + Watermark Brand",
+          },
+          {
+            title: "Realtime Photo Gallery",
+            description: "Live Wall ฉายภาพล่าสุดบนจอ LED ในงาน — เพิ่ม engagement",
+          },
+          {
+            title: "Export Album สิ้นงาน",
+            description: "ส่งอัลบั้มภาพรวมทั้งหมดให้ Organizer ภายใน 24 ชม. หลังงาน",
+          },
+        ],
+      },
+
+      // ── Deep dive 4: Payment Channel ──
+      {
+        eyebrow: "★ DEEP DIVE · PAYMENT CHANNEL",
+        title: "Photobooth Payment Channel",
+        highlightedTitle: "ชำระเงินครบทุกช่องทาง — รับนักท่องเที่ยวทั่วโลก",
+        description:
+          "Photobooth Software ของเรารองรับการชำระเงินครบทุกช่องทาง — PromptPay สำหรับลูกค้าไทย, Alipay และ WeChat Pay สำหรับนักท่องเที่ยวจีน เปลี่ยนตู้ Photobooth ให้กลายเป็น Self-service Vending — ลูกค้าจ่ายเอง ถ่ายเอง รับภาพเอง ไม่ต้องมี operator คอยเก็บเงิน เหมาะกับ Mall Installation, Tourist Spot, Theme Park และร้านค้าที่ต้องการรายได้ Passive 24 ชั่วโมง",
+        image: {
+          src: "/images/photobooth/photo3.jpg",
+          alt: "Photobooth Payment Channel ของ RubKianCode — ระบบรับชำระเงินบนตู้ Photobooth รองรับ PromptPay, Alipay, WeChat Pay เปลี่ยนตู้ถ่ายรูปให้เป็น Self-service Vending รับนักท่องเที่ยวไทย-จีน 24 ชั่วโมง เหมาะกับ Mall, Tourist Spot, Theme Park",
+          caption: "Self-service Payment · PromptPay · Alipay · WeChat Pay",
+        },
+        video: "/videos/project1/moshipayment.mp4",
+        imageAspect: "phone",
+        benefits: [
+          {
+            title: "PromptPay QR",
+            description: "รับลูกค้าไทยได้ทันที — สแกน QR จ่ายผ่าน Mobile Banking ทุกธนาคาร",
+          },
+          {
+            title: "Alipay + WeChat Pay",
+            description: "รองรับนักท่องเที่ยวจีน — ตลาดใหญ่ที่สุดของอุตสาหกรรม Photobooth ใน Asia",
+          },
+          {
+            title: "Self-service Vending",
+            description: "ลูกค้าจ่ายเอง ถ่ายเอง รับภาพเอง — ลด cost operator, เปิดให้บริการ 24 ชั่วโมง",
+          },
+          {
+            title: "Realtime Settlement",
+            description: "ยอดขายเข้าบัญชีทันที + Dashboard สรุปรายได้รายวัน/รายเดือน ดูได้จากมือถือ",
+          },
+        ],
+      },
+    ],
   },
 
   // ── Extra Services ── (featured: false → ไม่ขึ้น homepage card หลัก)

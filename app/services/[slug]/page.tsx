@@ -17,6 +17,7 @@ import dynamic from "next/dynamic"
 
 import { Navbar } from "@/components/rubkiancode/navbar"
 import { ArrowIcon } from "@/components/rubkiancode/icons"
+import { VideoLoopPreview } from "@/components/rubkiancode/video-loop-preview"
 import {
   SERVICES,
   getService,
@@ -168,57 +169,74 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             </div>
           </div>
 
-          {/* Illustration / Preview — aspect-ratio กำหนดเพื่อกัน height collapse */}
-          <div className="relative mx-auto w-full max-w-md">
-            {/* Window chrome — arcade style title bar */}
-            <div
-              className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2"
-              style={{ border: "3px solid #0A2540" }}
-            >
-              <span className="flex gap-1.5">
-                <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
-                <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
-                <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
-              </span>
-              <span className="font-pixel text-[9px] uppercase text-[#F1C40F]">
-                PREVIEW · {service.subtitle.toUpperCase()}
-              </span>
-              <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
-                </span>
-                LIVE
-              </span>
-            </div>
+          {/* Illustration / Preview
+              — heroDetailVideo : โชว์ video เปลือย ๆ ไม่มี frame/chrome (โทนคลีนสำหรับ live preview)
+                                  ขนาดเท่า mobile phone preview → max-w-[16rem] (~256px)
+              — heroImage / art : ใช้ window chrome + aspect frame + corner accents (arcade theme) */}
+          <div
+            className={`relative mx-auto w-full ${
+              service.heroDetailVideo ? "max-w-[16rem]" : "max-w-md"
+            }`}
+          >
+            {service.heroDetailVideo ? (
+              <VideoLoopPreview
+                sources={service.heroDetailVideo}
+                ariaLabel={`Preview ${service.title}`}
+                className="block w-full"
+              />
+            ) : (
+              <>
+                {/* Window chrome — arcade style title bar */}
+                <div
+                  className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2"
+                  style={{ border: "3px solid #0A2540" }}
+                >
+                  <span className="flex gap-1.5">
+                    <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
+                    <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
+                    <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
+                  </span>
+                  <span className="font-pixel text-[9px] uppercase text-[#F1C40F]">
+                    PREVIEW · {service.subtitle.toUpperCase()}
+                  </span>
+                  <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+                    </span>
+                    LIVE
+                  </span>
+                </div>
 
-            {/* Preview frame — 16:10 aspect ratio (matches dashboard ratio)
-                — heroImage = real screenshot (dark bg + pixel corners)
-                — fallback = pixel art (cream bg) */}
-            <div
-              className={`relative aspect-16/10 overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] ${service.heroImage ? "bg-[#0F1419]" : "bg-[#F4EDE0]"}`}
-              style={{ boxShadow: "8px 8px 0 #0A2540" }}
-            >
-              {service.heroImage ? (
-                <>
-                  <Image
-                    src={service.heroImage.src}
-                    alt={service.heroImage.alt}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 500px"
-                    className="object-cover object-top"
-                    priority
-                  />
-                  {/* Pixel corner accents — รักษา arcade theme บนภาพจริง */}
-                  <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#F1C40F]" />
-                  <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#F1C40F]" />
-                  <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#F1C40F]" />
-                  <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#F1C40F]" />
-                </>
-              ) : (
-                service.art
-              )}
-            </div>
+                {/* Preview frame — 16:10 aspect ratio (matches dashboard ratio) */}
+                <div
+                  className={`relative aspect-16/10 overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] ${
+                    service.heroImage ? "bg-[#0F1419]" : "bg-[#F4EDE0]"
+                  }`}
+                  style={{ boxShadow: "8px 8px 0 #0A2540" }}
+                >
+                  {service.heroImage ? (
+                    <>
+                      <Image
+                        src={service.heroImage.src}
+                        alt={service.heroImage.alt}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 500px"
+                        className="object-cover object-top"
+                        priority
+                      />
+                      {/* Pixel corner accents — รักษา arcade theme บนภาพจริง */}
+                      <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#F1C40F]" />
+                      <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#F1C40F]" />
+                    </>
+                  ) : (
+                    service.art
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -327,21 +345,24 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                     </span>
                   </div>
 
-                  {/* Image */}
-                  <div className="relative aspect-video overflow-hidden border-y-[3px] border-[#0A2540] bg-[#0A2540]">
+                  {/* Image
+                      — aspect-[4/3] รองรับทั้ง portrait และ landscape ได้สมดุล
+                      — object-contain โชว์ภาพเต็มไม่ครอป (ภาพจริงจาก event/photobooth ที่มีหลาย aspect)
+                      — bg #0F1419 ให้ letterbox/pillarbox ดูเป็น cinematic black bar กลืนเนียน */}
+                  <div className="relative aspect-[4/3] overflow-hidden border-y-[3px] border-[#0A2540] bg-[#0F1419]">
                     <Image
                       src={shot.src}
                       alt={shot.alt}
                       fill
                       sizes="(max-width: 1024px) 100vw, 600px"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      className="object-contain transition-transform duration-500 group-hover:scale-105"
                       loading={i === 0 ? "eager" : "lazy"}
                     />
                     {/* Pixel corner accents */}
-                    <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute left-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute right-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute bottom-0 left-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                    <span aria-hidden className="absolute bottom-0 right-0 z-10 h-3 w-3 bg-[#F1C40F]" />
                   </div>
 
                   {/* Caption */}
@@ -383,9 +404,16 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             case "portrait":  return "aspect-3/4 sm:aspect-3/4"
             case "square":    return "aspect-square"
             case "landscape": return "aspect-4/3"
+            // phone — 9:16 mobile UI shape สำหรับ payment screen / mobile app preview
+            case "phone":     return "aspect-9/16"
             default:          return "aspect-4/5 sm:aspect-5/4"
           }
         })()
+        // เมื่อเป็น phone aspect → จำกัด max-width ให้ดูเป็น mobile preview compact
+        const isPhoneFrame = kf.imageAspect === "phone"
+        const imageWrapperClass = isPhoneFrame
+          ? "mx-auto w-full max-w-[20rem] sm:max-w-[22rem] lg:max-w-[24rem]"
+          : ""
         // Filename ใน window chrome — ปรับตาม eyebrow
         const fileName = kf.eyebrow
           .replace(/[★·\s]+/g, "_")
@@ -398,53 +426,91 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
           >
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               <div className="grid gap-10 lg:grid-cols-[5fr_6fr] lg:items-center lg:gap-14">
-                {/* Image block */}
-                <div className={`relative ${imageOnRight ? "lg:order-2" : ""}`}>
-                  {/* Window chrome */}
-                  <div
-                    className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2"
-                    style={{ border: "3px solid #0A2540" }}
-                  >
-                    <span className="flex gap-1.5">
-                      <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
-                      <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
-                      <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
-                    </span>
-                    <span className="font-pixel hidden truncate text-[9px] uppercase text-[#F1C40F] sm:inline">
-                      {fileName}
-                    </span>
-                    <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
-                      <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
-                      </span>
-                      LIVE
-                    </span>
-                  </div>
-                  {/* Image frame
-                      — bg-[#0F1419] เลียนสีพื้น dashboard ในภาพ → letterbox เนียนไร้รอยต่อ
-                      — padding บน <Image> ทำให้ภาพมีพื้นที่หายใจ ไม่ติดขอบ window chrome */}
-                  <div
-                    className={`relative ${imageAspectClass} overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] bg-[#0F1419]`}
-                    style={{ boxShadow: "10px 10px 0 " + service.accent }}
-                  >
-                    <Image
-                      src={kf.image.src}
-                      alt={kf.image.alt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 600px"
-                      className="object-contain p-3 sm:p-4"
-                      loading="lazy"
-                    />
-                    {/* Pixel corner accents */}
-                    <span aria-hidden className="absolute left-0 top-0 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute right-0 top-0 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 left-0 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 right-0 h-3 w-3 bg-[#F1C40F]" />
-                  </div>
-                  <p className="font-pixel mt-4 text-center text-[10px] uppercase tracking-widest text-[#0A2540]/55">
-                    ★ {kf.image.caption}
-                  </p>
+                {/* Image block
+                    — phone aspect: render บริสุทธิ์ ไม่มี window chrome / frame / corner accents
+                    — aspects อื่น: ใช้ arcade window frame ครบ */}
+                <div className={`relative ${imageOnRight ? "lg:order-2" : ""} ${imageWrapperClass}`}>
+                  {isPhoneFrame ? (
+                    <>
+                      <div className={`relative ${imageAspectClass} overflow-hidden`}>
+                        {kf.video ? (
+                          <VideoLoopPreview
+                            sources={kf.video}
+                            ariaLabel={kf.image.alt}
+                            className="absolute inset-0 block h-full w-full object-contain"
+                          />
+                        ) : (
+                          <Image
+                            src={kf.image.src}
+                            alt={kf.image.alt}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 320px"
+                            className="object-contain"
+                            loading="lazy"
+                          />
+                        )}
+                      </div>
+                      <p className="font-pixel mt-4 text-center text-[10px] uppercase tracking-widest text-[#0A2540]/55">
+                        ★ {kf.image.caption}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      {/* Window chrome */}
+                      <div
+                        className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2"
+                        style={{ border: "3px solid #0A2540" }}
+                      >
+                        <span className="flex gap-1.5">
+                          <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
+                          <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
+                          <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
+                        </span>
+                        <span className="font-pixel hidden truncate text-[9px] uppercase text-[#F1C40F] sm:inline">
+                          {fileName}
+                        </span>
+                        <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
+                          <span className="relative flex h-2 w-2">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+                          </span>
+                          LIVE
+                        </span>
+                      </div>
+                      {/* Media frame — render video ถ้ามี kf.video, ไม่งั้น fallback ไป image
+                          — bg-[#0F1419] เลียนสีพื้น dashboard ในภาพ → letterbox เนียนไร้รอยต่อ
+                          — padding บนสื่อ ทำให้มีพื้นที่หายใจ ไม่ติดขอบ window chrome */}
+                      <div
+                        className={`relative ${imageAspectClass} overflow-hidden border-x-[3px] border-b-[3px] border-[#0A2540] bg-[#0F1419]`}
+                        style={{ boxShadow: "10px 10px 0 " + service.accent }}
+                      >
+                        {kf.video ? (
+                          <VideoLoopPreview
+                            sources={kf.video}
+                            ariaLabel={kf.image.alt}
+                            className="absolute inset-0 block h-full w-full object-contain p-3 sm:p-4"
+                          />
+                        ) : (
+                          <Image
+                            src={kf.image.src}
+                            alt={kf.image.alt}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 600px"
+                            className="object-contain p-3 sm:p-4"
+                            loading="lazy"
+                          />
+                        )}
+                        {/* Pixel corner accents */}
+                        <span aria-hidden className="absolute left-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                        <span aria-hidden className="absolute right-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                        <span aria-hidden className="absolute bottom-0 left-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                        <span aria-hidden className="absolute bottom-0 right-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                      </div>
+                      <p className="font-pixel mt-4 text-center text-[10px] uppercase tracking-widest text-[#0A2540]/55">
+                        ★ {kf.image.caption}
+                      </p>
+                    </>
+                  )}
                 </div>
 
                 {/* Content block */}
