@@ -12,7 +12,7 @@ import Image from "next/image"
 import type { Screenshot } from "@/app/services/_data/services"
 import { ContactPopup } from "./contact-popup"
 
-const INITIAL_COUNT = 9
+const INITIAL_COUNT = 6
 
 // Config สำหรับปุ่ม + popup ของ "ติดต่อผลิตตู้" — ทุก field optional, fallback ไป default
 // ใช้ตัวอย่าง:

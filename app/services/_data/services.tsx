@@ -472,10 +472,10 @@ export const SERVICES: Service[] = [
     ],
     screenshotsHeader: {
       badge: "★ PHOTOBOOTH GALLERY",
-      title: "ดูตู้จริง",
-      highlightedTitle: "ทุกธีมงาน ทุกสไตล์",
+      title: "ภาพตัวอย่างตู้ Photobooth",
+      highlightedTitle: "จาก Partner และ ลูกค้าของเรา",
       description:
-        "ตู้ Photobooth Korean-style ของ RubKianCode ติดตั้งจริงในงาน Wedding, Corporate Event, Brand Activation และ Roadshow Marketing — พร้อม Custom Frame ตามแบรนด์, AI Beauty Filter, Print + QR Cloud Share และ Realtime Photo Gallery ในเครื่องเดียว",
+        "ตู้ Photobooth ที่ติดตั้งและใช้งานจริง — รวมผลงานจาก Partner Manufacturing และลูกค้าของ RubKianCode ในงาน Wedding, Corporate Event, Brand Activation และ Roadshow Marketing ทั่วประเทศ",
     },
     screenshots: [
       {
