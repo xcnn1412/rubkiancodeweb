@@ -2,7 +2,13 @@
   "permissions": {
     "allow": [
       "Read(//c/Users/User/**)",
-      "Bash(npm run *)"
+      "Bash(ffprobe -v error -select_streams v:0 -show_entries stream=width,height -of csv=p=0 \"c:/Users/User/Desktop/software/rubkiancodeweb/public/videos/project1/moshipayment.mp4\")",
+      "Bash(python -c \"import struct; f=open\\(r'c:/Users/User/Desktop/software/rubkiancodeweb/public/videos/project1/moshipayment.mp4','rb'\\).read\\(\\); print\\(len\\(f\\)\\)\")",
+      "PowerShell($shell = New-Object -ComObject Shell.Application; $folder = $shell.Namespace\\('C:\\\\Users\\\\User\\\\Desktop\\\\software\\\\rubkiancodeweb\\\\public\\\\videos\\\\project1'\\); $file = $folder.ParseName\\('moshipayment.mp4'\\); 0..320 | ForEach-Object { $name = $folder.GetDetailsOf\\($null, $_\\); $val = $folder.GetDetailsOf\\($file, $_\\); if \\($val -and \\($name -match 'Frame|dimens|width|height|size|Duration'\\)\\) { \"$_ : $name = $val\" } })",
+      "PowerShell($shell = New-Object -ComObject Shell.Application; $folder = $shell.Namespace\\('C:\\\\Users\\\\User\\\\Desktop\\\\software\\\\rubkiancodeweb\\\\public\\\\videos\\\\project1'\\); $file = $folder.ParseName\\('moshipayment.mp4'\\); 0..320 | ForEach-Object { $name = $folder.GetDetailsOf\\($null, $_\\); $val = $folder.GetDetailsOf\\($file, $_\\); if \\($val\\) { \"$_ : $name = $val\" } } | Select-String -Pattern 'frame|dimen|width|height|x')",
+      "PowerShell(Add-Type -AssemblyName PresentationCore; $uri = New-Object System.Uri\\('C:\\\\Users\\\\User\\\\Desktop\\\\software\\\\rubkiancodeweb\\\\public\\\\videos\\\\project1\\\\moshipayment.mp4'\\); $player = New-Object System.Windows.Media.MediaPlayer; $player.Open\\($uri\\); Start-Sleep -Milliseconds 1500; \"Width=$\\($player.NaturalVideoWidth\\) Height=$\\($player.NaturalVideoHeight\\)\"; $player.Close\\(\\))",
+      "Bash(npm run *)",
+      "Bash(git add *)"
     ]
   }
 }

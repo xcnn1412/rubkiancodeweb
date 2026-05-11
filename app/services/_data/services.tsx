@@ -36,7 +36,7 @@ export type KeyFeature = {
   // ปรับสัดส่วน frame ภาพให้แมตช์กับ aspect ratio ของภาพจริง
   // ค่า default = "auto" → portrait บน mobile / landscape บน desktop (เหมาะกับภาพ landscape ส่วนใหญ่)
   // ใช้ "portrait" เมื่อภาพเป็นแนวตั้ง เพื่อกัน letterbox กว้างบน desktop
-  imageAspect?: "auto" | "portrait" | "square" | "landscape" | "phone"
+  imageAspect?: "auto" | "portrait" | "square" | "landscape" | "phone" | "video"
   benefits: { title: string; description: string }[]  // 3-4 ข้อ
 }
 
@@ -48,6 +48,8 @@ export type Service = {
   description: string           // ความยาว ~2 บรรทัด ใช้ทั้ง card + detail hero
   features: string[]            // bullet หลัก ของบริการ
   duration: string              // ระยะเวลาส่งมอบ
+  postSupport?: string          // (optional) override ข้อความ "การดูแลหลังส่งมอบ" ใน stat strip
+                                //            default = "30 วัน Hypercare ฟรี"
   startingPrice?: string        // ราคาเริ่มต้น (optional)
   accent: string                // hex color ของ theme service นี้
   featured: boolean             // true = ขึ้นการ์ดบน homepage
@@ -73,7 +75,20 @@ export type Service = {
                                 //           ถ้ากำหนด — render <VideoLoopPreview> แทน art/heroImage
                                 //           priority บน hero: heroDetailVideo > heroImage > art
   screenshots?: Screenshot[]    // (optional) แกลเลอรี screenshot สำหรับ /services/{slug}
+  screenshotsHeader?: {         // (optional) override header ของ section screenshots
+    badge?: string              // override eyebrow "★ PRODUCT SCREENSHOTS"
+    title: string               // บรรทัดแรกของ h2
+    highlightedTitle: string    // บรรทัดที่ 2 ของ h2 (สี accent)
+    description: string         // body paragraph
+  }
   keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
+  ctaPayment?: {                // (optional) banner สรุป settlement / payment timeline
+    badge: string               // eyebrow pixel tag
+    highlight: string           // ตัวเด่น เช่น "T + 2"
+    title: string               // headline ต่อจาก highlight
+    description: string         // คำอธิบาย 1-2 บรรทัด
+    note?: string               // (optional) disclaimer ตัวเล็ก
+  }
 }
 
 // ════════════════════════════════════════════════════════════════════════
@@ -420,14 +435,17 @@ export const SERVICES: Service[] = [
       "ตู้ถ่ายรูปสไตล์เกาหลีพร้อมซอฟต์แวร์ครบวงจร — รับผลิต ให้เช่า บริการ operator มืออาชีพ ปรับ template/filter ตาม brand ลูกค้าได้ทุกงาน รองรับงานเลี้ยง, เปิดตัวสินค้า, Wedding และ Corporate Event",
     features: [
       "AI Filter & Auto Beauty Retouch",
-      "Custom Frame · ตามธีมงานลูกค้า",
+      "Photo Signature · เซ็นชื่อ/เขียนข้อความสดบนรูป",
+      "Custom Frame · ตามธีม Brand ลูกค้า",
       "Print + QR Cloud Share ทันที",
-      "งานเลี้ยง · เปิดตัวสินค้า · Wedding",
-      "ตู้ผลิตเองในไทย · บริการหลังการขาย",
       "Realtime Photo Gallery & Live Wall",
       "Payment Channel · Alipay · PromptPay · WeChat Pay",
+      "T+2 Settlement · เข้าบัญชีภายใน 2 วันทำการ",
+      "ตู้สไตล์เกาหลี · ผลิตเองในไทย",
+      "Online Support ตลอดอายุสัญญา",
     ],
-    duration: "ให้เช่ารายวัน · เริ่ม 1 สัปดาห์",
+    duration: "ให้เช่ารายปี· เริ่ม 1 ปี",
+    postSupport: "ตลอดอายุสัญญา ( Online Service )",
     startingPrice: "35,000 บาท / ปี",
     accent: "#2ECC71",
     featured: true,
@@ -452,6 +470,13 @@ export const SERVICES: Service[] = [
       "/videos/project0/reelsign2.mp4",
       "/videos/project0/reels1.mp4",
     ],
+    screenshotsHeader: {
+      badge: "★ PHOTOBOOTH GALLERY",
+      title: "ดูตู้จริง",
+      highlightedTitle: "ทุกธีมงาน ทุกสไตล์",
+      description:
+        "ตู้ Photobooth Korean-style ของ RubKianCode ติดตั้งจริงในงาน Wedding, Corporate Event, Brand Activation และ Roadshow Marketing — พร้อม Custom Frame ตามแบรนด์, AI Beauty Filter, Print + QR Cloud Share และ Realtime Photo Gallery ในเครื่องเดียว",
+    },
     screenshots: [
       {
         src: "/images/photobooth/photo1.jpg",
@@ -473,15 +498,24 @@ export const SERVICES: Service[] = [
         alt: "ตัวอย่างผลงาน Photobooth จาก RubKianCode — ติดตั้งในงาน Wedding / Birthday Party พร้อมกรอบ custom และ AI Beauty Filter ทำให้ภาพออกมาสวยทันทีไม่ต้องแต่ง",
         caption: "Wedding & Private Event Setup",
       },
+      // Model shoots — ภาพ Model โพสจริงในตู้ Photobooth ทั้งหมด 13 ภาพ
+      ...Array.from({ length: 13 }, (_, i) => {
+        const n = String(i + 1).padStart(2, "0")
+        return {
+          src: `/images/model/model${i + 1}.jpg`,
+          alt: `ตัวอย่างผลงาน Photobooth Software ของ RubKianCode — ภาพ Model Shoot ${n} ในตู้ถ่ายรูป Korean-style พร้อม AI Beauty Filter, Custom Frame และ Print + QR Cloud Share เหมาะกับ Wedding · Corporate · Brand Activation`,
+          caption: `Model Shoot ${n} — Korean-style Booth`,
+        }
+      }),
     ],
     keyFeatures: [
       // ── Deep dive 1: Signage Photobooth ──
       {
         eyebrow: "★ DEEP DIVE · SIGNAGE PHOTOBOOTH",
         title: "Signage Photobooth",
-        highlightedTitle: "ตู้ถ่ายรูป + ป้ายดิจิทัลในเครื่องเดียว",
+        highlightedTitle: "ตู้ถ่ายรูปที่เซ็นชื่อลงบนรูปได้",
         description:
-          "Signage Photobooth Software ของเรา — ตู้ถ่ายรูปทำหน้าที่เป็นจอ Digital Signage ในตัว เมื่อไม่มีคนใช้ตู้จะเล่น Reel โปรโมต Brand, ตารางอีเวนต์, หรือ Live Wall ภาพที่ถ่ายไปแล้ว เพิ่ม Brand Exposure ตลอดงานโดยไม่ต้องเช่าจอ Digital Signage แยก เหมาะกับงาน Activation, Roadshow, Trade Show และ Corporate Event ที่ต้องการให้ Photobooth ทำงานเป็น Marketing Asset ตลอดเวลา",
+          "ตู้ถ่ายรูปของเรามีฟีเจอร์ให้แขกในงานเซ็นลายเซ็นลงบนรูปก่อนปริ้นต์หรือส่งกลับ จะเซ็นชื่อตัวเอง เขียนข้อความถึงเจ้าของงาน หรือฝากคำอวยพรก็ได้\n\nทำให้รูปแต่ละใบมีความเป็นส่วนตัวและเก็บเป็นที่ระลึกได้จริง ถ่ายเสร็จ เซ็นต์ได้ ปริ้นได้เลยในเครื่องเดียว ไม่ต้องต่ออุปกรณ์เพิ่ม\n\nเหมาะกับงานแต่งงาน งานเปิดตัวสินค้า งาน Gala Dinner หรืองาน Corporate ที่อยากให้แขกมีส่วนร่วมมากกว่าแค่ยืนถ่ายรูปเฉยๆ",
         image: {
           src: "/images/photobooth/photo1.jpg",
           alt: "Signage Photobooth ของ RubKianCode — ตู้ถ่ายรูปทำหน้าที่เป็นทั้ง Photobooth และ Digital Signage แสดง Brand Reel, ตารางอีเวนต์, Live Photo Wall ในเครื่องเดียว เหมาะกับงาน Brand Activation, Roadshow Marketing และ Corporate Event",
@@ -556,6 +590,9 @@ export const SERVICES: Service[] = [
           alt: "Photobooth Software RubKianCode รองรับ Print + QR Cloud Share พร้อม Realtime Photo Gallery — ผู้ร่วมงานได้ภาพถ่ายปริ้นในมือทันที + ลิงก์ดาวน์โหลดไฟล์ดิจิทัลผ่าน QR",
           caption: "Print + QR Cloud Share",
         },
+        // Liveview clip sequence — เล่น live1 → live11 วน loop กลับ [0]
+        // โชว์การถ่าย/preview จริงบน booth screen แทนภาพนิ่ง
+        video: Array.from({ length: 11 }, (_, i) => `/videos/liveview/live${i + 1}.mp4`),
         benefits: [
           {
             title: "Print 6×4 Studio Quality",
@@ -589,7 +626,7 @@ export const SERVICES: Service[] = [
           caption: "Self-service Payment · PromptPay · Alipay · WeChat Pay",
         },
         video: "/videos/project1/moshipayment.mp4",
-        imageAspect: "landscape",
+        imageAspect: "video",
         benefits: [
           {
             title: "PromptPay QR",
@@ -610,6 +647,15 @@ export const SERVICES: Service[] = [
         ],
       },
     ],
+    // Banner ต่อท้าย Payment Channel — เน้น settlement timeline ให้ merchant อุ่นใจ
+    ctaPayment: {
+      badge: "★ MERCHANT SETTLEMENT",
+      highlight: "T + 2",
+      title: "จะได้รับเงิน\nภายในวันที่โอน + 2 วัน",
+      description:
+        "ระบบ settle อัตโนมัติทุกวันทำการ\n\nยอดขายจาก Alipay · WeChat Pay · PromptPay เข้าบัญชีคุณภายใน 2 วันทำการ\n\nไม่มีค่าธรรมเนียมแอบแฝง ไม่ต้องรอเป็นเดือน",
+      note: "★ T = วันที่ลูกค้าทำรายการสำเร็จ · นับเฉพาะวันทำการ (จันทร์–ศุกร์)",
+    },
   },
 
   // ── Extra Services ── (featured: false → ไม่ขึ้น homepage card หลัก)
