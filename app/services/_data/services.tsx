@@ -589,7 +589,7 @@ export const SERVICES: Service[] = [
           caption: "Self-service Payment · PromptPay · Alipay · WeChat Pay",
         },
         video: "/videos/project1/moshipayment.mp4",
-        imageAspect: "phone",
+        imageAspect: "landscape",
         benefits: [
           {
             title: "PromptPay QR",

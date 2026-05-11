@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/Users/User/**)"
+      "Read(//c/Users/User/**)",
+      "Bash(npm run *)"
     ]
   }
 }

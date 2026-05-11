@@ -82,6 +82,120 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
   // Title pixel shadow — เฉพาะ accent เข้มที่ใช้ตัวอักษรขาว เพื่อให้ดูเป็น 8-bit arcade
   const heroTitleShadow = isLightAccent ? undefined : "3px 3px 0 #0A2540"
 
+  // ── Screenshots Gallery — function รับ variant เพื่อ render หลายตำแหน่ง ──
+  // primary (รอบบน หลัง Features) ─ intro · เน้นเข้าใจระบบ
+  // recap   (รอบล่าง หลัง keyFeatures) ─ recap · เน้นภาพตู้ติดตั้งจริง
+  const renderScreenshotsGallery = (variant: "primary" | "recap") => {
+    if (!service.screenshots || service.screenshots.length === 0) return null
+    const isRecap = variant === "recap"
+    const eyebrow    = isRecap ? "★ REAL DEPLOYMENTS" : "★ PRODUCT SCREENSHOTS"
+    const titleLine1 = isRecap ? "ตัวอย่างตู้" : "ดูภาพจริง"
+    const titleLine2 = isRecap ? "ที่ใช้ระบบของเรา" : "เข้าใจระบบใน 30 วินาที"
+    // Description สั้น ตรง context — primary เน้น "ใช้ง่าย ครบ" / recap เน้น "ติดตั้งจริง ทำงานจริง"
+    const description = isRecap ? (
+      <>
+        ภาพการใช้งานจริงจากหน้างานลูกค้า —
+        <b className="text-white"> ทุกตู้รันด้วย Software ของ RubKianCode</b>
+      </>
+    ) : (
+      <>
+        ภาพหน้าจอระบบที่ลูกค้าใช้งานจริง —
+        <b className="text-white"> เห็นทุกข้อมูลในจอเดียว ใช้งานครบ</b>
+      </>
+    )
+    return (
+      <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Section head */}
+          <div className="mb-12 max-w-2xl">
+            <span
+              className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
+              style={{ boxShadow: "4px 4px 0 " + service.accent }}
+            >
+              {eyebrow}
+            </span>
+            <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+              {titleLine1}
+              <br />
+              <span style={{ color: service.accent }}>{titleLine2}</span>
+            </h2>
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
+              {description}
+            </p>
+          </div>
+
+          {/* Gallery — 1 col mobile, 2 col tablet, 3 col desktop */}
+          <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {service.screenshots.map((shot, i) => (
+              <figure
+                key={shot.src}
+                className="group flex flex-col bg-[#F4EDE0] transition-transform hover:-translate-x-1 hover:-translate-y-1"
+                style={{ border: "3px solid " + service.accent, boxShadow: "8px 8px 0 " + service.accent }}
+              >
+                {/* Browser chrome — arcade window style */}
+                <div className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2 sm:px-4">
+                  <span className="flex gap-1.5">
+                    <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
+                    <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
+                    <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
+                  </span>
+                  <span className="font-pixel hidden text-[9px] uppercase text-[#F1C40F] sm:inline">
+                    SCREEN · {String(i + 1).padStart(2, "0")} · {service.subtitle.toUpperCase()}
+                  </span>
+                  <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+                    </span>
+                    LIVE
+                  </span>
+                </div>
+
+                {/* Image */}
+                <div className="relative aspect-4/3 overflow-hidden border-y-[3px] border-[#0A2540] bg-[#0F1419]">
+                  <Image
+                    src={shot.src}
+                    alt={shot.alt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 600px"
+                    className="object-contain transition-transform duration-500 group-hover:scale-105"
+                    loading={i === 0 ? "eager" : "lazy"}
+                  />
+                  {/* Pixel corner accents */}
+                  <span aria-hidden className="absolute left-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                  <span aria-hidden className="absolute right-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                  <span aria-hidden className="absolute bottom-0 left-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                  <span aria-hidden className="absolute bottom-0 right-0 z-10 h-3 w-3 bg-[#F1C40F]" />
+                </div>
+
+                {/* Caption */}
+                <figcaption className="flex items-center justify-between gap-3 p-4 sm:p-5">
+                  <span
+                    className="font-pixel bg-[#0A2540] px-2 py-1.5 text-[10px] uppercase text-[#F1C40F]"
+                    style={{ boxShadow: "2px 2px 0 " + service.accent }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex-1 text-sm font-bold text-[#0A2540] sm:text-base">
+                    {shot.caption}
+                  </span>
+                  <span className="font-pixel hidden text-xs sm:inline" style={{ color: service.accent }}>
+                    ▶
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+
+          {/* Note */}
+          <p className="mt-8 text-center text-sm text-[#F4EDE0]/55">
+            ★ ภาพตัวอย่างจาก Pulse Marketing OS · ระบบที่พัฒนาส่งมอบลูกค้าจริง
+          </p>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <main className="min-h-screen bg-[#F4EDE0] text-[#0A2540]">
       <Navbar />
@@ -277,7 +391,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                 style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
               >
                 <span
-                  className="font-pixel flex h-10 w-10 flex-shrink-0 items-center justify-center text-[10px]"
+                  className="font-pixel flex h-10 w-10 shrink-0 items-center justify-center text-[10px]"
                   style={{
                     background: service.accent,
                     border: "2px solid #0A2540",
@@ -294,103 +408,8 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         </div>
       </section>
 
-      {/* Screenshots gallery — โชว์ภาพจริงของ product/dashboard */}
-      {service.screenshots && service.screenshots.length > 0 && (
-        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-20 sm:py-28">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Section head */}
-            <div className="mb-12 max-w-3xl">
-              <span
-                className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
-                style={{ boxShadow: "4px 4px 0 " + service.accent }}
-              >
-                ★ PRODUCT SCREENSHOTS
-              </span>
-              <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
-                ดูภาพจริง
-                <br />
-                <span style={{ color: service.accent }}>เข้าใจระบบใน 30 วินาที</span>
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
-                ระบบที่ลูกค้าใช้งานจริงทุกวัน — Dashboard ดูภาพรวม,
-                Marketing Automation ส่งให้ลูกค้ากลับมาซ้ำ,
-                และ Multi-touch Attribution บอกว่าแต่ละบาทที่ลงโฆษณา <b className="text-white">คืนกำไรกลับมาเท่าไหร่</b>
-              </p>
-            </div>
-
-            {/* Gallery — 1 col mobile, 2 col tablet, 3 col desktop */}
-            <div className="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {service.screenshots.map((shot, i) => (
-                <figure
-                  key={shot.src}
-                  className="group flex flex-col bg-[#F4EDE0] transition-transform hover:-translate-x-1 hover:-translate-y-1"
-                  style={{ border: "3px solid " + service.accent, boxShadow: "8px 8px 0 " + service.accent }}
-                >
-                  {/* Browser chrome — arcade window style */}
-                  <div className="flex items-center justify-between gap-3 bg-[#0A2540] px-3 py-2 sm:px-4">
-                    <span className="flex gap-1.5">
-                      <i className="block h-3 w-3 rounded-full bg-[#E63946]" />
-                      <i className="block h-3 w-3 rounded-full bg-[#F39C12]" />
-                      <i className="block h-3 w-3 rounded-full bg-[#2ECC71]" />
-                    </span>
-                    <span className="font-pixel hidden text-[9px] uppercase text-[#F1C40F] sm:inline">
-                      SCREEN · {String(i + 1).padStart(2, "0")} · {service.subtitle.toUpperCase()}
-                    </span>
-                    <span className="font-pixel inline-flex items-center gap-1 text-[9px] uppercase text-[#F1C40F]">
-                      <span className="relative flex h-2 w-2">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
-                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
-                      </span>
-                      LIVE
-                    </span>
-                  </div>
-
-                  {/* Image
-                      — aspect-[4/3] รองรับทั้ง portrait และ landscape ได้สมดุล
-                      — object-contain โชว์ภาพเต็มไม่ครอป (ภาพจริงจาก event/photobooth ที่มีหลาย aspect)
-                      — bg #0F1419 ให้ letterbox/pillarbox ดูเป็น cinematic black bar กลืนเนียน */}
-                  <div className="relative aspect-[4/3] overflow-hidden border-y-[3px] border-[#0A2540] bg-[#0F1419]">
-                    <Image
-                      src={shot.src}
-                      alt={shot.alt}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 600px"
-                      className="object-contain transition-transform duration-500 group-hover:scale-105"
-                      loading={i === 0 ? "eager" : "lazy"}
-                    />
-                    {/* Pixel corner accents */}
-                    <span aria-hidden className="absolute left-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute right-0 top-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 left-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                    <span aria-hidden className="absolute bottom-0 right-0 z-10 h-3 w-3 bg-[#F1C40F]" />
-                  </div>
-
-                  {/* Caption */}
-                  <figcaption className="flex items-center justify-between gap-3 p-4 sm:p-5">
-                    <span
-                      className="font-pixel bg-[#0A2540] px-2 py-1.5 text-[10px] uppercase text-[#F1C40F]"
-                      style={{ boxShadow: "2px 2px 0 " + service.accent }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span className="flex-1 text-sm font-bold text-[#0A2540] sm:text-base">
-                      {shot.caption}
-                    </span>
-                    <span className="font-pixel hidden text-xs sm:inline" style={{ color: service.accent }}>
-                      ▶
-                    </span>
-                  </figcaption>
-                </figure>
-              ))}
-            </div>
-
-            {/* Note */}
-            <p className="mt-8 text-center text-sm text-[#F4EDE0]/55">
-              ★ ภาพตัวอย่างจาก Pulse Marketing OS · ระบบที่พัฒนาส่งมอบลูกค้าจริง
-            </p>
-          </div>
-        </section>
-      )}
+      {/* Screenshots gallery — รอบบน: หลัง Features (primary intro) */}
+      {renderScreenshotsGallery("primary")}
 
       {/* Key Features Deep Dive — สลับ layout image ซ้าย/ขวา + bg ต่างกัน */}
       {service.keyFeatures?.map((kf, idx) => {
@@ -568,6 +587,9 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
           </section>
         )
       })}
+
+      {/* Screenshots gallery — รอบล่าง: หลัง keyFeatures (ใต้ Payment Channel) ★ recap */}
+      {renderScreenshotsGallery("recap")}
 
       {/* Related services */}
       {related.length > 0 && (
