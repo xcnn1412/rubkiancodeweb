@@ -19,6 +19,7 @@ import { Navbar } from "@/components/rubkiancode/navbar"
 import { ArrowIcon } from "@/components/rubkiancode/icons"
 import { VideoLoopPreview } from "@/components/rubkiancode/video-loop-preview"
 import { ScreenshotsGallery } from "@/components/rubkiancode/screenshots-gallery"
+import { ImageSlideshow } from "@/components/rubkiancode/image-slideshow"
 import {
   SERVICES,
   getService,
@@ -254,49 +255,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         </div>
       </section>
 
-      {/* Features */}
-      <section id="features" className="scroll-mt-20 bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 max-w-3xl">
-            <span
-              className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
-              style={{ boxShadow: "4px 4px 0 " + service.accent }}
-            >
-              FEATURES · {String(service.features.length).padStart(2, "0")}
-            </span>
-            <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl lg:text-5xl">
-              สิ่งที่คุณได้
-              <br />
-              จากระบบนี้
-            </h2>
-          </div>
-
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {service.features.map((f, i) => (
-              <li
-                key={f}
-                className="flex items-start gap-4 bg-white p-5 transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
-              >
-                <span
-                  className="font-pixel flex h-10 w-10 shrink-0 items-center justify-center text-[10px]"
-                  style={{
-                    background: service.accent,
-                    border: "2px solid #0A2540",
-                    boxShadow: "2px 2px 0 #0A2540",
-                    color: service.accent === "#F1C40F" ? "#0A2540" : "white",
-                  }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="text-base text-[#0A2540]">{f}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Rental versions — Software ที่ให้บริการเช่ารายปี (ต่อจาก Features)
+      {/* Rental versions — Software ที่ให้บริการเช่ารายปี
           design pattern: cards 5 ใบเหมือน partnerCta.versions แต่ standalone section */}
       {service.rentalVersions && service.rentalVersions.versions.length > 0 && (
         <section className="border-t-[3px] border-[#0A2540] bg-white py-14 sm:py-20 lg:py-28">
@@ -309,7 +268,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 {service.rentalVersions.badge}
               </span>
-              <h2 className="mt-6 text-balance text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 text-balance text-2xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
                 {service.rentalVersions.title}
                 <br />
                 <span style={{ color: service.accent }}>
@@ -371,44 +330,315 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         </section>
       )}
 
-      {/* Screenshots gallery — โชว์ภาพจริงของ product/dashboard
-          — section head ใช้ service.screenshotsHeader ถ้ามี ไม่งั้น fallback default
-          — grid + show-more ใช้ <ScreenshotsGallery> client component (มี state toggle) */}
-      {service.screenshots && service.screenshots.length > 0 && (
-        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28">
+      {/* ★ MOVED HERE: Features "สิ่งที่คุณได้" — ย้ายจาก position เดิมมาต่อหลัง Rental */}
+      <section id="features" className="scroll-mt-20 border-t-[3px] border-[#0A2540] bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 max-w-3xl">
+            <span
+              className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
+              style={{ boxShadow: "4px 4px 0 " + service.accent }}
+            >
+              FEATURES · {String(service.features.length).padStart(2, "0")}
+            </span>
+            <h2 className="mt-5 text-2xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+              สิ่งที่คุณได้
+              <br />
+              จากระบบนี้
+            </h2>
+          </div>
+
+          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {service.features.map((f, i) => {
+              const anchor = service.featureAnchors?.[i]
+              const cardClasses =
+                "relative flex items-start gap-4 bg-white p-5 transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+              // ใช้ CSS var --card-accent สำหรับ drop-shadow glow ของ clickable card
+              const cardStyle: React.CSSProperties = anchor
+                ? ({
+                    border: "3px solid #0A2540",
+                    boxShadow: "5px 5px 0 " + service.accent,
+                    "--card-accent": service.accent,
+                  } as React.CSSProperties)
+                : {
+                    border: "3px solid #0A2540",
+                    boxShadow: "5px 5px 0 #0A2540",
+                  }
+              // Card content reusable
+              const cardInner = (
+                <>
+                  <span
+                    className="font-pixel flex h-10 w-10 shrink-0 items-center justify-center text-[10px]"
+                    style={{
+                      background: service.accent,
+                      border: "2px solid #0A2540",
+                      boxShadow: "2px 2px 0 #0A2540",
+                      color: service.accent === "#F1C40F" ? "#0A2540" : "white",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex-1 text-base text-[#0A2540]">{f}</span>
+                  {anchor && (
+                    <span
+                      aria-hidden
+                      className="rk-feature-chevron font-pixel ml-auto self-center text-xs"
+                      style={{ color: service.accent }}
+                    >
+                      ▶
+                    </span>
+                  )}
+                  {/* Hover-only hint badge — bouncing "GO →" tag */}
+                  {anchor && (
+                    <span
+                      aria-hidden
+                      className="rk-feature-hint font-pixel bg-[#0A2540] px-2 py-1 text-[9px] uppercase tracking-widest text-[#F1C40F]"
+                      style={{ border: "2px solid " + service.accent, boxShadow: "2px 2px 0 " + service.accent }}
+                    >
+                      GO →
+                    </span>
+                  )}
+                </>
+              )
+              return (
+                <li key={f}>
+                  {anchor ? (
+                    <a
+                      href={anchor}
+                      aria-label={`${f} — ไปยัง section ที่อธิบายรายละเอียด`}
+                      className={`group rk-feature-card-link cursor-pointer ${cardClasses}`}
+                      style={cardStyle}
+                    >
+                      {cardInner}
+                    </a>
+                  ) : (
+                    <div className={cardClasses} style={cardStyle}>
+                      {cardInner}
+                    </div>
+                  )}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      </section>
+
+      {/* ★ MOVED HERE: Recap section "ปรับ Filter & Beauty" — ขึ้นมาหลัง Rental */}
+      {(() => {
+        const recapShots = service.screenshotsRecap ?? service.screenshots
+        if (!recapShots || recapShots.length === 0 || !service.screenshotsHeaderRecap) return null
+        return (
+          <section
+            id="filter-beauty"
+            className="scroll-mt-20 border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28"
+          >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="grid items-center gap-10 lg:grid-cols-[5fr_6fr] lg:gap-14">
+                <div>
+                  <span
+                    className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
+                    style={{ boxShadow: "4px 4px 0 " + service.accent }}
+                  >
+                    {service.screenshotsHeaderRecap.badge ?? "★ REAL DEPLOYMENTS"}
+                  </span>
+                  <h2 className="mt-5 text-2xl font-black uppercase leading-tight text-white sm:text-3xl lg:text-4xl">
+                    {service.screenshotsHeaderRecap.title}
+                    <br />
+                    <span style={{ color: service.accent }}>
+                      {service.screenshotsHeaderRecap.highlightedTitle}
+                    </span>
+                  </h2>
+                  <span
+                    aria-hidden
+                    className="mt-4 block h-1.5 w-24"
+                    style={{ background: service.accent, boxShadow: "0 3px 0 #0A2540" }}
+                  />
+                  <p className="mt-6 max-w-xl text-base leading-relaxed text-[#F4EDE0]/85 sm:text-lg">
+                    {service.screenshotsHeaderRecap.description}
+                  </p>
+                </div>
+                <div className="relative">
+                  <ImageSlideshow
+                    screenshots={recapShots}
+                    accent={service.accent}
+                    subtitle={service.subtitle}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      })()}
+
+      {/* ★ MOVED HERE: Slideshow sections "ปรับ Performance" — ต่อหลัง Filter & Beauty */}
+      {service.slideshowSections?.map((sec, idx) => {
+        const isLightBg = idx % 2 === 0
+        const sectionBg = isLightBg ? "bg-[#F4EDE0]" : "bg-[#0A2540]"
+        const titleColor = isLightBg ? "text-[#0A2540]" : "text-white"
+        const descColor = isLightBg ? "text-[#0A2540]/80" : "text-[#F4EDE0]/85"
+        const badgeBg = isLightBg ? "bg-[#0A2540] text-[#F1C40F]" : "bg-[#F1C40F] text-[#0A2540]"
+        return (
+          <section
+            key={sec.badge}
+            id={sec.slug}
+            className={`scroll-mt-20 border-t-[3px] border-[#0A2540] ${sectionBg} py-14 sm:py-20 lg:py-28`}
+          >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="grid items-center gap-10 lg:grid-cols-[5fr_6fr] lg:gap-14">
+                <div>
+                  <span
+                    className={`font-pixel inline-block px-3 py-2 text-[10px] uppercase tracking-widest ${badgeBg}`}
+                    style={{ boxShadow: "4px 4px 0 " + service.accent }}
+                  >
+                    {sec.badge}
+                  </span>
+                  <h2 className={`mt-5 text-2xl font-black uppercase leading-tight ${titleColor} sm:text-3xl lg:text-4xl`}>
+                    {sec.title}
+                    <br />
+                    <span style={{ color: service.accent }}>{sec.highlightedTitle}</span>
+                  </h2>
+                  <span
+                    aria-hidden
+                    className="mt-4 block h-1.5 w-24"
+                    style={{ background: service.accent, boxShadow: "0 3px 0 #0A2540" }}
+                  />
+                  <p className={`mt-6 max-w-xl text-base leading-relaxed sm:text-lg ${descColor}`}>
+                    {sec.description}
+                  </p>
+                </div>
+                <div className="relative">
+                  <ImageSlideshow
+                    screenshots={sec.screenshots}
+                    accent={service.accent}
+                    subtitle={service.subtitle}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
+        )
+      })}
+
+      {/* Realtime Dashboard — Web Dashboard ปรับแต่ง Sync ตู้ realtime + uptime metrics
+          2-col top (text + slideshow) + 3 metric cards ล่าง + overall uptime banner */}
+      {service.realtimeDashboard && (
+        <section
+          id="realtime-dashboard"
+          className="scroll-mt-20 border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            {/* Section head */}
-            <div className="mb-12 max-w-3xl">
-              <span
-                className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
-                style={{ boxShadow: "4px 4px 0 " + service.accent }}
-              >
-                {service.screenshotsHeader?.badge ?? "★ PRODUCT SCREENSHOTS"}
-              </span>
-              <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-white sm:text-4xl lg:text-5xl">
-                {service.screenshotsHeader?.title ?? "ดูภาพจริง"}
-                <br />
-                <span style={{ color: service.accent }}>
-                  {service.screenshotsHeader?.highlightedTitle ?? "เข้าใจระบบใน 30 วินาที"}
+            {/* ── Top row: text + slideshow ── */}
+            <div className="grid items-center gap-10 lg:grid-cols-[5fr_6fr] lg:gap-14">
+              <div>
+                <span
+                  className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
+                  style={{ boxShadow: "4px 4px 0 " + service.accent }}
+                >
+                  {service.realtimeDashboard.badge}
                 </span>
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
-                {service.screenshotsHeader?.description ?? (
-                  <>
-                    ระบบที่ลูกค้าใช้งานจริงทุกวัน — Dashboard ดูภาพรวม,
-                    Marketing Automation ส่งให้ลูกค้ากลับมาซ้ำ,
-                    และ Multi-touch Attribution บอกว่าแต่ละบาทที่ลงโฆษณา <b className="text-white">คืนกำไรกลับมาเท่าไหร่</b>
-                  </>
-                )}
-              </p>
+                <h2 className="mt-5 text-2xl font-black uppercase leading-tight text-white sm:text-3xl lg:text-4xl">
+                  {service.realtimeDashboard.title}
+                  <br />
+                  <span style={{ color: service.accent }}>
+                    {service.realtimeDashboard.highlightedTitle}
+                  </span>
+                </h2>
+                <span
+                  aria-hidden
+                  className="mt-4 block h-1.5 w-24"
+                  style={{ background: service.accent, boxShadow: "0 3px 0 #0A2540" }}
+                />
+                <p className="mt-6 max-w-xl text-base leading-relaxed text-[#F4EDE0]/85 sm:text-lg">
+                  {service.realtimeDashboard.description}
+                </p>
+              </div>
+              <div className="relative">
+                <ImageSlideshow
+                  screenshots={service.realtimeDashboard.screenshots}
+                  accent={service.accent}
+                  subtitle={service.subtitle}
+                />
+              </div>
             </div>
 
-            {/* Gallery — client component ที่มี show-more toggle (INITIAL_COUNT = 6) */}
-            <ScreenshotsGallery
-              screenshots={service.screenshots}
-              accent={service.accent}
-              subtitle={service.subtitle}
-            />
+            {/* ── Uptime metric cards · 3 cols on sm+ ── */}
+            <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-3 sm:gap-5">
+              {service.realtimeDashboard.metrics.map((m) => (
+                <div
+                  key={m.label}
+                  className="relative bg-white p-5 transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 " + service.accent }}
+                >
+                  {/* Top row: live dot + label */}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-pixel inline-flex items-center gap-1.5 text-[10px] uppercase tracking-widest text-[#0A2540]/70">
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2ECC71] opacity-75" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2ECC71]" />
+                      </span>
+                      LIVE
+                    </span>
+                    <span className="font-pixel bg-[#0A2540] px-2 py-1 text-[9px] uppercase text-[#F1C40F]">
+                      {m.label}
+                    </span>
+                  </div>
+
+                  {/* Big value */}
+                  <div className="mt-4 flex items-baseline gap-1">
+                    <span
+                      className="font-pixelify text-5xl font-black leading-none sm:text-6xl"
+                      style={{ color: "#2ECC71" }}
+                    >
+                      {m.value}
+                    </span>
+                  </div>
+
+                  {/* Progress bar — 5 animations stacked:
+                      1) fill-in (mount once)         · width 0 → target %
+                      2) pulse glow (loop)             · green halo เด้ง
+                      3) loading stripes (loop)        · diagonal ไหล "charging power"
+                      4) shimmer sweep (loop)          · highlight ขาวกวาดผ่าน "live data"
+                      5) energy spark (loop)           · จุดขาวที่ปลายขวา "energy injection" */}
+                  <div
+                    className="mt-4 h-3 w-full overflow-hidden bg-[#F4EDE0]"
+                    style={{ border: "2px solid #0A2540" }}
+                  >
+                    <div
+                      className="rk-bar-fill rk-bar-pulse"
+                      style={{ "--bar-w": `${m.percent}%` } as React.CSSProperties}
+                    >
+                      <span aria-hidden className="rk-bar-loading-stripes" />
+                      <span aria-hidden className="rk-bar-shimmer" />
+                      <span aria-hidden className="rk-bar-energy-spark" />
+                    </div>
+                  </div>
+
+                  {/* Optional subtitle */}
+                  {m.sub && (
+                    <p className="mt-3 text-xs leading-relaxed text-[#0A2540]/70 sm:text-sm">
+                      {m.sub}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* ── Overall uptime banner ── */}
+            <div
+              className="mt-8 flex flex-col items-center justify-between gap-3 bg-[#F1C40F] p-5 sm:flex-row"
+              style={{ border: "3px solid #0A2540", boxShadow: "6px 6px 0 " + service.accent }}
+            >
+              <span className="font-pixel inline-flex items-center gap-2 text-[10px] uppercase tracking-widest text-[#0A2540] sm:text-xs">
+                <span className="text-base">★</span> OVERALL · CLOUD HA UPTIME
+              </span>
+              <span className="font-pixelify text-3xl font-black text-[#0A2540] sm:text-4xl">
+                {service.realtimeDashboard.uptimeOverall}
+              </span>
+              {service.realtimeDashboard.uptimeNote && (
+                <span className="font-pixel text-center text-[9px] uppercase tracking-widest text-[#0A2540]/70 sm:text-right sm:text-[10px]">
+                  {service.realtimeDashboard.uptimeNote}
+                </span>
+              )}
+            </div>
           </div>
         </section>
       )}
@@ -455,7 +685,8 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         return (
           <section
             key={kf.eyebrow}
-            className={`border-t-[3px] border-[#0A2540] ${sectionBg} py-14 sm:py-20 lg:py-28`}
+            id={kf.slug}
+            className={`scroll-mt-20 border-t-[3px] border-[#0A2540] ${sectionBg} py-14 sm:py-20 lg:py-28`}
           >
             <div className={`mx-auto px-4 sm:px-6 lg:px-8 ${isPhone ? "max-w-6xl" : "max-w-7xl"}`}>
               <div
@@ -475,6 +706,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                         {kf.video ? (
                           <VideoLoopPreview
                             sources={kf.video}
+                            loopsPerVideo={kf.videoLoopCount}
                             ariaLabel={kf.image.alt}
                             className="absolute inset-0 block h-full w-full object-contain"
                           />
@@ -483,7 +715,8 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                             src={kf.image.src}
                             alt={kf.image.alt}
                             fill
-                            sizes="(max-width: 1024px) 100vw, 320px"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 70vw, 480px"
+                            quality={90}
                             className="object-contain"
                             loading="lazy"
                           />
@@ -524,6 +757,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                       >
                         <VideoLoopPreview
                           sources={kf.video!}
+                          loopsPerVideo={kf.videoLoopCount}
                           ariaLabel={kf.image.alt}
                           className="absolute inset-0 block h-full w-full object-cover"
                         />
@@ -585,6 +819,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                         {kf.video ? (
                           <VideoLoopPreview
                             sources={kf.video}
+                            loopsPerVideo={kf.videoLoopCount}
                             ariaLabel={kf.image.alt}
                             className="absolute inset-0 block h-full w-full object-contain p-3 sm:p-4"
                           />
@@ -593,7 +828,8 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                             src={kf.image.src}
                             alt={kf.image.alt}
                             fill
-                            sizes="(max-width: 1024px) 100vw, 600px"
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 720px"
+                            quality={90}
                             className="object-contain p-3 sm:p-4"
                             loading="lazy"
                           />
@@ -687,7 +923,10 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
       {/* Payment CTA — Transaction T+2 + Dashboard Realtime
           UI pattern: bg navy + pixel grid + centered, อ้างอิงจาก <CtaSection> */}
       {service.ctaPayment && (
-        <section className="relative overflow-hidden border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28">
+        <section
+          id="payment-settlement"
+          className="relative scroll-mt-20 overflow-hidden border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28"
+        >
           {/* Pixel grid background */}
           <div
             aria-hidden="true"
@@ -720,7 +959,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
 
             {/* Heading — split \n แล้ว render ด้วย <br/> เพื่อรับประกัน line break ทุก viewport
                 + text-balance ป้องกัน orphan word ตกบรรทัดเดี่ยว */}
-            <h2 className="mt-8 text-balance text-2xl font-black uppercase leading-tight sm:text-3xl text-white sm:text-4xl lg:text-5xl">
+            <h2 className="mt-8 text-balance text-2xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
               {service.ctaPayment.title.split(/\n+/).map((line, i, arr) => (
                 <span key={i}>
                   {line}
@@ -769,27 +1008,35 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         </section>
       )}
 
-      {/* Screenshots gallery — RECAP รอบ 2 หลัง keyFeatures
-          render เฉพาะถ้า service มี screenshotsHeaderRecap (เปลี่ยนข้อความ + reuse ScreenshotsGallery) */}
-      {service.screenshots && service.screenshots.length > 0 && service.screenshotsHeaderRecap && (
-        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28">
+      {/* ★ MOVED HERE: Primary Screenshots Gallery "ภาพตัวอย่าง ระบบของเรา" — ต่อท้าย T+2 */}
+      {service.screenshots && service.screenshots.length > 0 && (
+        <section
+          id="partner-booths"
+          className="scroll-mt-20 border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28"
+        >
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-12 max-w-3xl">
               <span
                 className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
                 style={{ boxShadow: "4px 4px 0 " + service.accent }}
               >
-                {service.screenshotsHeaderRecap.badge ?? "★ REAL DEPLOYMENTS"}
+                {service.screenshotsHeader?.badge ?? "★ PRODUCT SCREENSHOTS"}
               </span>
-              <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-white sm:text-4xl lg:text-5xl">
-                {service.screenshotsHeaderRecap.title}
+              <h2 className="mt-5 text-2xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+                {service.screenshotsHeader?.title ?? "ดูภาพจริง"}
                 <br />
                 <span style={{ color: service.accent }}>
-                  {service.screenshotsHeaderRecap.highlightedTitle}
+                  {service.screenshotsHeader?.highlightedTitle ?? "เข้าใจระบบใน 30 วินาที"}
                 </span>
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
-                {service.screenshotsHeaderRecap.description}
+                {service.screenshotsHeader?.description ?? (
+                  <>
+                    ระบบที่ลูกค้าใช้งานจริงทุกวัน — Dashboard ดูภาพรวม,
+                    Marketing Automation ส่งให้ลูกค้ากลับมาซ้ำ,
+                    และ Multi-touch Attribution บอกว่าแต่ละบาทที่ลงโฆษณา <b className="text-white">คืนกำไรกลับมาเท่าไหร่</b>
+                  </>
+                )}
               </p>
             </div>
             <ScreenshotsGallery
@@ -804,7 +1051,10 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
       {/* Partner Program section — ชวนสมัครเป็น Partner + เน้น "Update Program" + "Online Support 12/7"
           friendly tone, มี benefit cards + dual CTA (สมัคร + LINE) */}
       {service.partnerCta && (
-        <section className="border-t-[3px] border-[#0A2540] bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
+        <section
+          id="partner-program"
+          className="scroll-mt-20 border-t-[3px] border-[#0A2540] bg-[#F4EDE0] py-14 sm:py-20 lg:py-28"
+        >
           <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
             {/* Header — centered */}
             <div className="mx-auto mb-12 max-w-3xl text-center">
@@ -814,7 +1064,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 {service.partnerCta.badge}
               </span>
-              <h2 className="mt-6 text-balance text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 text-balance text-2xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
                 {service.partnerCta.title}
                 <br />
                 <span style={{ color: service.accent }}>
@@ -931,7 +1181,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 MORE · CORE SERVICES
               </span>
-              <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl">
+              <h2 className="mt-5 text-2xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl">
                 บริการอื่นที่อาจสนใจ
               </h2>
             </div>

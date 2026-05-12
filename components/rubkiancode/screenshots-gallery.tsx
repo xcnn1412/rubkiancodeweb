@@ -89,7 +89,8 @@ export function ScreenshotsGallery({ screenshots, accent, subtitle, productionCt
                 src={shot.src}
                 alt={shot.alt}
                 fill
-                sizes="(max-width: 1024px) 100vw, 600px"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
+                quality={88}
                 className="object-contain transition-transform duration-500 group-hover:scale-105"
                 loading={i === 0 ? "eager" : "lazy"}
               />

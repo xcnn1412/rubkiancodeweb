@@ -611,3 +611,151 @@
 .rk-firework-launch-a { animation: rk-firework-launch-a 5.0s ease-out infinite; }
 .rk-firework-launch-b { animation: rk-firework-launch-b 6.5s ease-out infinite; }
 .rk-firework-launch-c { animation: rk-firework-launch-c 4.0s ease-out infinite; }
+
+/* ═══ Uptime bar animations — Dashboard ปรับแต่ง section ═══ */
+/* Fill-in: ขยายความกว้างจาก 0 → target % ตอนโหลด · ใช้ CSS var --bar-w สำหรับ target */
+@keyframes rk-bar-fill-in {
+  from { width: 0%; }
+  to   { width: var(--bar-w, 100%); }
+}
+.rk-bar-fill {
+  position: relative;
+  height: 100%;
+  width: var(--bar-w, 100%);
+  background: linear-gradient(to right, #2ECC71, #27AE60);
+  animation: rk-bar-fill-in 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 8px rgba(46, 204, 113, 0.4);
+}
+
+/* Shimmer overlay — แถบไฮไลต์ขาวเลื่อนผ่าน · บอกว่า "live data streaming" */
+@keyframes rk-bar-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(250%); }
+}
+.rk-bar-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+  animation: rk-bar-shimmer 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Pulse glow — green halo เด้งเบาๆ บอกว่าเซิร์ฟ healthy */
+@keyframes rk-bar-pulse-glow {
+  0%, 100% { box-shadow: 0 0 6px rgba(46, 204, 113, 0.4); }
+  50%      { box-shadow: 0 0 14px rgba(46, 204, 113, 0.7); }
+}
+.rk-bar-fill.rk-bar-pulse {
+  animation:
+    rk-bar-fill-in 1.6s cubic-bezier(0.22, 1, 0.36, 1),
+    rk-bar-pulse-glow 2.6s ease-in-out infinite 1.6s;
+}
+
+/* ═══ Feature card animations — สื่อว่า card คลิกได้ + นำไปยัง section ═══ */
+
+/* Chevron idle wiggle — เคลื่อนซ้ายขวา + opacity เด้ง · 2.4s loop
+   บอก subtle ว่า "ดู ▶ พาไปข้างหน้า ลองคลิก" */
+@keyframes rk-feature-chevron-idle {
+  0%, 70%, 100% { transform: translateX(0);    opacity: 0.55; }
+  82%           { transform: translateX(3px);  opacity: 0.9;  }
+  88%           { transform: translateX(5px);  opacity: 1;    }
+  94%           { transform: translateX(3px);  opacity: 0.9;  }
+}
+.rk-feature-chevron {
+  display: inline-block;
+  animation: rk-feature-chevron-idle 2.4s ease-in-out infinite;
+  transition: transform 200ms ease-out, opacity 200ms ease-out;
+}
+/* On group hover — หยุด idle animation · ค้างที่ position ขวาสุด + ขยายใหญ่ขึ้น */
+.group:hover .rk-feature-chevron,
+.group:focus-visible .rk-feature-chevron {
+  animation-play-state: paused;
+  transform: translateX(8px) scale(1.25);
+  opacity: 1;
+}
+
+/* Card hint badge — "GO →" pop-up ที่มุมบนขวา ตอน hover only · บอก "คลิกแล้วไป" */
+@keyframes rk-feature-hint-pop {
+  0%   { transform: translate(0, 4px) scale(0.85); opacity: 0; }
+  100% { transform: translate(0, 0)   scale(1);    opacity: 1; }
+}
+.rk-feature-hint {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(0, 4px) scale(0.85);
+}
+.group:hover .rk-feature-hint,
+.group:focus-visible .rk-feature-hint {
+  animation: rk-feature-hint-pop 240ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Card glow halo — subtle drop-shadow สี accent + เด้งช้าๆ
+   บอก idle ว่า card live · มีปฏิสัมพันธ์ได้ · ใช้ filter: drop-shadow ไม่กระทบ layout */
+@keyframes rk-feature-card-glow {
+  0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+  50%      { filter: drop-shadow(0 0 6px var(--card-accent, #0A2540)); }
+}
+.rk-feature-card-link {
+  animation: rk-feature-card-glow 3.4s ease-in-out infinite;
+  transition: transform 200ms ease-out, filter 200ms ease-out;
+}
+/* On hover — เพิ่ม glow ทันที + กดให้ดูเหมือนลอย */
+.rk-feature-card-link:hover,
+.rk-feature-card-link:focus-visible {
+  animation-play-state: paused;
+  filter: drop-shadow(0 0 12px var(--card-accent, #0A2540));
+}
+
+/* ═══ Loading power stripes — diagonal pattern ไหล "กำลังโหลดพลัง" ═══ */
+@keyframes rk-bar-loading-stripes {
+  0%   { background-position: 0 0; }
+  100% { background-position: 16px 0; }
+}
+.rk-bar-loading-stripes {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.22) 25%,
+    transparent           25%,
+    transparent           50%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.22) 75%,
+    transparent           75%,
+    transparent
+  );
+  background-size: 16px 16px;
+  animation: rk-bar-loading-stripes 0.7s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Energy spark — จุดสว่างที่ปลายขวาของหลอด · บอกว่า "พลังกำลังเข้า" */
+@keyframes rk-bar-energy-spark {
+  0%, 100% { opacity: 0.5; transform: scaleY(1);   }
+  50%      { opacity: 1;   transform: scaleY(1.4); }
+}
+.rk-bar-energy-spark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.9) 50%,
+    transparent
+  );
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  animation: rk-bar-energy-spark 0.9s ease-in-out infinite;
+  pointer-events: none;
+}

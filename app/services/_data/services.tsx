@@ -22,9 +22,39 @@ export type Screenshot = {
   caption: string               // สั้นๆ บอกว่าภาพนี้คืออะไร
 }
 
+// SlideshowSection — 2-column section ที่มี text + image slideshow
+// ใช้กับ feature ที่อยากโชว์หลาย screen ใน 1 frame (rotate slideshow)
+export type SlideshowSection = {
+  slug?: string                 // (optional) id ของ section สำหรับ anchor link เช่น "performance"
+  badge: string                 // eyebrow pixel tag
+  title: string                 // บรรทัดแรกของ h2
+  highlightedTitle: string      // บรรทัดที่ 2 ของ h2 (สี accent)
+  description: string           // body paragraph
+  screenshots: Screenshot[]     // ภาพใน slideshow (ทำเป็น crossfade)
+}
+
+// RealtimeDashboard — section พิเศษโชว์ uptime metrics + dashboard preview
+// 2-col layout: ซ้าย text+description · ขวา slideshow · ใต้: 3 uptime metric cards + overall banner
+export type RealtimeDashboard = {
+  badge: string                 // eyebrow pixel tag
+  title: string                 // h2 line 1
+  highlightedTitle: string      // h2 line 2 (สี accent)
+  description: string           // body paragraph
+  uptimeOverall: string         // e.g. "99.5%" — overall uptime banner ใต้ metrics
+  uptimeNote?: string           // optional disclaimer "30-day rolling avg"
+  metrics: {                    // uptime metric cards (3 ตัว)
+    label: string               // "FRONTEND", "BACKEND", "PAYMENT CHANNEL"
+    value: string               // "99.5%"
+    sub?: string                // (optional) subtitle / description ของ metric
+    percent: number             // 0–100 — ใช้ render progress bar
+  }[]
+  screenshots: Screenshot[]     // ภาพ dashboard preview ใน slideshow
+}
+
 // Section deep-dive ของ feature เด่น 1 ตัวของ service (optional)
 // — ใช้เน้น USP ที่อยากให้ลูกค้าจำได้แม่น 1 อย่าง
 export type KeyFeature = {
+  slug?: string                 // (optional) id ของ section สำหรับ anchor link เช่น "signage", "print-cloud"
   eyebrow: string               // เช่น "★ INSIGHT · MULTI-TOUCH"
   title: string                 // ส่วนแรกของ heading
   highlightedTitle: string      // ส่วนที่ระบายสี accent
@@ -33,6 +63,8 @@ export type KeyFeature = {
   // (optional) ถ้ากำหนด — render VideoLoopPreview แทน <Image>
   // string = ไฟล์เดียว วน loop / array = หลายไฟล์ เล่นต่อกัน
   video?: string | string[]
+  // (optional) จำนวนรอบที่แต่ละไฟล์ใน video[] เล่นก่อนเปลี่ยนไปไฟล์ถัดไป (default 1)
+  videoLoopCount?: number
   // ปรับสัดส่วน frame ภาพให้แมตช์กับ aspect ratio ของภาพจริง
   // ค่า default = "auto" → portrait บน mobile / landscape บน desktop (เหมาะกับภาพ landscape ส่วนใหญ่)
   // ใช้ "portrait" เมื่อภาพเป็นแนวตั้ง เพื่อกัน letterbox กว้างบน desktop
@@ -87,6 +119,12 @@ export type Service = {
     highlightedTitle: string    // บรรทัดที่ 2 ของ h2 (สี accent)
     description: string         // body paragraph
   }
+  screenshotsRecap?: Screenshot[]  // (optional) ภาพ recap แยกจาก screenshots — ถ้าไม่กำหนด fallback ไป screenshots
+  slideshowSections?: SlideshowSection[]  // (optional) section 2-col (text + slideshow) เพิ่มท้ายหน้า · scalable
+  realtimeDashboard?: RealtimeDashboard   // (optional) section พิเศษ uptime metrics + dashboard preview
+  // (optional) map index ของ features[] → anchor target — ทำให้ feature card คลิกได้
+  // ตัวอย่าง: { 0: "#performance", 1: "#filter-beauty" } — feature ที่ไม่มี entry → render เป็น <div>
+  featureAnchors?: Record<number, string>
   keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
   ctaPayment?: {                // (optional) banner สรุป settlement / payment timeline
     badge: string               // eyebrow pixel tag
@@ -459,17 +497,43 @@ export const SERVICES: Service[] = [
     subtitle: "Korean-style Photobooth Software",
     description:
       "ตู้ถ่ายรูปสไตล์เกาหลีพร้อมซอฟต์แวร์ครบวงจร — รับผลิต ให้เช่า บริการ operator มืออาชีพ ปรับ template/filter ตาม brand ลูกค้าได้ทุกงาน รองรับงานเลี้ยง, เปิดตัวสินค้า, Wedding และ Corporate Event",
+    // เรียงตาม journey + ลำดับ section บนหน้า /services/photoboothsoftware
+    //   1. Filter & Beauty (#filter-beauty)
+    //   2. Display & Performance (#performance)
+    //   3. Realtime Dashboard (#realtime-dashboard)
+    //   4. Signage Photobooth deep dive (#signage) — Photo Signature + Custom Frame
+    //   5. Print + Cloud (#print-cloud)
+    //   6. Payment Channel (#payment-channel)
+    //   7. T+2 Settlement (#payment-settlement)
+    //   8-9. คุณสมบัติทั่วไป (ตู้ · Support) — ไม่ผูก section
     features: [
-      "AI Filter & Auto Beauty Retouch",
-      "Photo Signature · เซ็นชื่อ/เขียนข้อความสดบนรูป",
-      "Custom Frame · ตามธีม Brand ลูกค้า",
-      "Print + QR Cloud Share ทันที",
-      "Realtime Photo Gallery & Live Wall",
-      "Payment Channel · Alipay · PromptPay · WeChat Pay",
-      "T+2 Settlement · เข้าบัญชีภายใน 2 วันทำการ",
-      "ตู้สไตล์เกาหลี · ผลิตเองในไทย",
-      "Online Support ตลอดอายุสัญญา",
+      "AI Filter & Auto Beauty Retouch",                       // → #filter-beauty
+      "Live Preview เนียน · GPU Acceleration",                  // → #performance
+      "Realtime Photo Gallery & Live Wall",                    // → #realtime-dashboard
+      "Photo Signature · เซ็นชื่อ/เขียนข้อความสดบนรูป",          // → #signage
+      "Custom Frame · ตามธีม Brand ลูกค้า",                    // → #signage
+      "Print + QR Cloud Share ทันที",                            // → #print-cloud
+      "Payment Channel · Alipay · PromptPay · WeChat Pay",     // → #payment-channel
+      "T+2 Settlement · เข้าบัญชีภายใน 2 วันทำการ",              // → #payment-settlement
+      "ตัวอย่างโปรแกรมในตู้ของ Partner ของเรา",                   // → #partner-booths
+      "ร่วมเป็น Partner กับเรา",                                   // → #partner-program
+      "ตู้สไตล์เกาหลี · ผลิตเองในไทย",                            // (no link)
+      "Online Support ตลอดอายุสัญญา",                            // (no link)
     ],
+    // Map index → section anchor บนหน้า · feature ที่ไม่มี entry = ไม่มี link
+    featureAnchors: {
+      0: "#filter-beauty",        // AI Filter & Auto Beauty Retouch
+      1: "#performance",          // Live Preview เนียน · GPU Acceleration
+      2: "#realtime-dashboard",   // Realtime Photo Gallery & Live Wall
+      3: "#signage",              // Photo Signature
+      4: "#signage",              // Custom Frame (same Signage deep dive)
+      5: "#print-cloud",          // Print + QR Cloud Share
+      6: "#payment-channel",      // Payment Channel
+      7: "#payment-settlement",   // T+2 Settlement
+      8: "#partner-booths",       // ตัวอย่างโปรแกรมในตู้ของ Partner
+      9: "#partner-program",      // ร่วมเป็น Partner
+      // 10–11: ไม่มี link
+    },
     duration: "ให้เช่ารายปี· เริ่ม 1 ปี",
     postSupport: "ตลอดอายุสัญญา ( Online Service )",
     startingPrice: "35,000 บาท / ปี",
@@ -514,19 +578,124 @@ export const SERVICES: Service[] = [
       note: "★ ราคาเริ่มต้น 35,000 บาท/ปี · เลือก Feature ได้ 1 รายการ (สอบถามแพ็กเกจที่รวมทุก Feature ได้)",
     },
     screenshotsHeader: {
-      badge: "★ SYSTEM PREVIEW",
-      title: "ภาพตัวอย่าง",
-      highlightedTitle: "ระบบของเรา",
+      badge: "★ PARTNER BOOTHS",
+      title: "ตัวอย่างโปรแกรมในตู้",
+      highlightedTitle: "ของ Partner ของเรา",
       description:
-        "ภาพตัวอย่างระบบ Photobooth Software ของ RubKianCode — รวม Live Preview, AI Beauty Filter, Custom Frame Editor, Print + QR Cloud Share และ Realtime Photo Gallery ที่ใช้งานจริงในตู้ทุกธีมงาน",
+        "ภาพการใช้งานจริงของ Photobooth Software ในตู้ที่ Partner ของเรานำไปติดตั้งหน้างาน — Wedding, Corporate Event, Brand Activation, Roadshow Marketing · ทุกตู้รันด้วยระบบเดียวกัน Live Preview + AI Beauty + Print + QR Cloud Share พร้อม Online Support ตลอดอายุสัญญา",
     },
-    // Recap gallery — โชว์อีกรอบหลัง keyFeatures + เน้น "ภาพตู้จริงจาก partner/ลูกค้า"
+    // Recap gallery — โชว์ Filter & Beauty Engine ของ Photobooth Software
+    // (ปรับ context จาก "ภาพตู้จริง" → "หน้าจอ Filter/Beauty UI" เพื่อให้ตรงกับภาพ filterintensive1/2)
     screenshotsHeaderRecap: {
-      badge: "★ PHOTOBOOTH GALLERY",
-      title: "ภาพตัวอย่างตู้ Photobooth",
-      highlightedTitle: "จาก Partner และ ลูกค้าของเรา",
+      badge: "★ FILTER & BEAUTY ENGINE",
+      title: "ปรับ Filter & Beauty",
+      highlightedTitle: "ได้แม่นยำระดับ slider",
       description:
-        "ตู้ Photobooth ที่ติดตั้งและใช้งานจริง — รวมผลงานจาก Partner Manufacturing และลูกค้าของ RubKianCode ในงาน Wedding, Corporate Event, Brand Activation และ Roadshow Marketing ทั่วประเทศ",
+        "หัวใจของ Photobooth Software ของเรา — Filter Library 8 looks (Noir, Mono, Warm, Cool, Bright, Faded, Punch) พร้อม AI Skin Smoothing 4 presets ปรับความเข้มได้ 0–100% Live Preview Real-time ทุกภาพ ก่อนถ่ายจริง — ใช้ได้ทั้ง Wedding, Corporate Event และ Mall Activation",
+    },
+    // Recap screenshots — Filter Intensity + Skin Smoothing UI panels
+    screenshotsRecap: [
+      {
+        src: "/images/photoboothscreenshot/filterintensive1.jpg",
+        alt: "หน้าจอ Filter Intensity Editor ของ Photobooth Software — Filter Library 8 ตัว (Original, Noir, Mono, Warm, Cool, Bright, Faded, Punch) ปรับ Global Intensity 0–100% พร้อม Real-time thumbnail preview ทุก filter เหมาะกับ Mall Activation, Wedding และ Corporate Event ที่ต้องการ Photobooth คุณภาพระดับสตูดิโอ",
+        caption: "Filter Intensity · 8 looks · ปรับ 0–100% real-time",
+      },
+      {
+        src: "/images/photoboothscreenshot/filterintensive2.jpg",
+        alt: "หน้าจอ Skin Smoothing AI Beauty Filter ของ Photobooth Software — 4 presets (Off, Light, Natural, Glam) พร้อม Live Preview before/after comparison, Smoothing strength slider 55%, Keep skin texture 40% ป้องกันหน้าดูเป็น plastic เหมาะกับงาน Wedding, Selfie Studio และ Magazine-style finish",
+        caption: "AI Skin Smoothing · 4 presets · Live before/after",
+      },
+    ],
+    // Slideshow sections — section 2-col เพิ่มเติมท้ายหน้า
+    slideshowSections: [
+      {
+        slug: "performance",
+        badge: "★ DISPLAY & PERFORMANCE",
+        title: "ปรับ Performance",
+        highlightedTitle: "เนียนทุก GPU · ทุกตู้",
+        description:
+          "Photobooth Software รองรับ GPU acceleration ครบทุกค่าย — NVIDIA NVENC, Intel QSV, CPU libx264 · ปรับ Frame rate 15–60fps, Video Encoder, Worker threads และ Source scale ได้ตามสเปคตู้ — ตู้แรงทำงานเต็มสปีด ตู้เก่าใช้ Fast preset ลด CPU ลง 60% รองรับเครื่องพิมพ์หลายตัวพร้อมกัน (DNP, Mitsubishi) ทั้ง A4 และ 4×6",
+        screenshots: [
+          // เรียงจาก "ภาพรวม summary" → "key feature" → "deep dive" → "alternate features" → "full view" → "Print"
+          {
+            src: "/images/photoboothscreenshot/display&performace4.jpg",
+            alt: "หน้าจอ Status Summary ของ Photobooth Software — สรุป Performance settings 4 ค่าหลัก: PRESET High Quality, FPS 25fps, ENCODER CPU libx264, UPLOAD Standard · เห็นภาพรวม config ของตู้ทันทีก่อนเข้าไปปรับลึก เหมาะสำหรับ operator ที่ต้อง quick check ก่อนเริ่มงาน",
+            caption: "Status Summary · PRESET · FPS · ENCODER · UPLOAD",
+          },
+          {
+            src: "/images/photoboothscreenshot/display&performace6.jpg",
+            alt: "หน้าจอ Performance Preset ของ Photobooth Software — 3 ระดับให้เลือกตามสเปคตู้: Fast 30FPS CRF28 (เหมาะกับ PC เก่าหรือ event busy, latency ต่ำสุด), Balanced 25FPS CRF23 (สมดุล CPU + คุณภาพ output), High Quality 25FPS CRF18 (Recommended · ช้าสุด แต่สวยสุด เหมาะกับ print-critical events เช่น Wedding, Corporate Event)",
+            caption: "Performance Preset · Fast / Balanced / High Quality",
+          },
+          {
+            src: "/images/photoboothscreenshot/display&performace5.jpg",
+            alt: "หน้าจอ Advanced Processing ของ Photobooth Software — Source image scale 25% (~1500×1000px ~38MB), Video encoder 3 ตัวเลือก: CPU libx264, NVIDIA NVENC, Intel QSV, Encoding speed slider Very fast → Fast → Medium → Slow → Very slow, Video quality CRF 18 (visually identical, ช่วงดี 18-28), Worker threads Auto all 16 cores detected — full control เหมาะสำหรับ technical operator",
+            caption: "Advanced · Encoder · Speed · CRF · Worker threads",
+          },
+          {
+            src: "/images/photoboothscreenshot/display&performace3.jpg",
+            alt: "หน้าจอ Upload Method ของ Photobooth Software — เลือกได้ 2 แบบ: Standard ส่งภาพทีเดียวจบ เหมาะกับ Wi-Fi เร็ว (in-house event) vs Resumable แบ่งเป็น chunked uploads ทนต่อ network drops เหมาะกับงาน outdoor, Mall Activation, Roadshow ที่ network ไม่เสถียร — รับประกันภาพถึง gallery ครบทุกใบ",
+            caption: "Upload · Standard (fast Wi-Fi) vs Resumable (chunked)",
+          },
+          {
+            src: "/images/photoboothscreenshot/display&performace2.jpg",
+            alt: "หน้าจอ Display & Performance ภาพรวมของ Photobooth Software — รวม Performance Preset 3 ระดับ, Live preview frame rate 15-60fps, Preview format MP4/MJPEG/WebM, Advanced processing ครบ (Source scale, Encoder, Encoding speed, Video quality, Worker threads 16 cores) และ Upload method ในจอเดียว · admin/operator ใช้ตั้งค่าระบบครั้งเดียวก่อนติดตั้งงาน",
+            caption: "Full View · Performance & Advanced + Upload",
+          },
+          {
+            src: "/images/photoboothscreenshot/display&performace1.jpg",
+            alt: "หน้าจอ Print Calibration ของ Photobooth Software — รองรับ 2+ printers พร้อมกัน (DNP DS620A USB001 main 4×6, Mitsubishi CP-K60DW USB002 secondary 2×6), Page size A4 210×297mm, Printer DPI 600, Screen DPI 96, Image scaling & bleed Vertical/Horizontal Lock X&Y, Print offset Top/Left/Right pixel-precise, Reverse orientation toggle และ Printing engine New PDF vs Legacy raster — เหมาะกับงาน Wedding 4×6 + Corporate Event A4 พร้อมกันในตู้เดียว",
+            caption: "Print Calibration · 2 printers · DPI · scale 1px precision",
+          },
+        ],
+      },
+    ],
+    // Realtime Dashboard — ปรับ-Sync ระบบจาก Web Dashboard ไปยังตู้ Local แบบ realtime + uptime metrics
+    realtimeDashboard: {
+      badge: "★ REALTIME DASHBOARD",
+      title: "Dashboard ปรับแต่ง",
+      highlightedTitle: "Sync ตู้ Photobooth ทันที",
+      description:
+        "ปรับตั้งค่าตู้ทุกตัวผ่าน Web Dashboard ของเรา — Filter, Sticker, Frame, Payment Channel, Branding · เปลี่ยนปุ๊บ ตู้ทุกสาขา Sync ทันทีผ่าน WebSocket realtime ไม่ต้องเดินไปแก้ที่ตู้ทีละเครื่อง · ระบบ Cloud HA (High Availability) ของเราการันตี uptime ระดับ enterprise ตู้ลูกค้าทำงานต่อเนื่อง ไม่ขาดงาน",
+      uptimeOverall: "99.5%",
+      uptimeNote: "30-day rolling average · อัปเดต Real-time จาก monitoring",
+      metrics: [
+        {
+          label: "FRONTEND",
+          value: "99.5%",
+          sub: "Web Dashboard + Local UI",
+          percent: 99.5,
+        },
+        {
+          label: "BACKEND",
+          value: "99.3%",
+          sub: "API + WebSocket Sync",
+          percent: 99.3,
+        },
+        {
+          label: "PAYMENT CHANNEL",
+          value: "99.8%",
+          sub: "PromptPay · Alipay · WeChat",
+          percent: 99.8,
+        },
+      ],
+      screenshots: [
+        {
+          src: "/images/photoboothscreenshot/dashboardpreview1.png",
+          alt: "หน้า Transactions Dashboard ของ Photobooth Software — รวม Total Revenue 262,349 บาท, Transaction Overview 2,683 Total Transactions (1,714 Succeed, 274 Pending, 0 Failed) และ Transaction List 2,683 items พร้อม Filter ตาม Date/Status/User/Booth/Location · Export CSV ได้ครบ · เหมาะสำหรับ Owner / Manager ดูยอดขายแบบ realtime",
+          caption: "Transactions · Real-time Revenue · 2,683 รายการ",
+        },
+        {
+          src: "/images/photoboothscreenshot/dashboardpreview2.jpg",
+          alt: "หน้า Stickers Management ของ Photobooth Software — Upload / Assign Stickers ให้ผู้ใช้รายคน, Stickers List พร้อม Preview thumbnail, Name, Created At, Actions (Delete) · Search + Columns + Export CSV · Sync ไปยังตู้ Photobooth ทุกสาขาทันทีหลัง Upload",
+          caption: "Stickers · Upload + Assign + Sync ทันที",
+        },
+        {
+          src: "/images/photoboothscreenshot/dashboardpreview4.jpg",
+          alt: "หน้า Filters Management ของ Photobooth Software — Create / Assign Filters พร้อม Filter Preview Live · Filters List แสดง CrispAutumn, ColdChrome, CLASSY, BW HIGH CONTRAST, BW FADED, etc. ทั้งหมด 39 items ใน 8 pages · Preview ภาพต้นฉบับ vs ภาพ filter applied · Sync ไปทุกตู้ realtime",
+          caption: "Filters · Live Preview + Sync ทุกตู้",
+        },
+      ],
     },
     screenshots: [
       {
@@ -562,6 +731,7 @@ export const SERVICES: Service[] = [
     keyFeatures: [
       // ── Deep dive 1: Signage Photobooth ──
       {
+        slug: "signage",
         eyebrow: "★ DEEP DIVE · SIGNAGE PHOTOBOOTH",
         title: "Signage Photobooth",
         highlightedTitle: "ตู้ถ่ายรูปที่เซ็นชื่อลงบนรูปได้",
@@ -630,32 +800,48 @@ export const SERVICES: Service[] = [
       },
 
       // ── Deep dive 3: Print + Cloud Share ──
+      // ใช้ media จาก /public/images/productlivew/ — example clip sequence + image fallback
       {
+        slug: "print-cloud",
         eyebrow: "★ DEEP DIVE · PRINT & CLOUD",
         title: "Print + QR Cloud Share",
         highlightedTitle: "ภาพถึงมือทันที + เก็บออนไลน์",
         description:
-          "พิมพ์ภาพสด ๆ ที่งานด้วยเครื่อง Dye-sublimation Printer คุณภาพสตูดิโอ + QR Code สำหรับโหลดไฟล์ดิจิทัลเก็บได้ทันที พร้อม Realtime Photo Gallery / Live Wall ฉายภาพล่าสุดบนจอ LED ในงาน — เพิ่ม engagement และให้ทุกคนเห็นโมเมนต์ไปด้วยกัน",
+          "พิมพ์ภาพสดที่งานด้วย Dye-sublimation Printer คุณภาพสตูดิโอ + QR Code โหลดไฟล์ดิจิทัล HD เก็บไว้ในมือถือทันที พร้อม Realtime Photo Gallery / Live Wall ฉายภาพล่าสุดบนจอ LED ในงาน — เพิ่ม engagement ให้ทุกคนเห็นโมเมนต์ไปด้วยกัน · รองรับงาน Wedding, Corporate Event, Mall Activation และ Brand Launch",
         image: {
-          src: "/images/photobooth/photo3.jpg",
-          alt: "Photobooth Software RubKianCode รองรับ Print + QR Cloud Share พร้อม Realtime Photo Gallery — ผู้ร่วมงานได้ภาพถ่ายปริ้นในมือทันที + ลิงก์ดาวน์โหลดไฟล์ดิจิทัลผ่าน QR",
-          caption: "Print + QR Cloud Share",
+          src: "/images/productlivew/example10.png",
+          alt: "ตัวอย่างผลงานจริงจาก Photobooth Software ของ RubKianCode — Print + QR Cloud Share พร้อม Realtime Photo Gallery · ผู้ร่วมงานได้ภาพถ่ายปริ้นในมือทันที + สแกน QR โหลดไฟล์ดิจิทัล HD เก็บใน Cloud ใช้งานจริงในงาน Wedding, Corporate Event และ Brand Activation",
+          caption: "Print + QR Cloud Share · ภาพถึงมือทันที",
         },
-        // Liveview clip sequence — เล่น live1 → live11 วน loop กลับ [0]
-        // โชว์การถ่าย/preview จริงบน booth screen แทนภาพนิ่ง
-        video: Array.from({ length: 11 }, (_, i) => `/videos/liveview/live${i + 1}.mp4`),
+        // Live demo videos — example1..9, 11 จาก /public/images/productlivew
+        // โชว์ flow จริง: ถ่าย → preview → print → QR scan → cloud download
+        video: [
+          "/images/productlivew/example1.mp4",
+          "/images/productlivew/example2.mp4",
+          "/images/productlivew/example3.mp4",
+          "/images/productlivew/example4.mp4",
+          "/images/productlivew/example5.mp4",
+          "/images/productlivew/example6.mp4",
+          "/images/productlivew/example7.mp4",
+          "/images/productlivew/example8.mp4",
+          "/images/productlivew/example9.mp4",
+          "/images/productlivew/example11.mp4",
+        ],
+        // วน loop 2 รอบต่อ video ก่อนเปลี่ยนไปคลิปถัดไป
+        videoLoopCount: 2,
+        imageAspect: "portrait",
         benefits: [
           {
             title: "Print 6×4 Studio Quality",
             description: "Dye-sublimation Printer · ภาพไม่ซีด ไม่ลอก เก็บได้ 50 ปี",
           },
           {
-            title: "QR Cloud Share",
-            description: "สแกนโหลดไฟล์ดิจิทัล HD เก็บไว้ในมือถือ + Watermark Brand",
+            title: "QR Cloud Share ทันที",
+            description: "สแกน QR โหลดไฟล์ดิจิทัล HD เก็บในมือถือ + Watermark Brand ลูกค้า",
           },
           {
             title: "Realtime Photo Gallery",
-            description: "Live Wall ฉายภาพล่าสุดบนจอ LED ในงาน — เพิ่ม engagement",
+            description: "Live Wall ฉายภาพล่าสุดบนจอ LED ในงาน — เพิ่ม engagement ทุกคนเห็นไปด้วยกัน",
           },
           {
             title: "Export Album สิ้นงาน",
@@ -666,6 +852,7 @@ export const SERVICES: Service[] = [
 
       // ── Deep dive 4: Payment Channel ──
       {
+        slug: "payment-channel",
         eyebrow: "★ DEEP DIVE · PAYMENT CHANNEL",
         title: "Photobooth Payment Channel",
         highlightedTitle: "ชำระเงินครบทุกช่องทาง — รับนักท่องเที่ยวทั่วโลก",
