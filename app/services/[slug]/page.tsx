@@ -116,7 +116,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         <span aria-hidden className={`font-pixel pointer-events-none absolute bottom-3 left-3 select-none text-base ${heroCornerClass} sm:bottom-4 sm:left-4 sm:text-lg`}>★</span>
         <span aria-hidden className={`font-pixel pointer-events-none absolute bottom-3 right-3 select-none text-base ${heroCornerClass} sm:bottom-4 sm:right-4 sm:text-lg`}>★</span>
 
-        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-2 lg:gap-16 lg:px-8 lg:py-24">
           <div>
             {/* Badge — เพิ่ม shadow สี accent ตรงข้ามให้ pop */}
             <span
@@ -127,7 +127,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             </span>
 
             <h1
-              className={`mt-6 text-4xl font-black uppercase leading-[1.05] sm:text-5xl lg:text-6xl ${heroTitleClass}`}
+              className={`mt-6 text-balance text-3xl font-black uppercase leading-[1.1] sm:text-5xl sm:leading-[1.05] lg:text-6xl ${heroTitleClass}`}
               style={heroTitleShadow ? { textShadow: heroTitleShadow } : undefined}
             >
               {service.title}
@@ -150,11 +150,12 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               {service.description}
             </p>
 
-            {/* CTAs — primary (navy) + secondary (yellow → ดูฟีเจอร์) */}
-            <div className="mt-8 flex flex-wrap gap-4">
+            {/* CTAs — primary (navy) + secondary (yellow → ดูฟีเจอร์)
+                mobile: full-width stack, tablet+: inline flex-wrap */}
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
                 style={{ border: "3px solid #0A2540", boxShadow: `5px 5px 0 ${decorAccent}` }}
               >
                 ขอใบเสนอราคา
@@ -162,7 +163,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               </Link>
               <a
                 href="#features"
-                className="inline-flex items-center gap-2 bg-[#F1C40F] px-6 py-3 font-black uppercase tracking-wider text-[#0A2540] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-[#F1C40F] px-6 py-3 font-black uppercase tracking-wider text-[#0A2540] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
                 style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
               >
                 ดูฟีเจอร์
@@ -254,7 +255,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
       </section>
 
       {/* Features */}
-      <section id="features" className="scroll-mt-20 bg-[#F4EDE0] py-20 sm:py-28">
+      <section id="features" className="scroll-mt-20 bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 max-w-3xl">
             <span
@@ -263,7 +264,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             >
               FEATURES · {String(service.features.length).padStart(2, "0")}
             </span>
-            <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+            <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl lg:text-5xl">
               สิ่งที่คุณได้
               <br />
               จากระบบนี้
@@ -308,7 +309,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 {service.rentalVersions.badge}
               </span>
-              <h2 className="mt-6 text-balance text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 text-balance text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl lg:text-5xl">
                 {service.rentalVersions.title}
                 <br />
                 <span style={{ color: service.accent }}>
@@ -374,7 +375,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
           — section head ใช้ service.screenshotsHeader ถ้ามี ไม่งั้น fallback default
           — grid + show-more ใช้ <ScreenshotsGallery> client component (มี state toggle) */}
       {service.screenshots && service.screenshots.length > 0 && (
-        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-20 sm:py-28">
+        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Section head */}
             <div className="mb-12 max-w-3xl">
@@ -384,7 +385,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 {service.screenshotsHeader?.badge ?? "★ PRODUCT SCREENSHOTS"}
               </span>
-              <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-white sm:text-4xl lg:text-5xl">
                 {service.screenshotsHeader?.title ?? "ดูภาพจริง"}
                 <br />
                 <span style={{ color: service.accent }}>
@@ -623,10 +624,10 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
                     {kf.eyebrow}
                   </span>
                   <h2
-                    className={`mt-5 font-black uppercase leading-tight text-[#0A2540] ${
+                    className={`mt-5 text-balance font-black uppercase leading-tight text-[#0A2540] ${
                       isPhone
-                        ? "text-2xl sm:text-3xl lg:text-4xl"
-                        : "text-3xl sm:text-4xl lg:text-5xl"
+                        ? "text-xl sm:text-2xl md:text-3xl lg:text-4xl"
+                        : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
                     }`}
                   >
                     {kf.title}
@@ -719,7 +720,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
 
             {/* Heading — split \n แล้ว render ด้วย <br/> เพื่อรับประกัน line break ทุก viewport
                 + text-balance ป้องกัน orphan word ตกบรรทัดเดี่ยว */}
-            <h2 className="mt-8 text-balance text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+            <h2 className="mt-8 text-balance text-2xl font-black uppercase leading-tight sm:text-3xl text-white sm:text-4xl lg:text-5xl">
               {service.ctaPayment.title.split(/\n+/).map((line, i, arr) => (
                 <span key={i}>
                   {line}
@@ -771,7 +772,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
       {/* Screenshots gallery — RECAP รอบ 2 หลัง keyFeatures
           render เฉพาะถ้า service มี screenshotsHeaderRecap (เปลี่ยนข้อความ + reuse ScreenshotsGallery) */}
       {service.screenshots && service.screenshots.length > 0 && service.screenshotsHeaderRecap && (
-        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-20 sm:py-28">
+        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-12 max-w-3xl">
               <span
@@ -780,7 +781,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 {service.screenshotsHeaderRecap.badge ?? "★ REAL DEPLOYMENTS"}
               </span>
-              <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+              <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-white sm:text-4xl lg:text-5xl">
                 {service.screenshotsHeaderRecap.title}
                 <br />
                 <span style={{ color: service.accent }}>
@@ -813,7 +814,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 {service.partnerCta.badge}
               </span>
-              <h2 className="mt-6 text-balance text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+              <h2 className="mt-6 text-balance text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl lg:text-5xl">
                 {service.partnerCta.title}
                 <br />
                 <span style={{ color: service.accent }}>
@@ -921,7 +922,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
 
       {/* Related services */}
       {related.length > 0 && (
-        <section className="border-t-[3px] border-[#0A2540] bg-white py-20 sm:py-28">
+        <section className="border-t-[3px] border-[#0A2540] bg-white py-14 sm:py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-12">
               <span
@@ -930,7 +931,7 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
               >
                 MORE · CORE SERVICES
               </span>
-              <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl">
+              <h2 className="mt-5 text-2xl font-black uppercase leading-tight sm:text-3xl text-[#0A2540] sm:text-4xl">
                 บริการอื่นที่อาจสนใจ
               </h2>
             </div>
