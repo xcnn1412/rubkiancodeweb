@@ -81,6 +81,12 @@ export type Service = {
     highlightedTitle: string    // บรรทัดที่ 2 ของ h2 (สี accent)
     description: string         // body paragraph
   }
+  screenshotsHeaderRecap?: {    // (optional) ถ้ามี → render gallery อีกรอบหลัง keyFeatures
+    badge?: string              // eyebrow (default "★ REAL DEPLOYMENTS")
+    title: string               // บรรทัดแรกของ h2
+    highlightedTitle: string    // บรรทัดที่ 2 ของ h2 (สี accent)
+    description: string         // body paragraph
+  }
   keyFeatures?: KeyFeature[]    // (optional) section deep-dive ของ USP เด่น (หลาย sections)
   ctaPayment?: {                // (optional) banner สรุป settlement / payment timeline
     badge: string               // eyebrow pixel tag
@@ -88,6 +94,26 @@ export type Service = {
     title: string               // headline ต่อจาก highlight
     description: string         // คำอธิบาย 1-2 บรรทัด
     note?: string               // (optional) disclaimer ตัวเล็ก
+  }
+  partnerCta?: {                // (optional) section ชวนสมัครเป็น partner ของ service นี้
+    badge: string               // eyebrow pixel tag
+    title: string               // h2 line 1
+    highlightedTitle: string    // h2 line 2 (accent color)
+    description: string         // intro paragraph
+    versions?: string[]         // (optional) ชื่อโปรแกรม/version ที่ partner จะได้รับ (cards row)
+    benefits: Array<{           // benefit cards (แนะนำ 2-4 ใบ)
+      title: string             // หัวข้อสั้น เน้น keyword
+      description: string       // คำอธิบาย 1-2 บรรทัด
+      icon?: string             // (optional) emoji/symbol เช่น "🔄" "🛟" ★
+    }>
+  }
+  rentalVersions?: {            // (optional) section แสดง Software versions ให้เช่ารายปี
+    badge: string               // eyebrow pixel tag
+    title: string               // h2 line 1
+    highlightedTitle: string    // h2 line 2 (accent color)
+    description: string         // intro paragraph
+    versions: string[]          // ชื่อโปรแกรมที่เปิดให้เช่า (cards row)
+    note?: string               // (optional) disclaimer ตัวเล็ก ใต้ cards/CTA
   }
 }
 
@@ -470,7 +496,32 @@ export const SERVICES: Service[] = [
       "/videos/project0/reelsign2.mp4",
       "/videos/project0/reels1.mp4",
     ],
+    // Rental versions — section บริการเช่ารายปี (ต่อจาก Features)
+    // เป้าหมาย: SEO keyword "เช่าโปรแกรม Photobooth รายปี" + friendly tone สำหรับ user ที่อยากเริ่มต้นธุรกิจ
+    rentalVersions: {
+      badge: "★ ANNUAL RENTAL PLANS",
+      title: "เช่าโปรแกรม Photobooth",
+      highlightedTitle: "รายปี ใช้งานเต็มทุกฟีเจอร์",
+      description:
+        "บริการเช่าโปรแกรม Photobooth รายปี — เหมาะสำหรับผู้ที่ต้องการเริ่มต้นธุรกิจตู้ถ่ายรูปโดยไม่ต้องลงทุนหนัก เลือกโปรแกรมที่ตรงกับรูปแบบงานของคุณ ใช้งานครบทุก Feature พร้อม Update และทีม Support ตลอดอายุสัญญา",
+      versions: [
+        "Photobooth",
+        "Newspaper Photobooth",
+        "Slip Photobooth",
+        "Signage Booth",
+        "Reel Booth",
+      ],
+      note: "★ ราคาเริ่มต้น 35,000 บาท/ปี · เลือก Feature ได้ 1 รายการ (สอบถามแพ็กเกจที่รวมทุก Feature ได้)",
+    },
     screenshotsHeader: {
+      badge: "★ SYSTEM PREVIEW",
+      title: "ภาพตัวอย่าง",
+      highlightedTitle: "ระบบของเรา",
+      description:
+        "ภาพตัวอย่างระบบ Photobooth Software ของ RubKianCode — รวม Live Preview, AI Beauty Filter, Custom Frame Editor, Print + QR Cloud Share และ Realtime Photo Gallery ที่ใช้งานจริงในตู้ทุกธีมงาน",
+    },
+    // Recap gallery — โชว์อีกรอบหลัง keyFeatures + เน้น "ภาพตู้จริงจาก partner/ลูกค้า"
+    screenshotsHeaderRecap: {
       badge: "★ PHOTOBOOTH GALLERY",
       title: "ภาพตัวอย่างตู้ Photobooth",
       highlightedTitle: "จาก Partner และ ลูกค้าของเรา",
@@ -647,14 +698,45 @@ export const SERVICES: Service[] = [
         ],
       },
     ],
-    // Banner ต่อท้าย Payment Channel — เน้น settlement timeline ให้ merchant อุ่นใจ
+    // Banner ต่อท้าย Payment Channel — เน้น settlement timeline + Dashboard Realtime
     ctaPayment: {
       badge: "★ MERCHANT SETTLEMENT",
       highlight: "T + 2",
-      title: "จะได้รับเงิน\nภายในวันที่โอน + 2 วัน",
+      title: "Transaction T+2\nรับเงินภายใน 2 วันทำการ",
       description:
-        "ระบบ settle อัตโนมัติทุกวันทำการ\n\nยอดขายจาก Alipay · WeChat Pay · PromptPay เข้าบัญชีคุณภายใน 2 วันทำการ\n\nไม่มีค่าธรรมเนียมแอบแฝง ไม่ต้องรอเป็นเดือน",
+        "ระบบ settle อัตโนมัติทุกวันทำการ — ยอดขายจาก PromptPay, Alipay และ WeChat Pay เข้าบัญชีคุณภายใน 2 วันทำการ ไม่มีค่าธรรมเนียมแอบแฝง\n\nพร้อม Dashboard Realtime ติดตามยอดขาย, Settlement History และ Fee Breakdown — เข้าถึงผ่าน Website ของ RubKianCode ได้ทุกที่ทุกเวลา",
       note: "★ T = วันที่ลูกค้าทำรายการสำเร็จ · นับเฉพาะวันทำการ (จันทร์–ศุกร์)",
+    },
+    // Partner Program — section ชวนสมัครเป็น partner ตู้ Photobooth
+    // friendly tone + keywords: Photobooth Partner, Update Program, Online Support 12/7
+    partnerCta: {
+      badge: "★ JOIN OUR PARTNER PROGRAM",
+      title: "ร่วมเป็น Partner กับเรา",
+      highlightedTitle: "เติบโตไปด้วยกันตลอดเส้นทาง",
+      description:
+        "เปิดธุรกิจตู้ Photobooth ในแบรนด์ของคุณกับ RubKianCode — เราอยู่กับ Partner ตั้งแต่วันแรก พร้อม Software ที่ Update ตลอดอายุสัญญา และทีม Online Support พร้อมดูแล 12 ชั่วโมง 7 วันต่อสัปดาห์ ให้ธุรกิจของคุณเดินหน้าต่อได้เต็มที่ ไม่ต้องกังวลเรื่องเทคนิค",
+      // Software versions ที่ Partner ได้รับครบทุก product line
+      versions: [
+        "Photobooth",
+        "Newspaper Photobooth",
+        "Slip Photobooth",
+        "Signage Booth",
+        "Reel Booth",
+      ],
+      benefits: [
+        {
+          icon: "🔄",
+          title: "Update Program ตลอดอายุสัญญา",
+          description:
+            "ทุก Feature ใหม่ ทุก Function ทุกระบบ — Partner ของเราได้รับการอัปเดตให้ฟรี ตู้ Photobooth ของคุณทันสมัยเสมอ พร้อมแข่งในตลาด ไม่มีค่าใช้จ่ายเพิ่ม",
+        },
+        {
+          icon: "🛟",
+          title: "Online Support Service 12/7",
+          description:
+            "ทีมงาน Technical Support พร้อมให้บริการ 12 ชั่วโมงต่อวัน 7 วันต่อสัปดาห์ — ปรึกษาเรื่องเทคนิค ตั้งค่า และการใช้งานได้ทุกเมื่อ ไม่ต้องรอนาน",
+        },
+      ],
     },
   },
 

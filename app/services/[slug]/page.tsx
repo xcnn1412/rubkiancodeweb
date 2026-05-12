@@ -295,6 +295,81 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
         </div>
       </section>
 
+      {/* Rental versions — Software ที่ให้บริการเช่ารายปี (ต่อจาก Features)
+          design pattern: cards 5 ใบเหมือน partnerCta.versions แต่ standalone section */}
+      {service.rentalVersions && service.rentalVersions.versions.length > 0 && (
+        <section className="border-t-[3px] border-[#0A2540] bg-white py-14 sm:py-20 lg:py-28">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            {/* Header — centered */}
+            <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-12">
+              <span
+                className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
+                style={{ boxShadow: "4px 4px 0 " + service.accent }}
+              >
+                {service.rentalVersions.badge}
+              </span>
+              <h2 className="mt-6 text-balance text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+                {service.rentalVersions.title}
+                <br />
+                <span style={{ color: service.accent }}>
+                  {service.rentalVersions.highlightedTitle}
+                </span>
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-[#0A2540]/80 sm:text-lg">
+                {service.rentalVersions.description}
+              </p>
+            </div>
+
+            {/* Version cards — grid 5 cols บน desktop, 2-3 บน tablet, 1 บน mobile */}
+            <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5">
+              {service.rentalVersions.versions.map((v, i) => (
+                <li
+                  key={v}
+                  className="flex flex-col items-center bg-[#F4EDE0] p-4 text-center transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:p-5"
+                  style={{
+                    border: "3px solid #0A2540",
+                    boxShadow: "5px 5px 0 " + service.accent,
+                  }}
+                >
+                  <span
+                    className="font-pixel flex h-9 w-9 items-center justify-center text-[10px]"
+                    style={{
+                      background: service.accent,
+                      border: "2px solid #0A2540",
+                      color: service.accent === "#F1C40F" ? "#0A2540" : "white",
+                    }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-pixel mt-3 text-[11px] font-black uppercase leading-tight tracking-wider text-[#0A2540] sm:text-xs">
+                    {v}
+                  </h3>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA — ขอใบเสนอราคา */}
+            <div className="mt-10 flex justify-center sm:mt-12">
+              <Link
+                href="/#contact"
+                className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 " + service.accent }}
+              >
+                ขอใบเสนอราคา
+                <ArrowIcon className="h-4 w-4" />
+              </Link>
+            </div>
+
+            {/* Note — disclaimer ราคา/เงื่อนไข */}
+            {service.rentalVersions.note && (
+              <p className="font-pixel mx-auto mt-6 max-w-2xl text-center text-[10px] uppercase tracking-widest text-[#0A2540]/60 sm:text-xs">
+                {service.rentalVersions.note}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* Screenshots gallery — โชว์ภาพจริงของ product/dashboard
           — section head ใช้ service.screenshotsHeader ถ้ามี ไม่งั้น fallback default
           — grid + show-more ใช้ <ScreenshotsGallery> client component (มี state toggle) */}
@@ -607,6 +682,242 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
           </section>
         )
       })}
+
+      {/* Payment CTA — Transaction T+2 + Dashboard Realtime
+          UI pattern: bg navy + pixel grid + centered, อ้างอิงจาก <CtaSection> */}
+      {service.ctaPayment && (
+        <section className="relative overflow-hidden border-t-[3px] border-[#0A2540] bg-[#0A2540] py-14 sm:py-20 lg:py-28">
+          {/* Pixel grid background */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 opacity-20"
+            style={{
+              backgroundImage:
+                "linear-gradient(#F1C40F 1px, transparent 1px), linear-gradient(90deg, #F1C40F 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+            }}
+          />
+
+          <div className="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+            {/* Badge */}
+            <span
+              className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
+              style={{ boxShadow: "4px 4px 0 " + service.accent }}
+            >
+              {service.ctaPayment.badge}
+            </span>
+
+            {/* Highlight chip — T + 2 เด่นๆ ให้คนเห็นทันที */}
+            <div className="mt-8 flex justify-center">
+              <span
+                className="font-pixel inline-flex items-center bg-[#F1C40F] px-6 py-4 text-3xl font-black uppercase tracking-wider text-[#0A2540] sm:text-4xl lg:text-5xl"
+                style={{ border: "3px solid #0A2540", boxShadow: "6px 6px 0 " + service.accent }}
+              >
+                {service.ctaPayment.highlight}
+              </span>
+            </div>
+
+            {/* Heading — split \n แล้ว render ด้วย <br/> เพื่อรับประกัน line break ทุก viewport
+                + text-balance ป้องกัน orphan word ตกบรรทัดเดี่ยว */}
+            <h2 className="mt-8 text-balance text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+              {service.ctaPayment.title.split(/\n+/).map((line, i, arr) => (
+                <span key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </span>
+              ))}
+            </h2>
+
+            {/* Description — split paragraphs ด้วย \n\n */}
+            <div className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
+              {service.ctaPayment.description.split(/\n\n+/).map((para, i) => (
+                <p key={i} className={i > 0 ? "mt-4" : ""}>
+                  {para}
+                </p>
+              ))}
+            </div>
+
+            {/* CTA buttons */}
+            <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/#contact"
+                className="inline-flex items-center gap-2 bg-[#E63946] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
+              >
+                ขอใบเสนอราคา
+                <ArrowIcon className="h-4 w-4" />
+              </Link>
+              <a
+                href="https://lin.ee/py7hRoKC"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
+              >
+                คุยผ่าน LINE @rubkiancode
+              </a>
+            </div>
+
+            {/* Note pixel เล็กข้างล่าง */}
+            {service.ctaPayment.note && (
+              <p className="font-pixel mt-8 text-[10px] uppercase tracking-widest text-[#F1C40F]/70 sm:text-xs">
+                {service.ctaPayment.note}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* Screenshots gallery — RECAP รอบ 2 หลัง keyFeatures
+          render เฉพาะถ้า service มี screenshotsHeaderRecap (เปลี่ยนข้อความ + reuse ScreenshotsGallery) */}
+      {service.screenshots && service.screenshots.length > 0 && service.screenshotsHeaderRecap && (
+        <section className="border-t-[3px] border-[#0A2540] bg-[#0A2540] py-20 sm:py-28">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-12 max-w-3xl">
+              <span
+                className="font-pixel inline-block bg-[#F1C40F] px-3 py-2 text-[10px] uppercase tracking-widest text-[#0A2540]"
+                style={{ boxShadow: "4px 4px 0 " + service.accent }}
+              >
+                {service.screenshotsHeaderRecap.badge ?? "★ REAL DEPLOYMENTS"}
+              </span>
+              <h2 className="mt-5 text-3xl font-black uppercase leading-tight text-white sm:text-4xl lg:text-5xl">
+                {service.screenshotsHeaderRecap.title}
+                <br />
+                <span style={{ color: service.accent }}>
+                  {service.screenshotsHeaderRecap.highlightedTitle}
+                </span>
+              </h2>
+              <p className="mt-5 max-w-2xl text-base leading-relaxed text-[#F4EDE0]/80 sm:text-lg">
+                {service.screenshotsHeaderRecap.description}
+              </p>
+            </div>
+            <ScreenshotsGallery
+              screenshots={service.screenshots}
+              accent={service.accent}
+              subtitle={service.subtitle}
+            />
+          </div>
+        </section>
+      )}
+
+      {/* Partner Program section — ชวนสมัครเป็น Partner + เน้น "Update Program" + "Online Support 12/7"
+          friendly tone, มี benefit cards + dual CTA (สมัคร + LINE) */}
+      {service.partnerCta && (
+        <section className="border-t-[3px] border-[#0A2540] bg-[#F4EDE0] py-14 sm:py-20 lg:py-28">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            {/* Header — centered */}
+            <div className="mx-auto mb-12 max-w-3xl text-center">
+              <span
+                className="font-pixel inline-block bg-[#0A2540] px-3 py-2 text-[10px] uppercase tracking-widest text-[#F1C40F]"
+                style={{ boxShadow: "4px 4px 0 " + service.accent }}
+              >
+                {service.partnerCta.badge}
+              </span>
+              <h2 className="mt-6 text-balance text-3xl font-black uppercase leading-tight text-[#0A2540] sm:text-4xl lg:text-5xl">
+                {service.partnerCta.title}
+                <br />
+                <span style={{ color: service.accent }}>
+                  {service.partnerCta.highlightedTitle}
+                </span>
+              </h2>
+              <p className="mt-6 text-base leading-relaxed text-[#0A2540]/80 sm:text-lg">
+                {service.partnerCta.description}
+              </p>
+            </div>
+
+            {/* Version cards — โชว์ Software/Product ที่ Partner ได้รับ
+                grid 5 cols บน desktop, 2-3 บน tablet, 1 บน mobile */}
+            {service.partnerCta.versions && service.partnerCta.versions.length > 0 && (
+              <div className="mb-12">
+                <p className="font-pixel mb-6 text-center text-xs uppercase tracking-widest text-[#0A2540]/70 sm:text-sm">
+                  ★ Software ที่ Partner ได้รับ
+                </p>
+                <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-5">
+                  {service.partnerCta.versions.map((v, i) => (
+                    <li
+                      key={v}
+                      className="flex flex-col items-center bg-white p-4 text-center transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:p-5"
+                      style={{
+                        border: "3px solid #0A2540",
+                        boxShadow: "5px 5px 0 " + service.accent,
+                      }}
+                    >
+                      <span
+                        className="font-pixel flex h-9 w-9 items-center justify-center text-[10px]"
+                        style={{
+                          background: service.accent,
+                          border: "2px solid #0A2540",
+                          color: service.accent === "#F1C40F" ? "#0A2540" : "white",
+                        }}
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="font-pixel mt-3 text-[11px] font-black uppercase leading-tight tracking-wider text-[#0A2540] sm:text-xs">
+                        {v}
+                      </h3>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Benefit cards — grid 2 col on tablet+, 1 col on mobile */}
+            <ul className="mx-auto grid max-w-4xl gap-6 sm:gap-8 md:grid-cols-2">
+              {service.partnerCta.benefits.map((b, i) => (
+                <li
+                  key={b.title}
+                  className="flex flex-col bg-white p-6 transition-transform hover:-translate-x-1 hover:-translate-y-1 sm:p-8"
+                  style={{
+                    border: "3px solid #0A2540",
+                    boxShadow: "8px 8px 0 " + service.accent,
+                  }}
+                >
+                  <div className="flex items-center gap-3">
+                    {/* Icon chip — emoji/symbol จาก data หรือ fallback number */}
+                    <span
+                      className="font-pixel flex h-12 w-12 shrink-0 items-center justify-center text-2xl"
+                      style={{
+                        background: service.accent,
+                        border: "3px solid #0A2540",
+                        color: service.accent === "#F1C40F" ? "#0A2540" : "white",
+                      }}
+                    >
+                      {b.icon ?? String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="text-lg font-black uppercase leading-tight text-[#0A2540] sm:text-xl">
+                      {b.title}
+                    </h3>
+                  </div>
+                  <p className="mt-4 text-base leading-relaxed text-[#0A2540]/80">
+                    {b.description}
+                  </p>
+                </li>
+              ))}
+            </ul>
+
+            {/* CTA buttons — สมัคร Partner (primary) + LINE (secondary) */}
+            <div className="mt-12 flex flex-wrap justify-center gap-4">
+              <Link
+                href="/#contact"
+                className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 " + service.accent }}
+              >
+                สมัครเป็น Partner
+                <ArrowIcon className="h-4 w-4" />
+              </Link>
+              <a
+                href="https://lin.ee/py7hRoKC"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
+              >
+                คุยผ่าน LINE @rubkiancode
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Related services */}
       {related.length > 0 && (
