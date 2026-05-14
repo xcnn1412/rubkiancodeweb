@@ -55,11 +55,20 @@ export async function generateMetadata({ params }: RouteProps): Promise<Metadata
     title: service.meta.title,
     description: service.meta.description,
     alternates: { canonical: `/services/${service.slug}` },
+    // Note: og:image และ twitter:image ถูก inject อัตโนมัติจาก
+    // opengraph-image.tsx / twitter-image.tsx ใน route segment เดียวกัน
     openGraph: {
       title: service.meta.title,
       description: service.meta.description,
       url: `/services/${service.slug}`,
+      siteName: "RubKianCode",
+      locale: "th_TH",
       type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: service.meta.title,
+      description: service.meta.description,
     },
   }
 }

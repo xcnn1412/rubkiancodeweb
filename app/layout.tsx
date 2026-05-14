@@ -67,21 +67,15 @@ export const metadata: Metadata = {
     title: 'RubKianCode — รับเขียนซอฟต์แวร์ SME ไทย เริ่มต้น 35,000 บาท/ปี',
     description:
       'รับพัฒนา Marketing System, Office ERP, Lucky Draw, Photobooth Software ครบวงจรสำหรับ SME ไทย',
-    images: [
-      {
-        url: '/images/icon-rubkiancode.svg',
-        width: 1040,
-        height: 1040,
-        alt: 'RubKianCode logo',
-      },
-    ],
+    // og:image ถูก inject อัตโนมัติจากไฟล์ opengraph-image.tsx ต่อ route segment
+    // (หน้าแรก /, /services, /renew, /services/[slug] — มีไฟล์ทุกหน้า)
   },
   twitter: {
     card: 'summary_large_image',
     title: 'RubKianCode — รับเขียนซอฟต์แวร์ SME ไทย',
     description:
       'รับพัฒนาซอฟต์แวร์ครบวงจร Marketing / ERP / Lucky Draw / Photobooth — เริ่มต้น 35,000 บาท/ปี',
-    images: ['/images/icon-rubkiancode.svg'],
+    // twitter:image ถูก inject อัตโนมัติจากไฟล์ twitter-image.tsx ต่อ route segment
   },
   robots: {
     index: true,
