@@ -18,7 +18,7 @@ export function ContactSection({ namespace = "contact" }: { namespace?: string }
       label: t("line_label"),
       value: "@rubkiancode",
       sub: t("line_sub"),
-      href: "https://lin.ee/py7hRoKC",
+      href: "https://lin.ee/ZDaqVzd",
       highlight: true,
     },
     {
@@ -176,7 +176,7 @@ export function ContactSection({ namespace = "contact" }: { namespace?: string }
                 borderRadius: '20px',
                 animation: 'heartbeat 0.8s ease-in-out infinite',
               }}
-              onClick={() => triggerTransition('https://lin.ee/py7hRoKC', 'line')}
+              onClick={() => triggerTransition('https://lin.ee/ZDaqVzd', 'line')}
               onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '8px 8px 0px #555856' }}
               onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '5px 5px 0px #555856' }}
             >

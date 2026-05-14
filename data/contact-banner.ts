@@ -13,7 +13,7 @@ export const CONTACT_BANNER = {
   phone_href: 'tel:0635944429',
 
   // ─── LINE URL ─────────────────────────────────────────────────────
-  line_href: 'https://lin.ee/py7hRoKC',
+  line_href: 'https://lin.ee/ZDaqVzd',
 
   // ─── สี (เปลี่ยนได้ที่นี่) ────────────────────────────────────────
   colors: {

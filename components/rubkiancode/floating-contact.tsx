@@ -19,7 +19,7 @@ type Channel = {
 const CHANNELS: Channel[] = [
   {
     name: "LINE @rubkiancode",
-    href: "https://line.me/R/ti/p/@rubkiancode",
+    href: "https://lin.ee/ZDaqVzd",
     bg: "#06C755",              // LINE official green
     ring: "#0A2540",
     external: true,
@@ -41,8 +41,8 @@ const CHANNELS: Channel[] = [
     ),
   },
   {
-    name: "Facebook Imageland.Studio",
-    href: "https://www.facebook.com/Imageland.Studio/",
+    name: "Facebook rubkiancode",
+    href: "https://www.facebook.com/rubkiancode/",
     bg: "#1877F2",              // Facebook official blue
     ring: "#0A2540",
     external: true,

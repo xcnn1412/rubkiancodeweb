@@ -21,7 +21,7 @@ const ABOUT_LINKS = [
 const CONTACT_LINKS = [
   { href: "mailto:rubkiancode@gmail.com", label: "rubkiancode@gmail.com" },
   { href: "tel:0635944429", label: "063-594-4429" },
-  { href: "https://lin.ee/py7hRoKC", label: "@rubkiancode" },
+  { href: "https://lin.ee/ZDaqVzd", label: "@rubkiancode" },
   { href: "#", label: "กรุงเทพมหานคร" },
 ] as const
 

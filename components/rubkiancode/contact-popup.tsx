@@ -30,9 +30,9 @@ export type ContactChannel = {
 
 // ช่องทาง default ของ RubKianCode — override ได้ผ่าน prop `channels`
 export const DEFAULT_CONTACT_CHANNELS: ContactChannel[] = [
-  { label: "LINE @rubkiancode",          href: "https://line.me/R/ti/p/@rubkiancode",       bg: "#06C755", external: true },
+  { label: "LINE @rubkiancode",          href: "https://lin.ee/ZDaqVzd",       bg: "#06C755", external: true },
   { label: "โทร 063-594-4429",           href: "tel:0635944429",                            bg: "#F39C12" },
-  { label: "Facebook Imageland.Studio",  href: "https://www.facebook.com/Imageland.Studio/", bg: "#1877F2", external: true },
+  { label: "Facebook rubkiancode",  href: "https://www.facebook.com/rubkiancode/", bg: "#1877F2", external: true },
   { label: "rubkiancode@gmail.com",      href: "mailto:rubkiancode@gmail.com",              bg: "#0A2540" },
 ]
 

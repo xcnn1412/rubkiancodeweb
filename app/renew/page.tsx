@@ -41,7 +41,7 @@ const CONTACTS = [
     label: "LINE Official",
     sub: "Chat us",
     value: "@rubkiancode",
-    href: "https://line.me/R/ti/p/@rubkiancode",
+    href: "https://lin.ee/ZDaqVzd",
     accent: "#2ECC71",
     icon: <LineIcon />,
   },

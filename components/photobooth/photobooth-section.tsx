@@ -160,7 +160,7 @@ export function PhotoboothSection({ namespace = "photobooth" }: { namespace?: st
                 }}
                 onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '7px 7px 0px #1a0e00' }}
                 onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '5px 5px 0px #1a0e00' }}
-                onClick={() => triggerTransition('https://lin.ee/py7hRoKC', 'line')}
+                onClick={() => triggerTransition('https://lin.ee/ZDaqVzd', 'line')}
               >
                 {/* แสงวิ้งวับ — อย่าลบ span นี้ */}
                 <span className="shimmer-light" />

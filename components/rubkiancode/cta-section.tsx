@@ -45,7 +45,7 @@ export function CtaSection() {
             <ArrowIcon className="h-4 w-4" />
           </a>
           <a
-            href="https://lin.ee/py7hRoKC"
+            href="https://lin.ee/ZDaqVzd"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"

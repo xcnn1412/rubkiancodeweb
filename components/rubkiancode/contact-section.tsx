@@ -14,7 +14,7 @@ type Channel = {
 
 const CHANNELS: Channel[] = [
   {
-    href: "https://lin.ee/py7hRoKC",
+    href: "https://lin.ee/ZDaqVzd",
     iconBg: "#2ECC71",
     icon: (
       <svg viewBox="0 0 16 16" className="pixel-svg h-6 w-6" fill="white">

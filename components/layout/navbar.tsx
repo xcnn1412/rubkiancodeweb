@@ -54,7 +54,7 @@ export function Navbar({
   }))
 
   const handleLineContact = () => {
-    triggerTransition('https://lin.ee/py7hRoKC', 'line')
+    triggerTransition('https://lin.ee/ZDaqVzd', 'line')
     setIsMenuOpen(false)
   }
 

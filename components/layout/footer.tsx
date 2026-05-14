@@ -42,7 +42,7 @@ export function Footer({
   const contactLinks = [
     { icon: Mail,          label: "rubkiancode@gmail.com", href: "mailto:rubkiancode@gmail.com",              linkType: 'email'    as const },
     { icon: Phone,         label: "063-594-4429",          href: "tel:063-594-4429",                           linkType: 'tel'      as const },
-    { icon: MessageCircle, label: "@rubkiancode",           href: "https://lin.ee/py7hRoKC",                   linkType: 'line'     as const },
+    { icon: MessageCircle, label: "@rubkiancode",           href: "https://lin.ee/ZDaqVzd",                   linkType: 'line'     as const },
     { icon: MapPin,        label: tFooter("bangkok"),       href: "https://maps.app.goo.gl/CunTwgBaAkmhZ3Gg9", linkType: 'maps'     as const },
   ]
 
