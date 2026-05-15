@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 import { Prompt, Press_Start_2P, VT323 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
@@ -29,6 +30,7 @@ const vt323 = VT323({
 });
 
 const SITE_URL = 'https://rubkiancode.com'
+const GA_MEASUREMENT_ID = 'G-Q788F5FJKH'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -150,6 +152,18 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSON_LD) }}
         />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
       </head>
       <body className={`${prompt.variable} ${pressStart.variable} ${vt323.variable} font-sans antialiased`}>
         <LanguageProvider>
