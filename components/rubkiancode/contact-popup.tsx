@@ -20,20 +20,26 @@
 // ════════════════════════════════════════════════════════════════════════
 
 import { useEffect } from "react"
+import {
+  trackContactClick,
+  trackContactPopupOpen,
+  type ContactChannel as GAChannel,
+} from "@/lib/analytics"
 
 export type ContactChannel = {
   label: string                 // ข้อความบนปุ่ม
   href: string                  // ลิงก์ปลายทาง (https / mailto / tel)
   bg: string                    // สี brand ของช่องทาง
   external?: boolean            // true = เปิด tab ใหม่
+  gaChannel?: GAChannel         // identifier สำหรับ GA event
 }
 
 // ช่องทาง default ของ RubKianCode — override ได้ผ่าน prop `channels`
 export const DEFAULT_CONTACT_CHANNELS: ContactChannel[] = [
-  { label: "LINE @rubkiancode",          href: "https://lin.ee/ZDaqVzd",       bg: "#06C755", external: true },
-  { label: "โทร 063-594-4429",           href: "tel:0635944429",                            bg: "#F39C12" },
-  { label: "Facebook rubkiancode",  href: "https://www.facebook.com/rubkiancode/", bg: "#1877F2", external: true },
-  { label: "rubkiancode@gmail.com",      href: "mailto:rubkiancode@gmail.com",              bg: "#0A2540" },
+  { label: "LINE @rubkiancode",          href: "https://lin.ee/ZDaqVzd",       bg: "#06C755", external: true, gaChannel: "line" },
+  { label: "โทร 063-594-4429",           href: "tel:0635944429",                            bg: "#F39C12", gaChannel: "phone" },
+  { label: "Facebook rubkiancode",  href: "https://www.facebook.com/rubkiancode/", bg: "#1877F2", external: true, gaChannel: "facebook" },
+  { label: "rubkiancode@gmail.com",      href: "mailto:rubkiancode@gmail.com",              bg: "#0A2540", gaChannel: "email" },
 ]
 
 type Props = {
@@ -45,6 +51,7 @@ type Props = {
   highlightedTitle?: string     // บรรทัดที่ 2 (สี accent, optional)
   description?: string          // body text (optional)
   channels?: ContactChannel[]   // override ช่องทางติดต่อ — default = DEFAULT_CONTACT_CHANNELS
+  source?: string               // ที่มาของการเปิด popup สำหรับ GA event (default "popup")
 }
 
 export function ContactPopup({
@@ -56,10 +63,12 @@ export function ContactPopup({
   highlightedTitle,
   description,
   channels = DEFAULT_CONTACT_CHANNELS,
+  source = "popup",
 }: Props) {
-  // ESC ปิด modal + lock scroll body ตอนเปิด
+  // ESC ปิด modal + lock scroll body ตอนเปิด + ส่ง GA event ตอนเปิด
   useEffect(() => {
     if (!open) return
+    trackContactPopupOpen(source)
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose()
     window.addEventListener("keydown", onKey)
     const prevOverflow = document.body.style.overflow
@@ -68,7 +77,7 @@ export function ContactPopup({
       window.removeEventListener("keydown", onKey)
       document.body.style.overflow = prevOverflow
     }
-  }, [open, onClose])
+  }, [open, onClose, source])
 
   if (!open) return null
 
@@ -136,6 +145,9 @@ export function ContactPopup({
               key={c.label}
               href={c.href}
               {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              onClick={() => {
+                if (c.gaChannel) trackContactClick(c.gaChannel, "contact_popup")
+              }}
               className="font-pixel flex items-center justify-between gap-3 px-4 py-3 text-xs uppercase tracking-widest text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
               style={{
                 background: c.bg,

@@ -1,6 +1,9 @@
+"use client"
+
 // แถบ CTA แดงเข้ม คั่นก่อนถึงฟอร์ม Contact
 
 import { ArrowIcon } from "./icons"
+import { trackCTAClick, trackContactClick } from "@/lib/analytics"
 
 export function CtaSection() {
   return (
@@ -38,6 +41,7 @@ export function CtaSection() {
         <div className="mt-10 flex flex-wrap justify-center gap-4">
           <a
             href="#contact"
+            onClick={() => trackCTAClick("request_quote", "cta_section")}
             className="inline-flex items-center gap-2 bg-[#E63946] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
             style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
           >
@@ -48,6 +52,7 @@ export function CtaSection() {
             href="https://lin.ee/ZDaqVzd"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackContactClick("line", "cta_section")}
             className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
             style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
           >

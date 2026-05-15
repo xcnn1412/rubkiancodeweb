@@ -20,6 +20,7 @@ import { ArrowIcon } from "@/components/rubkiancode/icons"
 import { VideoLoopPreview } from "@/components/rubkiancode/video-loop-preview"
 import { ScreenshotsGallery } from "@/components/rubkiancode/screenshots-gallery"
 import { ImageSlideshow } from "@/components/rubkiancode/image-slideshow"
+import { TrackClick } from "@/components/rubkiancode/track-click"
 import {
   SERVICES,
   getService,
@@ -163,14 +164,16 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
             {/* CTAs — primary (navy) + secondary (yellow → ดูฟีเจอร์)
                 mobile: full-width stack, tablet+: inline flex-wrap */}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-              <Link
-                href="/#contact"
-                className="inline-flex items-center justify-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #0A2540", boxShadow: `5px 5px 0 ${decorAccent}` }}
-              >
-                ขอใบเสนอราคา
-                <ArrowIcon className="h-4 w-4" />
-              </Link>
+              <TrackClick kind="cta" label={`request_quote:${service.slug}`}>
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center justify-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  style={{ border: "3px solid #0A2540", boxShadow: `5px 5px 0 ${decorAccent}` }}
+                >
+                  ขอใบเสนอราคา
+                  <ArrowIcon className="h-4 w-4" />
+                </Link>
+              </TrackClick>
               <a
                 href="#features"
                 className="inline-flex items-center justify-center gap-2 bg-[#F1C40F] px-6 py-3 font-black uppercase tracking-wider text-[#0A2540] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
@@ -319,14 +322,16 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
 
             {/* CTA — ขอใบเสนอราคา */}
             <div className="mt-10 flex justify-center sm:mt-12">
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 " + service.accent }}
-              >
-                ขอใบเสนอราคา
-                <ArrowIcon className="h-4 w-4" />
-              </Link>
+              <TrackClick kind="cta" label={`rental_quote:${service.slug}`}>
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 " + service.accent }}
+                >
+                  ขอใบเสนอราคา
+                  <ArrowIcon className="h-4 w-4" />
+                </Link>
+              </TrackClick>
             </div>
 
             {/* Note — disclaimer ราคา/เงื่อนไข */}
@@ -988,23 +993,27 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
 
             {/* CTA buttons */}
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#E63946] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
-              >
-                ขอใบเสนอราคา
-                <ArrowIcon className="h-4 w-4" />
-              </Link>
-              <a
-                href="https://lin.ee/ZDaqVzd"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
-              >
-                คุยผ่าน LINE @rubkiancode
-              </a>
+              <TrackClick kind="cta" label={`payment_quote:${service.slug}`}>
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-2 bg-[#E63946] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
+                >
+                  ขอใบเสนอราคา
+                  <ArrowIcon className="h-4 w-4" />
+                </Link>
+              </TrackClick>
+              <TrackClick kind="contact" channel="line">
+                <a
+                  href="https://lin.ee/ZDaqVzd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  style={{ border: "3px solid #F1C40F", boxShadow: "5px 5px 0 #F1C40F" }}
+                >
+                  คุยผ่าน LINE @rubkiancode
+                </a>
+              </TrackClick>
             </div>
 
             {/* Note pixel เล็กข้างล่าง */}
@@ -1157,23 +1166,27 @@ export default async function ServiceDetailPage({ params }: RouteProps) {
 
             {/* CTA buttons — สมัคร Partner (primary) + LINE (secondary) */}
             <div className="mt-12 flex flex-wrap justify-center gap-4">
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 " + service.accent }}
-              >
-                สมัครเป็น Partner
-                <ArrowIcon className="h-4 w-4" />
-              </Link>
-              <a
-                href="https://lin.ee/ZDaqVzd"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
-                style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
-              >
-                คุยผ่าน LINE @rubkiancode
-              </a>
+              <TrackClick kind="cta" label={`partner_apply:${service.slug}`}>
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-2 bg-[#0A2540] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 " + service.accent }}
+                >
+                  สมัครเป็น Partner
+                  <ArrowIcon className="h-4 w-4" />
+                </Link>
+              </TrackClick>
+              <TrackClick kind="contact" channel="line">
+                <a
+                  href="https://lin.ee/ZDaqVzd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-[#2ECC71] px-6 py-3 font-black uppercase tracking-wider text-white transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
+                  style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
+                >
+                  คุยผ่าน LINE @rubkiancode
+                </a>
+              </TrackClick>
             </div>
           </div>
         </section>

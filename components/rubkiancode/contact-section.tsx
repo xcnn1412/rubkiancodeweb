@@ -2,6 +2,11 @@
 
 import { useState } from "react"
 import { SectionHead } from "./key-services-section"
+import {
+  trackContactClick,
+  trackContactFormSubmit,
+  type ContactChannel,
+} from "@/lib/analytics"
 
 type Channel = {
   href: string
@@ -10,6 +15,7 @@ type Channel = {
   label: string
   value: string
   note: string
+  channel: ContactChannel | null
 }
 
 const CHANNELS: Channel[] = [
@@ -25,6 +31,7 @@ const CHANNELS: Channel[] = [
     label: "LINE OFFICIAL",
     value: "@rubkiancode",
     note: "ตอบกลับภายใน 1 ชม. (เวลาทำการ)",
+    channel: "line",
   },
   {
     href: "tel:0635944429",
@@ -42,6 +49,7 @@ const CHANNELS: Channel[] = [
     label: "โทรศัพท์",
     value: "063-594-4429",
     note: "จันทร์–ศุกร์ · 10:00–19:00 น.",
+    channel: "phone",
   },
   {
     href: "mailto:rubkiancode@gmail.com",
@@ -57,6 +65,7 @@ const CHANNELS: Channel[] = [
     label: "อีเมล",
     value: "rubkiancode@gmail.com",
     note: "ตอบกลับภายใน 24 ชม.",
+    channel: "email",
   },
   {
     href: "#",
@@ -72,6 +81,7 @@ const CHANNELS: Channel[] = [
     label: "ที่อยู่ออฟฟิศ",
     value: "กรุงเทพมหานคร",
     note: "รับงานทั่วประเทศไทย",
+    channel: null,
   },
 ]
 
@@ -88,6 +98,9 @@ export function ContactSection() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const form = e.currentTarget
+    const service = (form.elements.namedItem("f-svc") as HTMLSelectElement | null)?.value
+    trackContactFormSubmit({ service, status: "success" })
     setSubmitted(true)
   }
 
@@ -115,6 +128,9 @@ export function ContactSection() {
                 href={c.href}
                 target={c.href.startsWith("http") ? "_blank" : undefined}
                 rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                onClick={() => {
+                  if (c.channel) trackContactClick(c.channel, "contact_section")
+                }}
                 className="flex items-start gap-4 bg-white p-5 transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
                 style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
               >

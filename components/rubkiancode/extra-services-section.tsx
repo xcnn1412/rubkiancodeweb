@@ -4,9 +4,12 @@
 //    เพิ่ม service ใหม่ → set featured: false จะมาขึ้นที่นี่อัตโนมัติ
 //    + ได้หน้า detail ที่ /services/{slug} ฟรี ๆ
 
+"use client"
+
 import Link from "next/link"
 import { getExtraServices, getServiceHref } from "@/app/services/_data/services"
 import { SectionHead } from "./key-services-section"
+import { trackServiceCardClick } from "@/lib/analytics"
 
 export function ExtraServicesSection() {
   const services = getExtraServices()
@@ -28,6 +31,7 @@ export function ExtraServicesSection() {
               key={s.slug}
               href={getServiceHref(s)}
               aria-label={`ดูรายละเอียด ${s.title}`}
+              onClick={() => trackServiceCardClick(s.slug, "extra_services")}
               className="group relative flex flex-col bg-[#F4EDE0] p-6 transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5"
               style={{ border: "3px solid #0A2540", boxShadow: "5px 5px 0 #0A2540" }}
             >

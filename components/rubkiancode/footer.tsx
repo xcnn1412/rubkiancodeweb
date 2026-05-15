@@ -1,6 +1,9 @@
+"use client"
+
 // Footer แบบ 4 คอลัมน์ + แถวล่างมีลิขสิทธิ์ + ลิงก์นโยบาย
 
 import { BrandLogo } from "./icons"
+import { trackContactClick, type ContactChannel } from "@/lib/analytics"
 
 const SERVICE_LINKS = [
   { href: "#services", label: "ระบบการตลาด" },
@@ -18,12 +21,16 @@ const ABOUT_LINKS = [
   { href: "#contact", label: "ติดต่อ" },
 ] as const
 
-const CONTACT_LINKS = [
-  { href: "mailto:rubkiancode@gmail.com", label: "rubkiancode@gmail.com" },
-  { href: "tel:0635944429", label: "063-594-4429" },
-  { href: "https://lin.ee/ZDaqVzd", label: "@rubkiancode" },
-  { href: "#", label: "กรุงเทพมหานคร" },
-] as const
+const CONTACT_LINKS: ReadonlyArray<{
+  href: string
+  label: string
+  channel: ContactChannel | null
+}> = [
+  { href: "mailto:rubkiancode@gmail.com", label: "rubkiancode@gmail.com", channel: "email" },
+  { href: "tel:0635944429", label: "063-594-4429", channel: "phone" },
+  { href: "https://lin.ee/ZDaqVzd", label: "@rubkiancode", channel: "line" },
+  { href: "#", label: "กรุงเทพมหานคร", channel: null },
+]
 
 export function Footer() {
   return (
@@ -85,7 +92,11 @@ export function Footer() {
           {/* Contact */}
           <FooterCol title="ติดต่อ">
             {CONTACT_LINKS.map((l) => (
-              <FooterLink key={l.label} href={l.href}>
+              <FooterLink
+                key={l.label}
+                href={l.href}
+                onClick={l.channel ? () => trackContactClick(l.channel!, "footer") : undefined}
+              >
                 {l.label}
               </FooterLink>
             ))}
@@ -122,11 +133,20 @@ function FooterCol({ title, children }: { title: string; children: React.ReactNo
   )
 }
 
-function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+function FooterLink({
+  href,
+  children,
+  onClick,
+}: {
+  href: string
+  children: React.ReactNode
+  onClick?: () => void
+}) {
   return (
     <li>
       <a
         href={href}
+        onClick={onClick}
         className="text-sm text-[#F4EDE0]/75 transition-colors hover:text-[#F1C40F]"
       >
         {children}

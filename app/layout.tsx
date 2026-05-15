@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { Prompt, Press_Start_2P, VT323 } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { LanguageProvider } from '@/lib/language-context'
 import { DynamicIntlProvider } from '@/lib/intl-provider'
 import { ExitTransitionProvider } from '@/providers/exit-transition-provider'
 import { FloatingContact } from '@/components/rubkiancode/floating-contact'
+import { ScrollDepthTracker } from '@/components/rubkiancode/scroll-depth-tracker'
 import './globals.css'
 
 const prompt = Prompt({
@@ -152,18 +153,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSON_LD) }}
         />
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
       </head>
       <body className={`${prompt.variable} ${pressStart.variable} ${vt323.variable} font-sans antialiased`}>
         <LanguageProvider>
@@ -174,8 +163,10 @@ export default function RootLayout({
           </DynamicIntlProvider>
         </LanguageProvider>
         <FloatingContact />
+        <ScrollDepthTracker />
         <Analytics />
       </body>
+      <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
     </html>
   )
 }

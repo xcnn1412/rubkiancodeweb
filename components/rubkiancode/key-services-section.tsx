@@ -1,3 +1,5 @@
+"use client"
+
 // Services Grid — ใช้ทั้ง homepage (4 featured) และ /services (6 main products)
 //
 // ⚠️ ข้อมูล service ทั้งหมดอยู่ที่ app/services/_data/services.tsx (single source of truth)
@@ -9,6 +11,7 @@ import Image from "next/image"
 import type { ReactNode } from "react"
 import { getFeaturedServices, getServiceHref, type Service } from "@/app/services/_data/services"
 import { VideoLoopPreview } from "./video-loop-preview"
+import { trackCTAClick, trackServiceCardClick } from "@/lib/analytics"
 
 type KeyServicesSectionProps = {
   // ซ่อนปุ่ม "สินค้าทั้งหมด" เมื่อ render บนหน้า /services เอง — กัน loop
@@ -62,6 +65,7 @@ export function KeyServicesSection({
               key={s.slug}
               href={getServiceHref(s)}
               aria-label={`ดูรายละเอียด ${s.title}`}
+              onClick={() => trackServiceCardClick(s.slug, showAllProductsCta ? "key_services" : "services_list")}
               className="group flex flex-col bg-white transition-transform hover:-translate-x-1 hover:-translate-y-1"
               style={{ border: "3px solid #0A2540", boxShadow: "8px 8px 0 " + s.accent }}
             >
@@ -154,6 +158,7 @@ export function KeyServicesSection({
           <div className="mt-12 flex justify-center sm:mt-14">
             <Link
               href="/services"
+              onClick={() => trackCTAClick("all_products", "cta_section")}
               className="font-pixel inline-flex items-center gap-3 bg-[#0A2540] px-8 py-4 text-xs uppercase tracking-widest text-[#F1C40F] transition-transform hover:-translate-x-0.5 hover:-translate-y-0.5 sm:text-sm"
               style={{ border: "3px solid #0A2540", boxShadow: "6px 6px 0 #E63946" }}
             >
